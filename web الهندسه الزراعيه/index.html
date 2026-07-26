@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة كلية الهندسة الزراعية - جامعة الأزهر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- ربط ملف الـ CSS الخارجي -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header احترافي -->
+    <header>
+        <div class="header-brand">
+            <div class="header-logo">🎓</div>
+            <div class="header-title">
+                <h2>كلية الهندسة الزراعية - جامعة الأزهر</h2>
+                <p>منصة المحاضرات الإلكترونية</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <div class="search-box-top">
+                <span>🔍</span>
+                <input type="text" placeholder="بحث سريع..." id="globalSearchInput" oninput="handleGlobalSearch(this.value)">
+            </div>
+            <button class="action-btn" onclick="alert('لوحة تحكم الحساب الشخصي')">👤 الحساب</button>
+            <button class="action-btn" onclick="toggleDarkMode()">🌙</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <!-- Sidebar احترافي شامل لكل الفرق والأقسام -->
+        <aside>
+            <div class="sidebar-item active" onclick="resetView()" id="side-home">📚 الرئيسية</div>
+                        
+            <div class="sidebar-item" onclick="selectGrade('الفرقة الأولى')" id="side-g1">
+                <span style="color:var(--grade-1)">■</span> الفرقة الأولى <span style="margin-right:auto; font-size:0.75rem; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:6px;">9 مواد</span>
+            </div>
+                        
+            <div class="sidebar-item" onclick="selectGrade('الفرقة الثانية')" id="side-g2">
+                <span style="color:var(--grade-2)">■</span> الفرقة الثانية <span style="margin-right:auto; font-size:0.75rem; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:6px;">8 مواد</span>
+            </div>
+                        
+            <!-- الفرقة الثالثة وأقسامها الـ 5 المحدثة -->
+            <div>
+                <div class="sidebar-item" onclick="selectGrade('الفرقة الثالثة')" id="side-g3">
+                    <span style="color:var(--grade-3)">■</span> الفرقة الثالثة
+                </div>
+                <div class="sub-menu">
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الثالثة', 'هندسة القوى والآلات الزراعية')">⚙️ هندسة القوى والآلات الزراعية</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الثالثة', 'هندسة المنشآت الزراعية والتحكم البيئي')">🏗️ المنشآت والتحكم البيئي</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الثالثة', 'هندسة نظم المياه والرى')">💧 هندسة نظم المياه والرى </div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الثالثة', 'هندسة تصنيع المنتجات الغذائية')">🏭 هندسة تصنيع المنتجات الغذائية</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الثالثة', 'الشعبة العامة')">📚 الشعبة العامة</div>
+                </div>
+            </div>
+
+            <!-- الفرقة الرابعة وأقسامها الـ 5 المحدثة -->
+            <div>
+                <div class="sidebar-item" onclick="selectGrade('الفرقة الرابعة')" id="side-g4">
+                    <span style="color:var(--grade-4)">■</span> الفرقة الرابعة
+                </div>
+                <div class="sub-menu">
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الرابعة', 'هندسة القوى والآلات الزراعية')">⚙️ هندسة القوى والآلات الزراعية</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الرابعة', 'هندسة المنشآت الزراعية والتحكم البيئي')">🏗️ المنشآت والتحكم البيئي</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الرابعة', 'هندسة نظم المياه والرى')">💧 هندسة نظم المياه والرى</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الرابعة', 'هندسة تصنيع المنتجات الغذائية')">🏭 هندسة تصنيع المنتجات الغذائية</div>
+                    <div class="sub-item" onclick="selectDeptDirect('الفرقة الرابعة', 'الشعبة العامة')">📚 الشعبة العامة</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="content-area" id="contentArea">
+            <!-- يتم تحديث المحتوى هنا ديناميكياً عبر ملفات الـ JS -->
+        </div>
+    </div>
+
+    <!-- زر العودة للأعلى -->
+    <button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+    <!-- Footer -->
+    <footer>
+        <p>كلية الهندسة الزراعية - جامعة الأزهر &copy; 2026 | نسخة 1.0</p>
+    </footer>
+
+    <!-- الاستيراد المنظم لملفات الجافاسكريبت حسب الوظيفة -->
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
