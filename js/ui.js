@@ -128,13 +128,14 @@ function renderSubjects() {
     `;
 
     subjectsToDisplay.forEach(sub => {
+        const subJson = JSON.stringify(sub).replace(/"/g, '&quot;');
         html += `
-            <div class="card" onclick="openMaterialView('${sub.name}')">
-                <div class="card-header-icon">${sub.icon}</div>
+            <div class="card" onclick="openMaterialView(${subJson})">
+                <div class="card-header-icon">${sub.icon || '📘'}</div>
                 <h3>${sub.name}</h3>
-                <p class="card-info">👨‍🏫 ${sub.prof}<br>📚 ${sub.lectures} محاضرة | 📄 ${sub.pdfs} ملف PDF</p>
+                <p class="card-info">👨‍🏫 ${sub.prof || 'غير متوفر'}<br>📚 ${sub.lectures || 0} محاضرة | 📄 ${sub.pdfs || 0} ملف PDF</p>
                 <div class="card-footer">
-                    <span style="color:var(--primary-color)">🟢 ${sub.updated}</span>
+                    <span style="color:var(--primary-color)">🟢 ${sub.updated || 'حديث'}</span>
                     <span style="font-weight:bold; color:var(--secondary-color)">[دخول المادة]</span>
                 </div>
             </div>
@@ -144,37 +145,176 @@ function renderSubjects() {
     document.getElementById('contentArea').innerHTML = html;
 }
 
-function openMaterialView(subjectName) {
+function openMaterialView(subject) {
     showLoading(() => {
-        let html = `
-            <div class="fade-in material-view">
-                <div class="breadcrumb">
-                    <span onclick="resetView()">🏠 الرئيسية</span> > 
-                    <span onclick="renderSubjects()">رجوع للمواد</span>
-                </div>
-                <h2 class="section-title" style="margin-top:10px;">مادة: ${subjectName}</h2>
-                <p style="color:var(--text-muted); margin-bottom:15px;">استعراض شامل لجميع المحاضرات، التكليفات، وملفات الـ PDF الخاصة بالمادة.</p>
-                <div class="material-tabs">
-                    <button class="tab-btn active">المحاضرات (فيديو)</button>
-                    <button class="tab-btn">ملفات الملخصات (PDF)</button>
-                    <button class="tab-btn">الامتحانات السابقة</button>
-                </div>
-                <div class="grid-container" style="margin-top:20px;">
-                    <div class="card">
-                        <h3>المحاضرة الأولى</h3>
-                        <p class="card-info">مقدمة تمهيدية وشرح تفصيلي للمنهج.</p>
-                        <div class="card-footer"><span>مشاهدة</span><span>▶</span></div>
+        renderMaterialPage(subject);
+    });
+}
+
+function renderMaterialPage(subject) {
+    const deptName = currentDept ? currentDept : (subject.dept || currentGrade);
+    const lecturesCount = subject.lectures || 0;
+    const pdfsCount = subject.pdfs || 0;
+    const lastUpdated = subject.updated || 'غير متوفر';
+    const subJson = JSON.stringify(subject).replace(/"/g, '&quot;');
+
+    let html = `
+        <div class="fade-in material-view" style="direction: rtl; text-align: right;">
+            <div class="breadcrumb">
+                <span onclick="resetView()">🏠 الرئيسية</span> > 
+                <span onclick="renderSubjects()">رجوع للمواد</span>
+            </div>
+            <h2 class="section-title" style="margin-top:10px;">مادة: ${subject.name}</h2>
+            <p style="color:var(--text-muted); margin-bottom:5px;"><strong>القسم التابع لها:</strong> ${deptName} | <strong>الفرقة:</strong> ${currentGrade || subject.grade || 'غير محدد'}</p>
+            <p style="color:var(--text-muted); margin-bottom:15px;"><strong>عدد المحاضرات:</strong> ${lecturesCount} | <strong>عدد الملفات:</strong> ${pdfsCount} | <strong>آخر تحديث:</strong> ${lastUpdated}</p>
+            
+            <!-- بطاقة المساعد الذكي للمادة (تستدعي فقط openAIAssistant الموجودة في ai-assistant.js) -->
+            <div class="card" style="margin-bottom: 20px; border-right: 4px solid var(--primary-color); cursor: pointer;" onclick="openAIAssistant(${subJson})">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h3 style="margin-bottom: 5px;">المساعد الذكي للمادة 🤖</h3>
+                        <p class="card-info" style="margin: 0;">انقر هنا لاستخدام المساعد الذكي في شرح وتلخيص محتوى المادة.</p>
                     </div>
-                    <div class="card">
-                        <h3>المحاضرة الثانية</h3>
-                        <p class="card-info">استكمال شرح الأسس والتطبيقات.</p>
-                        <div class="card-footer"><span>مشاهدة</span><span>▶</span></div>
+                    <span style="font-size: 24px; color: var(--primary-color);">💬</span>
+                </div>
+            </div>
+
+            <!-- منطقة منفصلة لعرض واجهة المساعد الذكي دون المساس بالتبويبات -->
+            <div id="aiAssistantArea"></div>
+
+            <div class="material-tabs" id="materialTabsContainer">
+                <button class="tab-btn active" onclick="switchMaterialTab(this, 'المحاضرات', ${subJson})">المحاضرات</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'الكتاب الإلكتروني', ${subJson})">الكتاب الإلكتروني</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'السكاشن', ${subJson})">السكاشن</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'الملخصات', ${subJson})">الملخصات</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'حل الشيت', ${subJson})">حل الشيت</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'الفيديوهات', ${subJson})">الفيديوهات</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'الامتحانات', ${subJson})">الامتحانات</button>
+                <button class="tab-btn" onclick="switchMaterialTab(this, 'أخرى', ${subJson})">أخرى</button>
+            </div>
+            
+            <div id="tabContentArea" style="margin-top:20px;">
+                ${renderMaterialContent('المحاضرات', subject)}
+            </div>
+        </div>
+    `;
+    document.getElementById('contentArea').innerHTML = html;
+}
+
+function switchMaterialTab(btnElement, type, subject) {
+    const buttons = document.querySelectorAll('#materialTabsContainer .tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    const contentArea = document.getElementById('tabContentArea');
+    if (contentArea) {
+        contentArea.innerHTML = renderMaterialContent(type, subject);
+    }
+}
+
+function renderMaterialContent(type, subject) {
+    let items = [];
+
+    if (subject.content && subject.content[type]) {
+        items = subject.content[type];
+    } else {
+        if (type === 'المحاضرات') {
+            items = [
+                { title: 'المحاضرة الأولى', description: 'مقدمة تمهيدية وشرح تفصيلي للمنهج.', type: 'video', url: '#', icon: '▶' },
+                { title: 'المحاضرة الثانية', description: 'استكمال شرح الأسس والتطبيقات.', type: 'video', url: '#', icon: '▶' }
+            ];
+        } else if (type === 'الكتاب الإلكتروني') {
+            items = [
+                { title: 'الكتاب المقرر الرسمي', description: 'نسخة PDF معتمدة للمنهج الدراسي.', type: 'pdf', url: '#', icon: '📥' }
+            ];
+        } else if (type === 'الامتحانات') {
+            items = [
+                { title: 'امتحان ترم سابق 2025', description: 'مع النموذج الإجابي الرسمي.', type: 'pdf', url: '#', icon: '📄' }
+            ];
+        }
+    }
+
+    if (!items || items.length === 0) {
+        return `<p style="text-align: center; color: var(--text-muted); padding: 30px;">لا توجد ملفات متاحة حالياً</p>`;
+    }
+
+    let html = `
+    <style>
+        .file-action-buttons {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .file-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-family: inherit;
+        }
+        .file-btn-open {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+        .file-btn-open:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .file-btn-download {
+            background-color: #0284c7;
+            color: #ffffff;
+        }
+        .file-btn-download:hover {
+            background-color: #0369a1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        @media (max-width: 480px) {
+            .file-action-buttons {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .file-btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <div class="grid-container">`;
+
+    items.forEach(item => {
+        const targetUrl = item.url || '#';
+
+        html += `
+            <div class="card">
+                <h3>${item.title}</h3>
+                <p class="card-info">${item.description || ''}</p>
+                <div class="card-footer" style="padding: 10px 15px;">
+                    <div class="file-action-buttons">
+                        <a href="${targetUrl}" target="_blank" rel="noopener noreferrer" class="file-btn file-btn-open">
+                            <span>👁️</span> <span>فتح</span>
+                        </a>
+                        <a href="${targetUrl}" download class="file-btn file-btn-download">
+                            <span>⬇️</span> <span>تحميل</span>
+                        </a>
                     </div>
                 </div>
             </div>
         `;
-        document.getElementById('contentArea').innerHTML = html;
     });
+    html += `</div>`;
+    return html;
 }
 
 function showLoading(callback) {
@@ -201,5 +341,4 @@ function filterSubjects(query) {
 
 function handleGlobalSearch(query) {
     if(!query.trim()) return;
-    // يمكن توسيع البحث العام هنا مستقبلاً
 }
