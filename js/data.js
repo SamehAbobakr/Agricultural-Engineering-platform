@@ -80,7 +80,7 @@ const subjectsData = {
         "الترم الأول": [
             { name: "هيدروليكا", prof: "قسم هندسة نظم المياه والرى", lectures: 15, pdfs: 12, updated: "اليوم", icon: "💧", term: "الترم الأول" },
             { 
-                name: "أراضٍ", 
+                name: "أراضى", 
                 prof: "قسم الأراضي", 
                 lectures: 12, 
                 pdfs: 10, 
