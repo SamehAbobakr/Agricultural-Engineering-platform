@@ -962,3 +962,295 @@ button {
         width: 100%;
     }
 }
+/* =========================================
+   تحسين الموبايل والتابلت
+   ========================================= */
+
+/* التابلت */
+@media (min-width: 769px) and (max-width: 1100px) {
+
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+        padding: 15px 10px;
+    }
+
+    .content-area {
+        padding: 20px;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+        padding: 17px;
+    }
+
+    .logo-area h1 {
+        font-size: 1rem;
+    }
+
+    .user-info-area {
+        font-size: 0.8rem;
+    }
+}
+
+
+/* =========================================
+   الموبايل
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* الهيدر */
+    .main-header,
+    .site-header {
+        padding: 10px 12px;
+    }
+
+    .header-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-area {
+        gap: 7px;
+        min-width: 0;
+    }
+
+    .logo-icon {
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+
+    .logo-area h1 {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .user-info-area {
+        display: none;
+    }
+
+
+    /* المحتوى */
+    .content-area {
+        padding: 12px;
+        gap: 12px;
+    }
+
+
+    /* كروت المواد والفرق */
+    .grid-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        padding: 13px;
+        border-radius: 11px;
+    }
+
+    .card-header-icon {
+        font-size: 1.7rem;
+        margin-bottom: 6px;
+    }
+
+    .card h3 {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .card-info {
+        font-size: 0.72rem;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .card-footer {
+        font-size: 0.68rem;
+        padding-top: 7px;
+    }
+
+
+    /* الإحصائيات */
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 10px 7px;
+    }
+
+    .stat-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .stat-card p {
+        font-size: 0.68rem;
+    }
+
+
+    /* عنوان القسم */
+    .section-title {
+        font-size: 1.05rem;
+        margin-bottom: 7px;
+    }
+
+
+    /* Breadcrumb */
+    .breadcrumb {
+        font-size: 0.75rem;
+        gap: 5px;
+    }
+
+
+    /* صفحة المادة */
+    .material-view {
+        padding: 12px;
+        border-radius: 11px;
+    }
+
+
+    /* Tabs */
+    .material-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .tab-btn {
+        width: 100%;
+        min-height: 42px;
+        padding: 7px 5px;
+        font-size: 0.75rem;
+    }
+
+
+    /* أزرار الملفات */
+    .file-action-buttons {
+        flex-direction: row;
+        gap: 6px;
+    }
+
+    .file-btn {
+        min-height: 40px;
+        padding: 7px;
+        font-size: 0.75rem;
+    }
+
+
+    /* الدعم */
+    .support-widget-container {
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .support-fab-btn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .support-fab-icon {
+        font-size: 21px;
+    }
+}
+
+
+/* =========================================
+   الموبايلات الصغيرة جدًا
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .grid-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .content-area {
+        padding: 8px;
+    }
+
+    .card {
+        padding: 11px;
+    }
+
+    .card-header-icon {
+        font-size: 1.5rem;
+    }
+
+    .card h3 {
+        font-size: 0.82rem;
+    }
+
+    .card-info {
+        font-size: 0.68rem;
+    }
+
+    .card-footer {
+        font-size: 0.62rem;
+    }
+
+    .stats-grid {
+        gap: 6px;
+    }
+
+    .stat-card h3 {
+        font-size: 1.05rem;
+    }
+
+    .stat-card p {
+        font-size: 0.62rem;
+    }
+
+    .material-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .file-action-buttons {
+        flex-direction: column;
+    }
+
+    .file-btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================
+   تحسين السبورة على الشاشات الصغيرة
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .content-area iframe {
+        min-height: 70vh !important;
+    }
+}
+
+
+/* =========================================
+   منع خروج العناصر خارج الشاشة
+   ========================================= */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.content-area,
+.card,
+.material-view {
+    max-width: 100%;
+    min-width: 0;
+}
