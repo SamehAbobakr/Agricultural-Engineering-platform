@@ -526,55 +526,83 @@ async function switchMaterialTab(btnElement, type, subject) {
         let html = `
         <style>
             .file-action-buttons {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    margin-top: 12px;
+}
+
+        .file-btn {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            padding: 10px 12px;
+
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.4;
+
+            text-decoration: none;
+            border-radius: 8px;
+
+            cursor: pointer;
+            border: 1px solid transparent;
+            outline: none;
+
+            font-family: inherit;
+
+            transition:
+                background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .file-btn-open {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .file-btn-open:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .file-btn-download {
+            background-color: #0284c7;
+            color: #ffffff;
+        }
+
+        .file-btn-download:hover {
+            background-color: #0369a1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* الموبايل */
+        @media (max-width: 480px) {
+
+            .file-action-buttons {
                 display: flex;
+                flex-direction: column;
                 gap: 8px;
-                width: 100%;
-                margin-top: 5px;
+                margin-top: 10px;
             }
+
             .file-btn {
-                flex: 1;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                padding: 8px 12px;
-                font-size: 14px;
-                font-weight: 600;
-                text-decoration: none;
-                border-radius: 6px;
-                transition: all 0.2s ease-in-out;
-                cursor: pointer;
-                border: none;
-                outline: none;
-                font-family: inherit;
+                flex: none;
+                width: 100%;
+                min-height: 40px;
+                padding: 9px 12px;
+                font-size: 13px;
             }
-            .file-btn-open {
-                background-color: var(--primary-color);
-                color: #ffffff;
-            }
-            .file-btn-open:hover {
-                opacity: 0.9;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-            .file-btn-download {
-                background-color: #0284c7;
-                color: #ffffff;
-            }
-            .file-btn-download:hover {
-                background-color: #0369a1;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            }
-            @media (max-width: 480px) {
-                .file-action-buttons {
-                    flex-direction: column;
-                    gap: 6px;
-                }
-                .file-btn {
-                    width: 100%;
-                }
-            }
+        }
         </style>
         <div class="grid-container">`;
 
