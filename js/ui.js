@@ -187,45 +187,8 @@ function renderHome() {
 function openWhiteboard() {
     const whiteboardUrl = 'https://spahboard.ninjascribe.workers.dev/';
 
-    document.getElementById('contentArea').innerHTML = `
-        <div class="fade-in" style="width:100%;">
-
-            <div class="breadcrumb">
-                <span onclick="resetView()" style="cursor:pointer;">
-                    🏠 الرئيسية
-                </span>
-                >
-                <span>🖊️ سبورة الشرح</span>
-            </div>
-
-            <div style="
-                width:100%;
-                height:calc(100vh - 180px);
-                min-height:600px;
-                margin-top:15px;
-                border-radius:12px;
-                overflow:hidden;
-                border:1px solid var(--border-color);
-                background:#fff;
-            ">
-
-                <iframe
-                    src="${whiteboardUrl}"
-                    style="
-                        width:100%;
-                        height:100%;
-                        border:0;
-                        display:block;
-                    "
-                    title="سبورة الشرح"
-                    allow="fullscreen"
-                    loading="lazy">
-                </iframe>
-
-            </div>
-
-        </div>
-    `;
+    // فتح السبورة في صفحة مستقلة على جميع الأجهزة
+    window.open(whiteboardUrl, '_blank', 'noopener,noreferrer');
 }
 function renderDepartments() {
     let html = `
