@@ -23,49 +23,210 @@ async function loadSubjectsFromSupabase() {
     }
 }
 function renderHome() {
-    currentGrade = ''; currentDept = ''; currentTerm = '';
+    currentGrade = '';
+    currentDept = '';
+    currentTerm = '';
+
     updateSidebarActive();
+
     const html = `
         <div class="fade-in">
+
             <div class="stats-grid">
-                <div class="stat-card"><h3>44</h3><p>📚 إجمالي المواد المتاحة</p></div>
-                <div class="stat-card"><h3>480</h3><p>🎥 إجمالي المحاضرات</p></div>
-                <div class="stat-card"><h3>720</h3><p>📄 ملفات PDF</p></div>
-                <div class="stat-card"><h3>35</h3><p>👨‍🏫 أعضاء هيئة التدريس</p></div>
+                <div class="stat-card">
+                    <h3>44</h3>
+                    <p>📚 إجمالي المواد المتاحة</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>480</h3>
+                    <p>🎥 إجمالي المحاضرات</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>720</h3>
+                    <p>📄 ملفات PDF</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>35</h3>
+                    <p>👨‍🏫 أعضاء هيئة التدريس</p>
+                </div>
             </div>
+
 
             <h2 class="section-title">اختر الفرقة الدراسية</h2>
+
+            <!-- كروت الفرق -->
             <div class="grid-container">
-                <div class="card" onclick="selectGrade('الفرقة الأولى')" style="border-top: 4px solid var(--grade-1)">
+
+                <!-- الفرقة الأولى -->
+                <div class="card"
+                    onclick="selectGrade('الفرقة الأولى')"
+                    style="border-top: 4px solid var(--grade-1)">
+
                     <div class="card-header-icon">📘</div>
+
                     <h3>الفرقة الأولى</h3>
-                    <p class="card-info">المقررات الأساسية العامة وتأسيس العلوم الهندسية.</p>
-                    <div class="card-footer"><span>الدخول للفرقة</span><span>←</span></div>
+
+                    <p class="card-info">
+                        المقررات الأساسية العامة وتأسيس العلوم الهندسية.
+                    </p>
+
+                    <div class="card-footer">
+                        <span>الدخول للفرقة</span>
+                        <span>←</span>
+                    </div>
+
                 </div>
-                <div class="card" onclick="selectGrade('الفرقة الثانية')" style="border-top: 4px solid var(--grade-2)">
+
+
+                <!-- الفرقة الثانية -->
+                <div class="card"
+                    onclick="selectGrade('الفرقة الثانية')"
+                    style="border-top: 4px solid var(--grade-2)">
+
                     <div class="card-header-icon">📗</div>
+
                     <h3>الفرقة الثانية</h3>
-                    <p class="card-info">المقررات الهندسية التأسيسية والرياضيات المتقدمة.</p>
-                    <div class="card-footer"><span>الدخول للفرقة</span><span>←</span></div>
+
+                    <p class="card-info">
+                        المقررات الهندسية التأسيسية والرياضيات المتقدمة.
+                    </p>
+
+                    <div class="card-footer">
+                        <span>الدخول للفرقة</span>
+                        <span>←</span>
+                    </div>
+
                 </div>
-                <div class="card" onclick="selectGrade('الفرقة الثالثة')" style="border-top: 4px solid var(--grade-3)">
+
+
+                <!-- الفرقة الثالثة -->
+                <div class="card"
+                    onclick="selectGrade('الفرقة الثالثة')"
+                    style="border-top: 4px solid var(--grade-3)">
+
                     <div class="card-header-icon">📙</div>
+
                     <h3>الفرقة الثالثة</h3>
-                    <p class="card-info">بداية التخصص والتفرع للأقسام العلمية الستة.<br><strong style="color:var(--primary-color)">متاح: هندسة القوى والآلات (الترم الأول)</strong></p>
-                    <div class="card-footer"><span>الدخول للفرقة</span><span>←</span></div>
+
+                    <p class="card-info">
+                        بداية التخصص والتفرع للأقسام العلمية الستة.
+                        <br>
+                        <strong style="color:var(--primary-color)">
+                            متاح: هندسة القوى والآلات (الترم الأول)
+                        </strong>
+                    </p>
+
+                    <div class="card-footer">
+                        <span>الدخول للفرقة</span>
+                        <span>←</span>
+                    </div>
+
                 </div>
-                <div class="card" onclick="selectGrade('الفرقة الرابعة')" style="border-top: 4px solid var(--grade-4)">
+
+
+                <!-- الفرقة الرابعة -->
+                <div class="card"
+                    onclick="selectGrade('الفرقة الرابعة')"
+                    style="border-top: 4px solid var(--grade-4)">
+
                     <div class="card-header-icon">📕</div>
+
                     <h3>الفرقة الرابعة</h3>
-                    <p class="card-info">التخصص الدقيق ومشاريع التخرج والتطبيقات الهندسية.</p>
-                    <div class="card-footer"><span>الدخول للفرقة</span><span>←</span></div>
+
+                    <p class="card-info">
+                        التخصص الدقيق ومشاريع التخرج والتطبيقات الهندسية.
+                    </p>
+
+                    <div class="card-footer">
+                        <span>الدخول للفرقة</span>
+                        <span>←</span>
+                    </div>
+
                 </div>
+
             </div>
+
+
+            <!-- أدوات المنصة -->
+            <h2 class="section-title" style="margin-top: 35px;">
+                أدوات المنصة
+            </h2>
+
+            <!-- سبورة الشرح -->
+            <div class="card"
+                onclick="openWhiteboard()"
+                style="
+                    border-top: 4px solid var(--primary-color);
+                    cursor: pointer;
+                    width: 100%;
+                ">
+
+                <div class="card-header-icon">🖊️</div>
+
+                <h3>سبورة الشرح</h3>
+
+                <p class="card-info">
+                    سبورة تفاعلية للشرح والمذاكرة والمحاضرات.
+                </p>
+
+                <div class="card-footer">
+                    <span>فتح السبورة</span>
+                    <span>←</span>
+                </div>
+
+            </div>
+
         </div>
     `;
+
     document.getElementById('contentArea').innerHTML = html;
 }
+function openWhiteboard() {
+    const whiteboardUrl = 'https://spahboard.ninjascribe.workers.dev/';
 
+    document.getElementById('contentArea').innerHTML = `
+        <div class="fade-in" style="width:100%;">
+
+            <div class="breadcrumb">
+                <span onclick="resetView()" style="cursor:pointer;">
+                    🏠 الرئيسية
+                </span>
+                >
+                <span>🖊️ سبورة الشرح</span>
+            </div>
+
+            <div style="
+                width:100%;
+                height:calc(100vh - 180px);
+                min-height:600px;
+                margin-top:15px;
+                border-radius:12px;
+                overflow:hidden;
+                border:1px solid var(--border-color);
+                background:#fff;
+            ">
+
+                <iframe
+                    src="${whiteboardUrl}"
+                    style="
+                        width:100%;
+                        height:100%;
+                        border:0;
+                        display:block;
+                    "
+                    title="سبورة الشرح"
+                    allow="fullscreen"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+        </div>
+    `;
+}
 function renderDepartments() {
     let html = `
         <div class="fade-in">
@@ -176,54 +337,185 @@ function openMaterialView(subject) {
     });
 }
 
-function renderMaterialPage(subject) {
+async function renderMaterialPage(subject) {
     const deptName = currentDept ? currentDept : (subject.department || subject.dept || currentGrade);
     const lastUpdated = subject.updated || 'غير متوفرة';
     const subJson = JSON.stringify(subject).replace(/"/g, '&quot;');
 
-    let html = `
-        <div class="fade-in material-view" style="direction: rtl; text-align: right;">
-            <div class="breadcrumb">
-                <span onclick="resetView()">🏠 الرئيسية</span> > 
-                <span onclick="renderSubjects()">رجوع للمواد</span>
-            </div>
-            <h2 class="section-title" style="margin-top:10px;">مادة: ${subject.name}</h2>
-            <p style="color:var(--text-muted); margin-bottom:5px;"><strong>القسم التابع لها:</strong> ${deptName} | <strong>الفرقة:</strong> ${currentGrade || subject.grade || 'غير محدد'}</p>
-            <p style="color:var(--text-muted); margin-bottom:15px;"><strong>آخر تحديث:</strong> ${lastUpdated}</p>
-            
-            <div class="card" style="margin-bottom: 20px; border-right: 4px solid var(--primary-color); cursor: pointer;" onclick="openAIAssistant(${subJson})">
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <div>
-                        <h3 style="margin-bottom: 5px;">المساعد الذكي للمادة 🤖</h3>
-                        <p class="card-info" style="margin: 0;">انقر هنا لاستخدام المساعد الذكي في شرح وتلخيص محتوى المادة.</p>
-                    </div>
-                    <span style="font-size: 24px; color: var(--primary-color);">💬</span>
-                </div>
-            </div>
-
-            <div id="aiAssistantArea"></div>
-
-            <div class="material-tabs" id="materialTabsContainer">
-                <button class="tab-btn active" id="defaultTabBtn" onclick="switchMaterialTab(this, 'المحاضرات', ${subJson})">المحاضرات</button>
-                <button class="tab-btn" onclick="switchMaterialTab(this, 'الكتاب الاكترونى', ${subJson})">الكتاب الاكترونى</button>                <button class="tab-btn" onclick="switchMaterialTab(this, 'السكاشن', ${subJson})">السكاشن</button>
-                <button class="tab-btn" onclick="switchMaterialTab(this, 'الملخصات', ${subJson})">الملخصات</button>
-                <button class="tab-btn" onclick="switchMaterialTab(this, 'حل الشيت', ${subJson})">حل الشيت</button>
-                <button class="tab-btn" onclick="switchMaterialTab(this, 'الفيديوهات', ${subJson})">الفيديوهات</button>
-                <button class="tab-btn" onclick="switchMaterialTab(this, 'الامتحانات', ${subJson})">الامتحانات</button>
-                <button class="tab-btn" onclick="switchMaterialTab(this, 'أخرى', ${subJson})">أخرى</button>
-            </div>
-            
-            <div id="tabContentArea" style="margin-top:20px;"></div>
+    // شاشة تحميل مؤقتة
+    document.getElementById('contentArea').innerHTML = `
+        <div class="loading-screen">
+            <div class="loading-spinner">⚙️</div>
+            <p>جاري تحميل محتوى المادة...</p>
         </div>
     `;
-    document.getElementById('contentArea').innerHTML = html;
 
-    const firstTabBtn = document.getElementById('defaultTabBtn');
-    if (firstTabBtn) {
-        switchMaterialTab(firstTabBtn, 'المحاضرات', subject);
+    try {
+        // جلب ملفات المادة لمعرفة الأقسام الموجودة فعليًا
+        const { data: files, error } = await supabaseClient
+            .from('material_files')
+            .select('category, file_order')
+            .eq('subject_id', subject.id)
+            .order('file_order', { ascending: true });
+
+        if (error) throw error;
+
+        // ترتيب الأقسام الأساسي
+        const categoryOrder = [
+            'المحاضرات',
+            'الكتاب الاكترونى',
+            'السكاشن',
+            'الملخصات',
+            'حل الشيت',
+            'الفيديوهات',
+            'الامتحانات',
+            'أخرى'
+        ];
+
+        // معرفة الأقسام الموجودة فعليًا في قاعدة البيانات
+        const existingCategories = [];
+
+        (files || []).forEach(file => {
+            if (!file.category) return;
+
+            const normalized = normalizeCategory(file.category);
+
+            // منع تكرار نفس القسم
+            if (!existingCategories.some(
+                cat => normalizeCategory(cat) === normalized
+            )) {
+                existingCategories.push(file.category);
+            }
+        });
+
+        // ترتيب الأقسام حسب الترتيب المحدد، مع إبقاء أي قسم جديد في النهاية
+        const orderedCategories = [];
+
+        categoryOrder.forEach(category => {
+            const found = existingCategories.find(
+                existing => normalizeCategory(existing) === normalizeCategory(category)
+            );
+
+            if (found) {
+                orderedCategories.push(found);
+            }
+        });
+
+        // أي تصنيف جديد غير موجود في القائمة الأساسية يظهر تلقائيًا
+        existingCategories.forEach(category => {
+            if (!orderedCategories.some(
+                existing => normalizeCategory(existing) === normalizeCategory(category)
+            )) {
+                orderedCategories.push(category);
+            }
+        });
+
+        let html = `
+            <div class="fade-in material-view" style="direction: rtl; text-align: right;">
+                <div class="breadcrumb">
+                    <span onclick="resetView()">🏠 الرئيسية</span> > 
+                    <span onclick="renderSubjects()">رجوع للمواد</span>
+                </div>
+
+                <h2 class="section-title" style="margin-top:10px;">
+                    مادة: ${subject.name}
+                </h2>
+
+                <p style="color:var(--text-muted); margin-bottom:5px;">
+                    <strong>القسم التابع لها:</strong> ${deptName} |
+                    <strong>الفرقة:</strong> ${currentGrade || subject.grade || 'غير محدد'}
+                </p>
+
+                <p style="color:var(--text-muted); margin-bottom:15px;">
+                    <strong>آخر تحديث:</strong> ${lastUpdated}
+                </p>
+
+                <div class="card"
+                    style="margin-bottom: 20px; border-right: 4px solid var(--primary-color); cursor: pointer;"
+                    onclick="openAIAssistant(${subJson})">
+
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <h3 style="margin-bottom: 5px;">
+                                المساعد الذكي للمادة 🤖
+                            </h3>
+
+                            <p class="card-info" style="margin: 0;">
+                                انقر هنا لاستخدام المساعد الذكي في شرح وتلخيص محتوى المادة.
+                            </p>
+                        </div>
+
+                        <span style="font-size: 24px; color: var(--primary-color);">
+                            💬
+                        </span>
+                    </div>
+                </div>
+
+                <div id="aiAssistantArea"></div>
+
+                <div class="material-tabs" id="materialTabsContainer">
+        `;
+
+        // إنشاء التابات من قاعدة البيانات
+        if (orderedCategories.length > 0) {
+
+            orderedCategories.forEach((category, index) => {
+
+                const activeClass = index === 0 ? ' active' : '';
+                const defaultId = index === 0 ? ' id="defaultTabBtn"' : '';
+
+                html += `
+                    <button
+                        class="tab-btn${activeClass}"
+                        ${defaultId}
+                        onclick="switchMaterialTab(this, '${category.replace(/'/g, "\\'")}', ${subJson})">
+                        ${category}
+                    </button>
+                `;
+            });
+
+        } else {
+
+            html += `
+                <span style="color:var(--text-muted); padding:10px;">
+                    لا توجد أقسام متاحة حاليًا.
+                </span>
+            `;
+        }
+
+        html += `
+                </div>
+
+                <div id="tabContentArea" style="margin-top:20px;"></div>
+            </div>
+        `;
+
+        document.getElementById('contentArea').innerHTML = html;
+
+        // فتح أول قسم موجود تلقائيًا
+        const firstTabBtn = document.getElementById('defaultTabBtn');
+
+        if (firstTabBtn && orderedCategories.length > 0) {
+            switchMaterialTab(
+                firstTabBtn,
+                orderedCategories[0],
+                subject
+            );
+        }
+
+    } catch (error) {
+
+        console.error("❌ خطأ في تحميل أقسام المادة:", error);
+
+        document.getElementById('contentArea').innerHTML = `
+            <div class="fade-in">
+                <p style="text-align:center; color:var(--text-muted); padding:30px;">
+                    حدث خطأ أثناء تحميل محتوى المادة.
+                </p>
+            </div>
+        `;
     }
 }
-
 async function switchMaterialTab(btnElement, type, subject) {
     const buttons = document.querySelectorAll('#materialTabsContainer .tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
@@ -249,9 +541,10 @@ async function switchMaterialTab(btnElement, type, subject) {
         console.log("🏷️ التصنيف المطلوب:", type);
 
         const { data: files, error } = await supabaseClient
-            .from('material_files')
-            .select('*')
-            .eq('subject_id', subject.id);
+        .from('material_files')
+        .select('*')
+        .eq('subject_id', subject.id)
+        .order('file_order', { ascending: true });
 
         if (error) throw error;
 
