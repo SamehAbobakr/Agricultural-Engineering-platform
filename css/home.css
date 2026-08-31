@@ -29,3 +29,127 @@
     width: 100%;
     min-width: 0;
 }
+/* =========================================
+   أدوات المنصة
+========================================= */
+
+.tools-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+
+/* كارت الأداة */
+
+.tools-grid .card {
+    width: 100%;
+    box-sizing: border-box;
+    cursor: default;
+}
+
+
+/* أيقونة الأداة */
+
+.tools-grid .card-header-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+
+/* أزرار الأدوات */
+
+.tool-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+
+/* زر الأداة */
+
+.tool-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 8px 16px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    background: var(--card-bg);
+    color: var(--text-main);
+
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* تأثير المرور */
+
+.tool-button:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+
+/* =========================================
+   أدوات المنصة - الموبايل
+========================================= */
+
+
+@media (max-width: 768px) {
+
+    .tools-grid {
+        gap: 10px;
+    }
+
+    .tools-grid .card {
+        padding: 9px 11px;
+    }
+
+    .tools-grid .card-header-icon {
+        font-size: 1.4rem;
+        margin-bottom: 2px;
+    }
+
+    .tools-grid .card-header-icon img {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .tools-grid .card h3 {
+        font-size: 0.9rem;
+        margin: 2px 0 3px;
+    }
+
+    .tools-grid .card-info {
+        font-size: 0.72rem;
+        line-height: 1.4;
+        margin-bottom: 5px;
+    }
+
+    .tool-actions {
+        gap: 5px;
+        margin-top: 5px;
+    }
+
+    .tool-button {
+        width: 100%;
+        min-height: 32px;
+        padding: 5px 8px;
+        font-size: 0.72rem;
+    }
+
+}
