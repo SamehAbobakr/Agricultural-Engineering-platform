@@ -1,0 +1,1072 @@
+/* =========================================
+   AI Assistant
+   واجهة الذكاء الاصطناعي
+========================================= */
+
+
+/* =========================================
+   الحاوية الرئيسية
+========================================= */
+
+.ai-container {
+    width: 100%;
+    max-width: 100%;
+
+    background: var(--card-bg);
+
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+/* =========================================
+   رأس واجهة الذكاء الاصطناعي
+========================================= */
+
+.ai-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 15px 18px;
+
+    background: rgba(16, 185, 129, 0.08);
+
+    border-bottom: 1px solid var(--border-color);
+
+    min-width: 0;
+}
+
+.ai-header-content {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.ai-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(16, 185, 129, 0.14);
+
+    border: 1px solid rgba(16, 185, 129, 0.25);
+
+    border-radius: 10px;
+
+    color: var(--primary-color);
+
+    font-size: 1.25rem;
+}
+
+.ai-header-title {
+    min-width: 0;
+}
+
+.ai-header-title h2,
+.ai-header-title h3 {
+    margin: 0;
+
+    color: var(--text-main);
+
+    font-size: 1rem;
+    font-weight: 800;
+
+    line-height: 1.5;
+}
+
+.ai-header-title p {
+    margin-top: 2px;
+
+    color: var(--text-muted);
+
+    font-size: 0.72rem;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   حالة الذكاء الاصطناعي
+========================================= */
+
+.ai-status {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    flex-shrink: 0;
+
+    color: var(--text-muted);
+
+    font-size: 0.72rem;
+}
+
+.ai-status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--primary-color);
+
+    box-shadow:
+        0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+
+/* =========================================
+   منطقة المحادثة
+========================================= */
+
+.ai-chat {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 400px;
+    max-height: 65vh;
+
+    overflow-y: auto;
+
+    padding: 18px;
+
+    gap: 12px;
+
+    scroll-behavior: smooth;
+}
+
+
+/* =========================================
+   شريط التمرير
+========================================= */
+
+.ai-chat::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-chat::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ai-chat::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+
+    border-radius: 10px;
+}
+
+.ai-chat::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+
+/* =========================================
+   الرسائل
+========================================= */
+
+.ai-message {
+    display: flex;
+
+    width: 100%;
+
+    min-width: 0;
+}
+
+.ai-message.user {
+    justify-content: flex-start;
+}
+
+.ai-message.assistant,
+.ai-message.ai {
+    justify-content: flex-end;
+}
+
+
+/* =========================================
+   فقاعة الرسالة
+========================================= */
+
+.ai-message-content {
+    max-width: 82%;
+
+    padding: 11px 14px;
+
+    border-radius: 12px;
+
+    font-size: 0.86rem;
+
+    line-height: 1.8;
+
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+.ai-message.user .ai-message-content {
+    background: rgba(59, 130, 246, 0.12);
+
+    border: 1px solid rgba(59, 130, 246, 0.25);
+
+    color: var(--text-main);
+
+    border-bottom-right-radius: 4px;
+}
+
+.ai-message.assistant .ai-message-content,
+.ai-message.ai .ai-message-content {
+    background: rgba(16, 185, 129, 0.08);
+
+    border: 1px solid rgba(16, 185, 129, 0.2);
+
+    color: var(--text-main);
+
+    border-bottom-left-radius: 4px;
+}
+
+
+/* =========================================
+   نص الرسائل
+========================================= */
+
+.ai-message-content p {
+    margin: 0 0 8px;
+}
+
+.ai-message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.ai-message-content strong {
+    color: var(--primary-color);
+}
+
+.ai-message-content a {
+    color: var(--secondary-color);
+
+    text-decoration: underline;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================
+   القوائم داخل رد الذكاء الاصطناعي
+========================================= */
+
+.ai-message-content ul,
+.ai-message-content ol {
+    margin: 8px 0;
+
+    padding-right: 20px;
+
+    line-height: 1.8;
+}
+
+.ai-message-content li {
+    margin-bottom: 4px;
+}
+
+
+/* =========================================
+   الكود داخل الرسائل
+========================================= */
+
+.ai-message-content code {
+    background: rgba(0, 0, 0, 0.25);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    border-radius: 5px;
+
+    padding: 2px 5px;
+
+    font-family: monospace;
+
+    font-size: 0.82em;
+
+    direction: ltr;
+
+    unicode-bidi: embed;
+}
+
+.ai-message-content pre {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 10px 0;
+
+    padding: 12px;
+
+    background: rgba(0, 0, 0, 0.3);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 9px;
+
+    overflow-x: auto;
+
+    direction: ltr;
+
+    text-align: left;
+}
+
+.ai-message-content pre code {
+    background: transparent;
+
+    border: none;
+
+    padding: 0;
+
+    font-size: 0.8rem;
+
+    white-space: pre;
+}
+
+
+/* =========================================
+   الجداول داخل الرد
+========================================= */
+
+.ai-message-content table {
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 10px 0;
+
+    border-collapse: collapse;
+
+    display: block;
+
+    overflow-x: auto;
+}
+
+.ai-message-content th,
+.ai-message-content td {
+    padding: 7px 9px;
+
+    border: 1px solid var(--border-color);
+
+    white-space: nowrap;
+
+    font-size: 0.78rem;
+}
+
+.ai-message-content th {
+    background: rgba(16, 185, 129, 0.08);
+
+    color: var(--primary-color);
+}
+
+
+/* =========================================
+   حالة الكتابة
+========================================= */
+
+.ai-typing {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 10px 14px;
+
+    width: fit-content;
+
+    background: rgba(16, 185, 129, 0.08);
+
+    border: 1px solid rgba(16, 185, 129, 0.2);
+
+    border-radius: 12px;
+
+    color: var(--text-muted);
+}
+
+.ai-typing-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--primary-color);
+
+    animation: aiTyping 1.2s infinite ease-in-out;
+}
+
+.ai-typing-dot:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.ai-typing-dot:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes aiTyping {
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-4px);
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================
+   منطقة الإدخال
+========================================= */
+
+.ai-input-area {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 8px;
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: rgba(15, 23, 42, 0.45);
+
+    border-top: 1px solid var(--border-color);
+
+    min-width: 0;
+}
+
+
+/* =========================================
+   حقل إدخال الرسالة
+========================================= */
+
+.ai-input {
+    flex: 1;
+
+    min-width: 0;
+
+    min-height: 42px;
+    max-height: 140px;
+
+    resize: vertical;
+
+    padding: 10px 12px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 9px;
+
+    color: var(--text-main);
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 0.85rem;
+
+    line-height: 1.6;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ai-input:focus {
+    border-color: var(--primary-color);
+
+    box-shadow:
+        0 0 0 2px rgba(16, 185, 129, 0.08);
+}
+
+.ai-input::placeholder {
+    color: var(--text-muted);
+
+    opacity: 0.75;
+}
+
+
+/* =========================================
+   زر الإرسال
+========================================= */
+
+.ai-send-btn {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-color);
+
+    border: 1px solid var(--primary-color);
+
+    border-radius: 9px;
+
+    color: #06130e;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 1rem;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ai-send-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 16px rgba(16, 185, 129, 0.22);
+}
+
+.ai-send-btn:active {
+    transform: scale(0.97);
+}
+
+.ai-send-btn:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   زر مسح المحادثة
+========================================= */
+
+.ai-clear-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 7px 10px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 7px;
+
+    color: var(--text-muted);
+
+    font-family: inherit;
+
+    font-size: 0.72rem;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.ai-clear-btn:hover {
+    background: rgba(239, 68, 68, 0.08);
+
+    border-color: rgba(239, 68, 68, 0.3);
+
+    color: #f87171;
+}
+
+
+/* =========================================
+   شاشة الترحيب
+========================================= */
+
+.ai-welcome {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    min-height: 300px;
+
+    padding: 30px 20px;
+
+    color: var(--text-muted);
+}
+
+.ai-welcome-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 12px;
+
+    background: rgba(16, 185, 129, 0.1);
+
+    border: 1px solid rgba(16, 185, 129, 0.2);
+
+    border-radius: 15px;
+
+    color: var(--primary-color);
+
+    font-size: 1.7rem;
+}
+
+.ai-welcome h3 {
+    margin-bottom: 6px;
+
+    color: var(--text-main);
+
+    font-size: 1rem;
+}
+
+.ai-welcome p {
+    max-width: 500px;
+
+    color: var(--text-muted);
+
+    font-size: 0.8rem;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   الاقتراحات السريعة
+========================================= */
+
+.ai-suggestions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    width: 100%;
+
+    margin-top: 15px;
+}
+
+.ai-suggestion-btn {
+    padding: 7px 10px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 8px;
+
+    color: var(--text-muted);
+
+    font-family: inherit;
+
+    font-size: 0.72rem;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ai-suggestion-btn:hover {
+    background: rgba(16, 185, 129, 0.08);
+
+    border-color: rgba(16, 185, 129, 0.3);
+
+    color: var(--primary-color);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   Responsive - الشاشات المتوسطة
+========================================= */
+
+@media (max-width: 900px) {
+
+    .ai-container {
+        border-radius: 13px;
+    }
+
+    .ai-chat {
+        min-height: 380px;
+
+        max-height: 60vh;
+
+        padding: 15px;
+    }
+
+    .ai-message-content {
+        max-width: 86%;
+
+        font-size: 0.84rem;
+    }
+
+    .ai-header {
+        padding: 13px 15px;
+    }
+}
+
+
+/* =========================================
+   Responsive - الموبايل
+========================================= */
+
+@media (max-width: 768px) {
+
+    .ai-container {
+        border-radius: 11px;
+    }
+
+    .ai-header {
+        padding: 11px 12px;
+
+        gap: 8px;
+    }
+
+    .ai-icon {
+        width: 36px;
+        height: 36px;
+
+        min-width: 36px;
+
+        border-radius: 8px;
+
+        font-size: 1rem;
+    }
+
+    .ai-header-title h2,
+    .ai-header-title h3 {
+        font-size: 0.88rem;
+    }
+
+    .ai-header-title p {
+        font-size: 0.65rem;
+    }
+
+    .ai-status {
+        font-size: 0.65rem;
+    }
+
+    .ai-chat {
+        min-height: 330px;
+
+        max-height: 60vh;
+
+        padding: 11px;
+
+        gap: 9px;
+    }
+
+    .ai-message-content {
+        max-width: 90%;
+
+        padding: 9px 11px;
+
+        font-size: 0.78rem;
+
+        line-height: 1.7;
+    }
+
+    .ai-input-area {
+        padding: 9px;
+
+        gap: 6px;
+    }
+
+    .ai-input {
+        min-height: 40px;
+
+        padding: 8px 10px;
+
+        font-size: 0.78rem;
+    }
+
+    .ai-send-btn {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+    }
+
+    .ai-welcome {
+        min-height: 250px;
+
+        padding: 25px 15px;
+    }
+
+    .ai-welcome-icon {
+        width: 50px;
+        height: 50px;
+
+        font-size: 1.45rem;
+    }
+
+    .ai-welcome h3 {
+        font-size: 0.9rem;
+    }
+
+    .ai-welcome p {
+        font-size: 0.72rem;
+    }
+
+    .ai-suggestion-btn {
+        font-size: 0.68rem;
+
+        padding: 6px 8px;
+    }
+}
+
+
+/* =========================================
+   Responsive - الموبايلات الصغيرة جدًا
+========================================= */
+
+@media (max-width: 480px) {
+
+    .ai-container {
+        border-radius: 9px;
+    }
+
+    .ai-header {
+        padding: 9px 10px;
+    }
+
+    .ai-header-content {
+        gap: 7px;
+    }
+
+    .ai-icon {
+        width: 32px;
+        height: 32px;
+
+        min-width: 32px;
+
+        border-radius: 7px;
+
+        font-size: 0.9rem;
+    }
+
+    .ai-header-title h2,
+    .ai-header-title h3 {
+        font-size: 0.78rem;
+    }
+
+    .ai-header-title p {
+        font-size: 0.58rem;
+    }
+
+    .ai-status {
+        font-size: 0.58rem;
+    }
+
+    .ai-status-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .ai-chat {
+        min-height: 280px;
+
+        max-height: 58vh;
+
+        padding: 8px;
+
+        gap: 7px;
+    }
+
+    .ai-message-content {
+        max-width: 94%;
+
+        padding: 8px 9px;
+
+        font-size: 0.7rem;
+
+        line-height: 1.65;
+    }
+
+    .ai-message-content ul,
+    .ai-message-content ol {
+        padding-right: 16px;
+
+        margin: 6px 0;
+    }
+
+    .ai-message-content pre {
+        padding: 9px;
+
+        border-radius: 7px;
+    }
+
+    .ai-message-content pre code {
+        font-size: 0.68rem;
+    }
+
+    .ai-message-content th,
+    .ai-message-content td {
+        padding: 5px 6px;
+
+        font-size: 0.65rem;
+    }
+
+    .ai-input-area {
+        padding: 7px;
+
+        gap: 5px;
+    }
+
+    .ai-input {
+        min-height: 38px;
+
+        padding: 7px 8px;
+
+        font-size: 0.7rem;
+
+        border-radius: 7px;
+    }
+
+    .ai-send-btn {
+        width: 38px;
+        height: 38px;
+
+        min-width: 38px;
+
+        border-radius: 7px;
+
+        font-size: 0.85rem;
+    }
+
+    .ai-clear-btn {
+        padding: 6px 8px;
+
+        font-size: 0.62rem;
+    }
+
+    .ai-welcome {
+        min-height: 220px;
+
+        padding: 20px 10px;
+    }
+
+    .ai-welcome-icon {
+        width: 44px;
+        height: 44px;
+
+        margin-bottom: 9px;
+
+        border-radius: 11px;
+
+        font-size: 1.2rem;
+    }
+
+    .ai-welcome h3 {
+        font-size: 0.82rem;
+    }
+
+    .ai-welcome p {
+        font-size: 0.65rem;
+
+        line-height: 1.6;
+    }
+
+    .ai-suggestions {
+        gap: 5px;
+
+        margin-top: 10px;
+    }
+
+    .ai-suggestion-btn {
+        padding: 5px 7px;
+
+        border-radius: 6px;
+
+        font-size: 0.6rem;
+    }
+}
+
+
+/* =========================================
+   منع خروج عناصر الذكاء الاصطناعي
+========================================= */
+
+.ai-container,
+.ai-chat,
+.ai-input-area,
+.ai-message,
+.ai-message-content {
+    max-width: 100%;
+
+    min-width: 0;
+}
+
+.ai-message-content img,
+.ai-message-content video,
+.ai-message-content iframe {
+    max-width: 100%;
+
+    height: auto;
+}
+
+
+/* =========================================
+   تحسين اللمس
+========================================= */
+
+.ai-send-btn,
+.ai-clear-btn,
+.ai-suggestion-btn {
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+}

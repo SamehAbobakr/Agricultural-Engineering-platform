@@ -1,0 +1,21 @@
+/* =========================================
+   متغيرات التصميم
+========================================= */
+
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+
+    --border-color: #334155;
+
+    --primary-color: #10b981;
+    --secondary-color: #3b82f6;
+
+    --grade-1: #3b82f6;
+    --grade-2: #10b981;
+    --grade-3: #f59e0b;
+    --grade-4: #a855f7;
+}

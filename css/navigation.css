@@ -1,0 +1,289 @@
+/* =========================================
+   القائمة الجانبية
+========================================= */
+
+.sidebar {
+    width: 270px;
+    min-width: 270px;
+    background: var(--card-bg);
+    border-left: 1px solid var(--border-color);
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    height: calc(100vh - 65px);
+    position: sticky;
+    top: 65px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 99;
+}
+
+.sidebar-brand {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--text-muted);
+    padding: 0 10px 5px 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+/* =========================================
+   عناصر القائمة
+========================================= */
+
+.sidebar-item,
+.menu-item {
+    padding: 12px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    width: 100%;
+    text-align: right;
+}
+
+.menu-icon {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-item:hover,
+.menu-item:hover {
+    background: rgba(16, 185, 129, 0.08);
+    color: var(--text-main);
+    border-color: rgba(16, 185, 129, 0.2);
+    transform: translateX(-3px);
+}
+
+.sidebar-item.active,
+.menu-item.active {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--primary-color);
+    border-right: 4px solid var(--primary-color);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+
+/* =========================================
+   القائمة الفرعية
+========================================= */
+
+.sub-menu {
+    padding-right: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+    border-right: 1px dashed var(--border-color);
+    margin-right: 10px;
+}
+
+.sub-item {
+    font-size: 0.82rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: 0.2s;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: right;
+}
+
+.sub-item:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================
+   زر القائمة في الموبايل
+========================================= */
+
+#mobileMenuBtn {
+    display: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#mobileMenuBtn:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+
+/* =========================================
+   طبقة الخلفية عند فتح القائمة
+========================================= */
+
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 998;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================
+   تحسين التركيز
+========================================= */
+
+.sidebar-item:focus-visible,
+.menu-item:focus-visible,
+.sub-item:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+/* =========================================
+   Header Navigation Controls
+========================================= */
+.header-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    direction: rtl;
+}
+
+/* الجرار أقصى اليسار */
+.logo-area {
+    order: 3;
+    margin-left: 0;
+}
+
+/* إخفاء اسم الكلية من جانب الجرار */
+.logo-area h1 {
+    display: none;
+}
+
+/* النص في المنتصف */
+.welcome-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+/* الأسهم أقصى اليمين */
+.navigation-controls {
+    order: 1;
+    margin-right: 0;
+    margin-left: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+}
+/* أزرار الأسهم */
+.navigation-controls button {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.navigation-controls button:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.navigation-controls button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   الموبايل
+========================================= */
+@media (max-width: 768px) {
+
+    .header-container {
+        min-height: 65px;
+        padding: 8px 10px;
+    }
+
+    .logo-area {
+        order: 3;
+        margin: 0;
+    }
+
+    .logo-area h1 {
+        display: none;
+    }
+
+    .logo-icon {
+        font-size: 25px;
+    }
+
+    .welcome-center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+
+    .welcome-text {
+        font-size: 13px;
+    }
+
+    .navigation-controls {
+        order: 1;
+        flex-shrink: 0;
+    }
+
+    .navigation-controls button {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+    }
+}
