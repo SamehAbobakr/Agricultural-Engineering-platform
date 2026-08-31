@@ -170,70 +170,103 @@
 /* =========================================
    Header Navigation Controls
 ========================================= */
+
 .header-container {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     direction: rtl;
+
+    min-height: 50px;
+    height: 50px;
+
+    padding: 2px 8px;
+    box-sizing: border-box;
 }
 
-/* الجرار أقصى اليسار */
+
+/* =========================================
+   الجرار أقصى اليسار
+========================================= */
+
 .logo-area {
-    order: 3;
-    margin-left: 0;
+    order: 2;
+    margin: 0;
 }
 
-/* إخفاء اسم الكلية من جانب الجرار */
 .logo-area h1 {
     display: none;
 }
 
-/* النص في المنتصف */
+
+/* =========================================
+   النص في المنتصف
+========================================= */
+
 .welcome-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+
     white-space: nowrap;
 }
 
-/* الأسهم أقصى اليمين */
+
+/* =========================================
+   الأسهم أقصى اليمين
+========================================= */
+
 .navigation-controls {
     order: 1;
+
     margin-right: 0;
-    margin-left: 0;
+    margin-left: auto;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
-    gap: 4px;
 
-    padding: 4px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--card-bg);
-}
-/* أزرار الأسهم */
-.navigation-controls button {
-    width: 34px;
-    height: 34px;
+    gap: 5px;
+
     padding: 0;
     border: none;
-    border-radius: 6px;
     background: transparent;
+}
+
+
+/* =========================================
+   أزرار الأسهم
+========================================= */
+
+.navigation-controls button {
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+
+    background: var(--card-bg);
     color: var(--text-color);
-    font-size: 20px;
+
+    font-size: 18px;
     cursor: pointer;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
+    box-sizing: border-box;
+
     transition: 0.2s ease;
 }
 
 .navigation-controls button:hover {
     background: var(--primary-color);
-    color: white;
+    color: rgb(238, 9, 9);
 }
 
 .navigation-controls button:disabled {
@@ -245,15 +278,20 @@
 /* =========================================
    الموبايل
 ========================================= */
+
 @media (max-width: 768px) {
 
     .header-container {
-        min-height: 65px;
-        padding: 8px 10px;
+        min-height: 20px;
+        height: 38px;
+        padding: 2px 4px;
     }
 
+
+    /* الجرار */
+
     .logo-area {
-        order: 3;
+        order: 2;
         margin: 0;
     }
 
@@ -262,28 +300,48 @@
     }
 
     .logo-icon {
-        font-size: 25px;
+        font-size: 18px;
     }
+
+
+    /* النص */
 
     .welcome-center {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+
         white-space: nowrap;
     }
 
     .welcome-text {
-        font-size: 13px;
+        font-size: 9px;
     }
+
+
+    /* الأسهم */
 
     .navigation-controls {
         order: 1;
-        flex-shrink: 0;
+
+        margin-right: 0;
+        margin-left: auto;
+
+        gap: 4px;
+
+        padding: 0;
     }
 
+
+    /* كل سهم في مربع مستقل */
+
     .navigation-controls button {
-        width: 30px;
-        height: 30px;
-        font-size: 18px;
+        width: 22px;
+        height: 22px;
+
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+
+        font-size: 13px;
     }
 }
