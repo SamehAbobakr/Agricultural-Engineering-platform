@@ -14,7 +14,7 @@ async function testSupabaseConnection() {
         return;
     }
 
-    console.log('✅ Supabase Connected:', data);
+    //console.log('✅ Supabase Connected:', data);
 }
 
 testSupabaseConnection();

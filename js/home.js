@@ -49,7 +49,15 @@ async function renderHome() {
                     onclick="selectGrade('الفرقة الأولى')"
                     style="border-top: 4px solid var(--grade-1)">
 
-                    <div class="card-header-icon">📘</div>
+                <img 
+                src="assets/images/icons/Grade1.jfif" 
+                alt="الفرقة الأولى" 
+                style="
+                    width: 120px;
+                    height: 120px;
+                    object-fit: contain;
+                "
+                >
 
                     <h3>الفرقة الأولى</h3>
 
@@ -70,7 +78,15 @@ async function renderHome() {
                     onclick="selectGrade('الفرقة الثانية')"
                     style="border-top: 4px solid var(--grade-2)">
 
-                    <div class="card-header-icon">📗</div>
+                    <img 
+                        src="assets/images/icons/Grade2.jfif" 
+                        alt="الفرقة الثانية" 
+                        style="
+                            width: 120px;
+                            height: 120px;
+                            object-fit: contain;
+                        "
+                    >
 
                     <h3>الفرقة الثانية</h3>
 
@@ -91,7 +107,15 @@ async function renderHome() {
                     onclick="selectGrade('الفرقة الثالثة')"
                     style="border-top: 4px solid var(--grade-3)">
 
-                    <div class="card-header-icon">📙</div>
+                    <img 
+                        src="assets/images/icons/Grade3.jfif" 
+                        alt="الفرقة الثالثة" 
+                        style="
+                            width: 120px;
+                            height: 120px;
+                            object-fit: contain;
+                        "
+                    >
 
                     <h3>الفرقة الثالثة</h3>
 
@@ -112,7 +136,15 @@ async function renderHome() {
                     onclick="selectGrade('الفرقة الرابعة')"
                     style="border-top: 4px solid var(--grade-4)">
 
-                    <div class="card-header-icon">📕</div>
+                    <img 
+                        src="assets/images/icons/Grade4.jfif" 
+                        alt="الفرقة الرابعة" 
+                        style="
+                            width: 120px;
+                            height: 120px;
+                            object-fit: contain;
+                        "
+                    >
 
                     <h3>الفرقة الرابعة</h3>
 
@@ -186,6 +218,52 @@ async function renderHome() {
                             rel="noopener noreferrer"
                         >
                             🌐 الموقع الرسمي
+                        </a>
+
+                    </div>
+
+                </div>
+                <!-- =========================
+                    مؤقت المذاكرة
+                ========================== -->
+
+                <div class="card"
+                    style="
+                        border-top: 4px solid var(--primary-color);
+                    ">
+
+                    <div class="card-header-icon">
+
+                        <img
+                            src="assets/images/icons/alarm-clock.png"
+                            alt="مؤقت المذاكرة"
+                            style="
+                                width: 52px;
+                                height: 52px;
+                                object-fit: contain;
+                            "
+                        >
+
+                    </div>
+
+                    <h3>
+                        مؤقت المذاكرة
+                    </h3>
+
+                    <p class="card-info">
+                        أداة تساعدك على تنظيم وقت المذاكرة والتركيز،
+                        من خلال مؤقت بسيط وسهل الاستخدام.
+                    </p>
+
+                    <div class="tool-actions">
+
+                        <a
+                            class="tool-button"
+                            href="tools/study-timer.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ⏱️ فتح المؤقت
                         </a>
 
                     </div>
@@ -279,7 +357,7 @@ async function renderHome() {
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            🚀 فتح السبورة
+                            فتح السبورة
                         </a>
 
                     </div>
@@ -407,6 +485,13 @@ function openObsidian() {
 
     window.open(
         obsidianUrl,
+        '_blank',
+        'noopener,noreferrer'
+    );
+}
+function openStudyTimer() {
+    window.open(
+        'tools/study-timer.html',
         '_blank',
         'noopener,noreferrer'
     );
