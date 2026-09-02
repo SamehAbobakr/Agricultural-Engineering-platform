@@ -39,126 +39,110 @@ async function renderHome() {
             </div>
 
             <h2 class="section-title">
-                اختر الفرقة الدراسية
+                اختر القسم التعليمي
             </h2>
 
             <div class="grid-container">
 
-                <!-- الفرقة الأولى -->
+                <!-- الهندسة الزراعية -->
                 <div class="card"
-                    onclick="selectGrade('الفرقة الأولى')"
-                    style="border-top: 4px solid var(--grade-1)">
+                    onclick="selectProgram('الهندسة الزراعية')">
 
-                <img 
-                src="assets/images/icons/Grade1.jfif" 
-                alt="الفرقة الأولى" 
-                style="
-                    width: 120px;
-                    height: 120px;
-                    object-fit: contain;
-                "
-                >
+                    <div class="card-header-icon">
+                        🌾
+                    </div>
 
-                    <h3>الفرقة الأولى</h3>
+                    <h3>
+                        الهندسة الزراعية
+                    </h3>
 
                     <p class="card-info">
-                        المقررات الأساسية العامة وتأسيس العلوم الهندسية.
+                        المقررات الدراسية الخاصة بكلية الهندسة الزراعية.
                     </p>
 
                     <div class="card-footer">
-                        <span>الدخول للفرقة</span>
+                        <span>الدخول للبرنامج</span>
                         <span>←</span>
                     </div>
 
                 </div>
 
 
-                <!-- الفرقة الثانية -->
+                <!-- اللاندسكيب -->
                 <div class="card"
-                    onclick="selectGrade('الفرقة الثانية')"
-                    style="border-top: 4px solid var(--grade-2)">
+                    onclick="selectProgram('اللاندسكيب والمسطحات الخضراء')">
 
-                    <img 
-                        src="assets/images/icons/Grade2.jfif" 
-                        alt="الفرقة الثانية" 
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        "
-                    >
+                    <div class="card-header-icon">
+                        🌿
+                    </div>
 
-                    <h3>الفرقة الثانية</h3>
+                    <h3>
+                        برنامج اللاندسكيب والمسطحات الخضراء
+                    </h3>
 
                     <p class="card-info">
-                        المقررات الهندسية التأسيسية والرياضيات المتقدمة.
+                        المقررات والمحتوى التعليمي الخاص ببرنامج اللاندسكيب والمسطحات الخضراء.
                     </p>
 
                     <div class="card-footer">
-                        <span>الدخول للفرقة</span>
+                        <span>الدخول للبرنامج</span>
                         <span>←</span>
                     </div>
 
                 </div>
 
 
-                <!-- الفرقة الثالثة -->
-                <div class="card"
-                    onclick="selectGrade('الفرقة الثالثة')"
-                    style="border-top: 4px solid var(--grade-3)">
+                <!-- المصادر الإضافية -->
+                        <div class="card"
+                            onclick="selectProgram('مصادر إضافية')">
 
-                    <img 
-                        src="assets/images/icons/Grade3.jfif" 
-                        alt="الفرقة الثالثة" 
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        "
-                    >
+                            <div class="card-header-icon">
+                                📚
+                            </div>
 
-                    <h3>الفرقة الثالثة</h3>
+                            <h3>
+                                مصادر إضافية
+                            </h3>
 
-                    <p class="card-info">
-                        بداية التخصص والتفرع للأقسام العلمية الخمسة.
-                    </p>
+                            <p class="card-info">
+                                مصادر وكتب ومواقع ومحتوى تعليمي إضافي.
+                            </p>
 
-                    <div class="card-footer">
-                        <span>الدخول للفرقة</span>
-                        <span>←</span>
-                    </div>
+                            <div class="card-footer">
+                                <span>عرض المصادر</span>
+                                <span>←</span>
+                            </div>
 
-                </div>
+                        </div>
+                        <!-- المزيد -->
+        <div
+            class="card"
+            onclick="selectProgram('المزيد')"
+        >
+            <div class="card-header-icon">
+                ➕
+            </div>
 
+            <h3>المزيد</h3>
 
-                <!-- الفرقة الرابعة -->
-                <div class="card"
-                    onclick="selectGrade('الفرقة الرابعة')"
-                    style="border-top: 4px solid var(--grade-4)">
+            <p class="card-info">
+                أخبار وأوائل وإعلانات
+            </p>
 
-                    <img 
-                        src="assets/images/icons/Grade4.jfif" 
-                        alt="الفرقة الرابعة" 
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        "
-                    >
+            <div class="card-footer">
+                <span style="color:var(--primary-color)">
+                    📰 محتوى إضافي
+                </span>
 
-                    <h3>الفرقة الرابعة</h3>
+                <span style="
+                    font-weight:bold;
+                    color:var(--secondary-color)
+                ">
+                    [دخول]
+                </span>
+            </div>
 
-                    <p class="card-info">
-                        التخصص الدقيق ومشاريع التخرج والتطبيقات الهندسية.
-                    </p>
-
-                    <div class="card-footer">
-                        <span>الدخول للفرقة</span>
-                        <span>←</span>
-                    </div>
-
-                </div>
-
+            </div>
             </div>
 
 

@@ -1,6 +1,7 @@
 async function loadSubjectsFromSupabase() {
     try {
         console.log("========== LOAD SUBJECTS ==========");
+        console.log("🌿 Program:", currentProgram);
         console.log("🎓 Grade:", currentGrade);
         console.log("🏢 Department:", currentDept);
         console.log("📖 Term:", currentTerm);
@@ -8,6 +9,7 @@ async function loadSubjectsFromSupabase() {
         const { data, error } = await supabaseClient
             .from('subjects')
             .select('*')
+            .ilike('program', `%${currentProgram.trim()}%`)
             .ilike('grade', `%${currentGrade.trim()}%`)
             .ilike('term', `%${currentTerm.trim()}%`)
             .ilike('department', `%${currentDept.trim()}%`)

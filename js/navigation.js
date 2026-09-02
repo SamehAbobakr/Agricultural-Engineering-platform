@@ -1,8 +1,10 @@
 // =========================================
 // سجل التنقل الخاص بالمنصة
 // =========================================
+let currentProgram = '';
 let navigationHistory = [
     {
+        program: '',
         grade: '',
         dept: '',
         term: '',
@@ -20,13 +22,14 @@ let currentSubject = null;
 function saveNavigationState() {
 
     const state = {
-    grade: currentGrade,
-    dept: currentDept,
-    term: currentTerm,
-    subject: currentSubject
+        program: currentProgram,
+        grade: currentGrade,
+        dept: currentDept,
+        term: currentTerm,
+        subject: currentSubject
     };
 
-    // لو المستخدم رجع للخلف ثم اختار مسارًا جديدًا
+    // لو رجعنا للخلف ثم اخترنا مسارًا جديدًا
     if (navigationIndex < navigationHistory.length - 1) {
         navigationHistory =
             navigationHistory.slice(0, navigationIndex + 1);
@@ -34,7 +37,7 @@ function saveNavigationState() {
 
     navigationHistory.push(state);
 
-    navigationIndex++;
+    navigationIndex = navigationHistory.length - 1;
 
     updateNavigationButtons();
 }
@@ -51,7 +54,8 @@ function goBack() {
     navigationIndex--;
 
     const state = navigationHistory[navigationIndex];
-
+    
+    currentProgram = state.program || '';
     currentGrade = state.grade;
     currentDept = state.dept;
     currentTerm = state.term;
@@ -73,7 +77,8 @@ function goForward() {
     navigationIndex++;
 
     const state = navigationHistory[navigationIndex];
-
+    
+    currentProgram = state.program || '';
     currentGrade = state.grade;
     currentDept = state.dept;
     currentTerm = state.term;
@@ -90,22 +95,45 @@ function renderNavigationState() {
 
     showLoading(() => {
 
-        // لو المستخدم داخل مادة
+        // داخل مادة
         if (currentSubject) {
             renderMaterialPage(currentSubject);
             return;
         }
 
         // الرئيسية
-        if (!currentGrade) {
+        if (!currentProgram) {
             renderHome();
+            return;
+        }
+
+        // المصادر الإضافية
+        if (currentProgram === 'مصادر إضافية') {
+            renderAdditionalResources();
+            return;
+        }
+  
+        // المزيد
+        if (currentProgram === 'المزيد') {
+            renderMore();
+            return;
+        }
+        // الأوائل
+        if (currentProgram === 'الأوائل') {
+                renderTopYears();
+                return;
+            }
+
+        // برنامج تم اختياره ولم يتم اختيار فرقة
+        if (!currentGrade) {
+            renderGrades();
             return;
         }
 
         // الفرقة الثالثة أو الرابعة بدون قسم
         if (
             (currentGrade === 'الفرقة الثالثة' ||
-             currentGrade === 'الفرقة الرابعة') &&
+            currentGrade === 'الفرقة الرابعة') &&
             !currentDept
         ) {
             renderDepartments();
@@ -190,11 +218,39 @@ function selectTerm(termName) {
 }
 
 function resetView() {
+    currentProgram = '';
     currentGrade = '';
     currentDept = '';
     currentTerm = '';
+    currentSubject = null;
+
+    renderHome();
+}
+
+function selectProgram(program) {
+    currentProgram = program;
+    currentGrade = '';
+    currentDept = '';
+    currentTerm = '';
+    currentSubject = null;
 
     saveNavigationState();
 
-    renderHome();
+    showLoading(() => {
+
+        // المصادر الإضافية
+        if (program === 'مصادر إضافية') {
+            renderAdditionalResources();
+            return;
+        }
+
+        // المزيد
+        if (program === 'المزيد') {
+            renderMore();
+            return;
+        }
+
+        // الهندسة الزراعية أو اللاندسكيب
+        renderGrades();
+    });
 }
