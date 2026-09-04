@@ -202,8 +202,6 @@ function selectDepartment(deptName) {
     currentDept = deptName;
     currentTerm = '';
 
-    console.log("🏢 القسم المختار:", currentDept);
-
     saveNavigationState();
 
     showLoading(() => renderTerms());

@@ -65,18 +65,10 @@ class SubjectAIAssistant {
             term:
                 this.metadata.term,
 
-            lecturesCount:
-                this.subject.lectures || 0,
-
-            pdfsCount:
-                this.subject.pdfs || 0,
-
             prof:
-                this.subject.prof ||
-                "غير متوفر",
+                this.subject.professor  ||
+                "غير متوفر"
 
-            content:
-                this.subject.content || {}
 
         };
 
@@ -121,7 +113,7 @@ class SubjectAIAssistant {
                         "
                     >
                         المساعد الذكي لمادة:
-                        ${context.name}
+                        ${escapeHtml(context.name)}
                     </h3>
 
 
@@ -145,27 +137,14 @@ class SubjectAIAssistant {
                     style="margin-bottom: 15px;"
                 >
                     <strong>الفرقة:</strong>
-                    ${context.grade}
-
+                    ${escapeHtml(context.grade)}
                     |
-
                     <strong>القسم:</strong>
-                    ${context.department}
-
+                    ${escapeHtml(context.department)}
                     |
-
                     <strong>الترم:</strong>
-                    ${context.term}
+                    ${escapeHtml(context.term)}
 
-                    |
-
-                    <strong>المحاضرات:</strong>
-                    ${context.lecturesCount}
-
-                    |
-
-                    <strong>الملفات:</strong>
-                    ${context.pdfsCount}
                 </p>
 
 
@@ -237,7 +216,7 @@ class SubjectAIAssistant {
 
                 </div>
 
-            </div>
+            
 
         `;
 

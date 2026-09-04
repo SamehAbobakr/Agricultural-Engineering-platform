@@ -359,8 +359,7 @@ async function renderHome() {
     // عدد الأدوات من HTML
     // =========================================
 
-    const toolsCount = document.querySelectorAll('.tool-item').length;
-
+const toolsCount = document.querySelectorAll('.tool-item').length;  
 
 
     // =========================================

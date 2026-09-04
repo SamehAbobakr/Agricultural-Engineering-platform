@@ -1,33 +1,20 @@
+// =========================================
+// إنشاء عميل Supabase
+// =========================================
+
 const supabaseClient = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
 
-async function testSupabaseConnection() {
-    const { data, error } = await supabaseClient
-        .from('subjects')
-        .select('*')
-        .limit(5);
 
-    if (error) {
-        console.error('❌ Supabase Error:', error);
-        return;
-    }
-
-    //console.log('✅ Supabase Connected:', data);
-}
-
-testSupabaseConnection();
-
+// =========================================
+// جلب المواد الدراسية حسب المسار الحالي
+// (البرنامج / الفرقة / الترم / القسم)
+// =========================================
 
 async function loadSubjectsFromSupabase() {
     try {
-        console.log("========== LOAD SUBJECTS ==========");
-        console.log("🌿 Program:", currentProgram);
-        console.log("🎓 Grade:", currentGrade);
-        console.log("🏢 Department:", currentDept);
-        console.log("📖 Term:", currentTerm);
-
         const { data, error } = await supabaseClient
             .from('subjects')
             .select('*')
@@ -38,8 +25,6 @@ async function loadSubjectsFromSupabase() {
             .limit(30);
 
         if (error) throw error;
-
-        console.log("📘 المواد المسترجعة من Supabase:", data);
 
         return data || [];
 

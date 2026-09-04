@@ -17,8 +17,3 @@ function filterSubjects(query) {
         }
     });
 }
-
-
-function handleGlobalSearch(query) {
-    if (!query || !query.trim()) return;
-}

@@ -2,8 +2,7 @@
    الهيدر
 ========================================= */
 
-.main-header,
-.site-header {
+.main-header {
     background: rgba(15, 23, 42, 0.95);
     border-bottom: 1px solid var(--border-color);
     padding: 12px 25px;
@@ -24,19 +23,16 @@
     width: 100%;
 }
 
-.header-brand,
 .logo-area {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.header-logo,
 .logo-icon {
     font-size: 1.8rem;
 }
 
-.header-title h2,
 .logo-area h1 {
     font-size: 1.1rem;
     color: var(--primary-color);
@@ -44,66 +40,11 @@
     margin: 0;
 }
 
-.header-title p,
-.user-info-area {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.search-box-top {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    padding: 6px 12px;
-    border-radius: 8px;
-    color: var(--text-main);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: border-color 0.3s ease;
-}
-
-.search-box-top:focus-within {
-    border-color: var(--primary-color);
-}
-
-.search-box-top input {
-    background: transparent;
-    border: none;
-    color: var(--text-main);
-    outline: none;
-    font-size: 0.9rem;
-    width: 160px;
-}
-
-.action-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.2s ease;
-}
-
-.action-btn:hover {
-    background: var(--primary-color);
-    color: #000;
-    border-color: var(--primary-color);
-}
-
 
 /* =========================================
    التخطيط الرئيسي
 ========================================= */
 
-.main-layout,
 .app-layout {
     display: flex;
     flex: 1;
@@ -126,72 +67,13 @@
    الفوتر
 ========================================= */
 
-.main-footer,
-.site-footer {
+.main-footer {
     background: rgba(15, 23, 42, 0.95);
     border-top: 1px solid var(--border-color);
     text-align: center;
     padding: 20px 15px;
     font-size: 0.85rem;
     color: var(--text-muted);
-}
-
-.footer-contact {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-contact-title {
-    font-size: 0.95rem;
-    color: var(--text-main);
-    font-weight: 700;
-}
-
-.footer-social-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.footer-social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    max-width: 100%;
-}
-
-.whatsapp-link {
-    background: #25d366;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.whatsapp-link:hover {
-    background: #20ba5a;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
-    color: #ffffff;
-}
-
-.social-icon {
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 

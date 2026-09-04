@@ -1,31 +1,7 @@
-async function loadSubjectsFromSupabase() {
-    try {
-        console.log("========== LOAD SUBJECTS ==========");
-        console.log("🌿 Program:", currentProgram);
-        console.log("🎓 Grade:", currentGrade);
-        console.log("🏢 Department:", currentDept);
-        console.log("📖 Term:", currentTerm);
+// =========================================
+// بيانات الأقسام الثابتة (لا تتغير إلا يدويًا)
+// =========================================
 
-        const { data, error } = await supabaseClient
-            .from('subjects')
-            .select('*')
-            .ilike('program', `%${currentProgram.trim()}%`)
-            .ilike('grade', `%${currentGrade.trim()}%`)
-            .ilike('term', `%${currentTerm.trim()}%`)
-            .ilike('department', `%${currentDept.trim()}%`)
-            .limit(30);
-
-        if (error) throw error;
-
-        console.log("📘 المواد المسترجعة من Supabase:", data);
-
-        return data || [];
-
-    } catch (error) {
-        console.error("❌ خطأ في جلب المواد من Supabase:", error);
-        return [];
-    }
-}
 const departmentsList = [
     {
         name: "هندسة القوى والآلات الزراعية",

@@ -18,8 +18,12 @@ function openMaterialView(subject) {
 }
 
 async function renderMaterialPage(subject) {
-    const deptName = currentDept ? currentDept : (subject.department || subject.dept || currentGrade);
-    const lastUpdated = subject.updated || 'غير متوفرة';
+    const deptName = currentDept
+    ? currentDept
+    : (subject.department || currentGrade);
+    const lastUpdated = subject.updated_at
+    ? new Date(subject.updated_at).toLocaleDateString('ar-EG')
+    : 'غير متوفرة';
     const subJson = JSON.stringify(subject).replace(/"/g, '&quot;');
 
     // شاشة تحميل مؤقتة
@@ -98,12 +102,12 @@ async function renderMaterialPage(subject) {
                 </div>
 
                 <h2 class="section-title" style="margin-top:10px;">
-                    مادة: ${subject.name}
+                    مادة: ${escapeHtml(subject.name)}
                 </h2>
 
                 <p style="color:var(--text-muted); margin-bottom:5px;">
-                    <strong>القسم التابع لها:</strong> ${deptName} |
-                    <strong>الفرقة:</strong> ${currentGrade || subject.grade || 'غير محدد'}
+                    <strong>القسم التابع لها:</strong> ${escapeHtml(deptName)} |
+                    <strong>الفرقة:</strong> ${escapeHtml(currentGrade || subject.grade || 'غير محدد')}
                 </p>
 
                 <p style="color:var(--text-muted); margin-bottom:15px;">
@@ -246,9 +250,6 @@ async function switchMaterialTab(btnElement, type, subject) {
 
     try {
 
-        console.log("📘 المادة الحالية:", subject);
-        console.log("🏷️ التصنيف المطلوب:", type);
-
         // =========================================
         // جلب الملفات من Supabase
         // =========================================
@@ -261,8 +262,6 @@ async function switchMaterialTab(btnElement, type, subject) {
 
         if (error) throw error;
 
-        console.log("📂 ملفات المادة المسترجعة:", files);
-
         // =========================================
         // فلترة الملفات
         // =========================================
@@ -273,8 +272,6 @@ async function switchMaterialTab(btnElement, type, subject) {
             file =>
                 normalizeCategory(file.category) === normalizedTargetType
         );
-
-        console.log("📚 الملفات بعد الفلترة:", filteredFiles);
 
         // =========================================
         // لا توجد ملفات
@@ -337,7 +334,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                         </div>
 
                         <h3 class="material-file-title">
-                            ${fileTitle}
+                            ${escapeHtml(fileTitle)}
                         </h3>
 
                     </div>
@@ -346,7 +343,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                     <!-- الوصف -->
 
                     <p class="material-file-description">
-                        ${fileDesc}
+                        ${escapeHtml(fileDesc)}
                     </p>
 
 

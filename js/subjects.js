@@ -46,7 +46,7 @@ async function renderSubjects() {
             >
     `;
 
-    if (!subjectsToDisplay || subjectsToDisplay.length === 0) {
+        if (subjectsToDisplay.length === 0) {
 
         html += `
             <p style="
@@ -67,10 +67,11 @@ async function renderSubjects() {
                 JSON.stringify(sub).replace(/"/g, '&quot;');
 
             const profName =
-                sub.professor || sub.prof || 'غير متوفر';
+                sub.professor || 'غير متوفر';
 
-            const updatedText =
-                sub.updated || 'حديث';
+            const updatedText = sub.updated_at
+                ? new Date(sub.updated_at).toLocaleDateString('ar-EG')
+                : 'حديث';
 
             html += `
                 <div
@@ -82,10 +83,10 @@ async function renderSubjects() {
                         ${sub.icon || '📘'}
                     </div>
 
-                    <h3>${sub.name}</h3>
+                    <h3>${escapeHtml(sub.name)}</h3>
 
                     <p class="card-info">
-                        👨‍🏫 ${profName}
+                        👨‍🏫 ${escapeHtml(profName)}
                     </p>
 
                     <div class="card-footer">

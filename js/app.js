@@ -119,10 +119,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 window.addEventListener("scroll", toggleScrollBtn);
-
-
-window.addEventListener("resize", () => {
-
-    // إجراءات إضافية عند تغيير حجم النافذة إن وجدت
-
-});

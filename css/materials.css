@@ -64,59 +64,6 @@
 
 
 /* =========================================
-   أزرار الملفات العامة
-========================================= */
-
-.file-action-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    width: 100%;
-}
-
-.file-btn {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-}
-
-.file-btn-open {
-    background: rgba(59, 130, 246, 0.1);
-    color: var(--secondary-color);
-    border-color: rgba(59, 130, 246, 0.3);
-}
-
-.file-btn-open:hover {
-    background: var(--secondary-color);
-    color: #fff;
-    transform: translateY(-2px);
-}
-
-.file-btn-download {
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--primary-color);
-    border-color: rgba(16, 185, 129, 0.3);
-}
-
-.file-btn-download:hover {
-    background: var(--primary-color);
-    color: #000;
-    transform: translateY(-2px);
-}
-
-
-/* =========================================
    شبكة ملفات المادة
 ========================================= */
 

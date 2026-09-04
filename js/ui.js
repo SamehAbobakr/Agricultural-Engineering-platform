@@ -51,6 +51,19 @@ function showLoading(callback) {
 
     setTimeout(callback, 250);
 }
+// =========================================
+// حماية أي نص قادم من قاعدة البيانات قبل
+// إدراجه داخل HTML (منع XSS)
+// =========================================
+
+function escapeHtml(text) {
+    if (text === null || text === undefined) return '';
+
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+}
+
 function normalizeCategory(cat) {
     if (!cat) return '';
 
@@ -254,16 +267,16 @@ async function renderMore() {
                             ${item.icon || '📌'}
                         </div>
 
-                        <h3>${item.title}</h3>
+                        <h3>${escapeHtml(item.title)}</h3>
 
                         <p class="card-info">
-                            ${item.description || ''}
+                            ${escapeHtml(item.description) || ''}
                         </p>
 
                         <div class="card-footer">
 
                             <span style="color:var(--primary-color)">
-                                ${item.category || 'محتوى إضافي'}
+                                ${escapeHtml(item.category) || 'محتوى إضافي'}
                             </span>
 
                             <span style="
@@ -375,7 +388,7 @@ async function renderTopYears() {
                         </div>
 
                         <h3>
-                            ${item.title}
+                            ${escapeHtml(item.title)}
                         </h3>
 
                         <p class="card-info">
@@ -452,11 +465,11 @@ async function openTopYear(item) {
                     🏆 الأوائل
                 </span>
                 >
-                <span>${item.title}</span>
+                <span>${escapeHtml(item.title)}</span>
             </div>
 
             <h2 class="section-title" style="margin-top:10px;">
-                🏆 ${item.title}
+                🏆 ${escapeHtml(item.title)}
             </h2>
 
             <p style="
@@ -476,7 +489,7 @@ async function openTopYear(item) {
                     </div>
 
                     <h3 class="material-file-title">
-                        ${item.title}
+                        ${escapeHtml(item.title)}
                     </h3>
 
                 </div>
@@ -548,10 +561,6 @@ async function openMoreItem(id) {
             return;
         }
 
-        console.log("📂 القسم المختار:", data);
-        console.log("🆔 ID القسم:", data.id);
-
-
         // =========================================
         // حفظ القسم الحالي في سجل التنقل
         // =========================================
@@ -584,10 +593,6 @@ async function openMoreItem(id) {
             .order('year', { ascending: false });
 
         if (itemsError) throw itemsError;
-
-
-        console.log("📦 المحتوى المرتبط بالقسم:", items);
-
 
         // =========================================
         // لو فيه كروت تابعة للقسم
@@ -623,7 +628,7 @@ async function openMoreItem(id) {
                     >
 
                     <span>
-                        ${data.title}
+                        ${escapeHtml(data.title)}
                     </span>
 
                 </div>
@@ -636,7 +641,7 @@ async function openMoreItem(id) {
                     </div>
 
                     <h2 class="section-title">
-                        ${data.title}
+                        ${escapeHtml(data.title)}
                     </h2>
 
                     ${
@@ -647,7 +652,7 @@ async function openMoreItem(id) {
                                 color:var(--text-muted);
                                 margin:20px 0;
                             ">
-                                ${data.description}
+                                ${escapeHtml(data.description)}
                             </p>
                         `
                         : ''
@@ -720,7 +725,7 @@ function renderMoreItemContents(parentItem, items) {
 
                 <span>
                     ${parentItem.icon || '📌'}
-                    ${parentItem.title}
+                    ${escapeHtml(parentItem.title)}
                 </span>
 
             </div>
@@ -728,7 +733,7 @@ function renderMoreItemContents(parentItem, items) {
 
             <h2 class="section-title">
                 ${parentItem.icon || '📌'}
-                ${parentItem.title}
+                ${escapeHtml(parentItem.title)}
             </h2>
 
 
@@ -749,7 +754,7 @@ function renderMoreItemContents(parentItem, items) {
                 </div>
 
                 <h3>
-                    ${item.title}
+                    ${escapeHtml(item.title)}
                 </h3>
 
                 <p class="card-info">
@@ -846,16 +851,16 @@ async function renderAdditionalResources() {
                             ${item.icon || '📚'}
                         </div>
 
-                        <h3>${item.title}</h3>
+                        <h3>${escapeHtml(item.title)}</h3>
 
                         <p class="card-info">
-                            ${item.description || ''}
+                            ${escapeHtml(item.description) || ''}
                         </p>
 
                         <div class="card-footer">
 
                             <span style="color:var(--primary-color)">
-                                ${item.category || 'مصدر إضافي'}
+                                ${escapeHtml(item.category) || 'مصدر إضافي'}
                             </span>
 
                             <span style="
@@ -926,7 +931,7 @@ async function openAdditionalResource(id) {
                         📚 مصادر إضافية
                     </span>
                     >
-                    <span>${data.title}</span>
+                    <span>${escapeHtml(data.title)}</span>
                 </div>
 
                 <div class="material-view">
@@ -936,7 +941,7 @@ async function openAdditionalResource(id) {
                     </div>
 
                     <h2 class="section-title">
-                        ${data.title}
+                        ${escapeHtml(data.title)}
                     </h2>
 
                     ${
@@ -947,7 +952,7 @@ async function openAdditionalResource(id) {
                                 color:var(--text-muted);
                                 margin:20px 0;
                             ">
-                                ${data.description}
+                                ${escapeHtml(data.description)}
                             </p>
                         `
                         : ''
