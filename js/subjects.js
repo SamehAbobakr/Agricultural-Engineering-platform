@@ -12,19 +12,36 @@ async function renderSubjects() {
         <div class="fade-in">
 
             <div class="breadcrumb">
-                <span onclick="resetView()">🏠 الرئيسية</span> >
 
-                <span onclick="selectGrade('${currentGrade}')">
-                    🎓 ${currentGrade}
-                </span>
+                        <span onclick="goToHistoryLevel('home')">
+                            🏠 الرئيسية
+                        </span>
 
-                ${currentDept
-                    ? ` <span onclick="renderDepartments()">🏢 ${currentDept}</span>`
-                    : ''
-                }
+                        >
 
-                > <span>📘 ${currentTerm}</span>
-            </div>
+                        <span onclick="goToHistoryLevel('grade')">
+                            🎓 ${escapeHtml(currentGrade)}
+                        </span>
+
+                        ${
+                            currentDept
+                                ? `
+                                    >
+
+                                    <span onclick="goToHistoryLevel('dept')">
+                                        🏢 ${escapeHtml(currentDept)}
+                                    </span>
+                                `
+                                : ''
+                        }
+
+                        >
+
+                        <span>
+                            📘 ${escapeHtml(currentTerm)}
+                        </span>
+
+                    </div>
 
             <h2 class="section-title">
                 المواد الدراسية
