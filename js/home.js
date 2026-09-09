@@ -97,7 +97,7 @@ async function renderHome() {
                             onclick="selectProgram('مصادر إضافية')">
 
                             <div class="card-header-icon">
-                                📚
+                                🌐
                             </div>
 
                             <h3>

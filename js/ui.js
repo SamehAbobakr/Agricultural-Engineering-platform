@@ -748,6 +748,14 @@ async function openMoreItem(id) {
             return
 
         }
+        // =========================================
+        // المصادر الخارجية
+        // =========================================
+
+            if (data.title === 'مصادر خارجية') {
+                await renderAdditionalResources();
+                return;
+            }
 
 
         // =========================================
@@ -1213,19 +1221,22 @@ async function openMoreContent(id) {
         `;
     }
 }
-async function renderAdditionalResources() {
+// =========================================
+// المصادر الخارجية
+// البيانات كلها من Supabase
+// =========================================
 
+async function renderAdditionalResources() {
     const contentArea = document.getElementById('contentArea');
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
-            <p>جاري تحميل المصادر الإضافية...</p>
+            <div class="loading-spinner">🌐</div>
+            <p>جاري تحميل المصادر الخارجية...</p>
         </div>
     `;
 
     try {
-
         const { data, error } = await supabaseClient
             .from('additional_resources')
             .select('*')
@@ -1233,64 +1244,90 @@ async function renderAdditionalResources() {
 
         if (error) throw error;
 
+        // استخراج التصنيفات الموجودة في Supabase فقط
+        const categories = [
+            ...new Set(
+                (data || [])
+                    .map(item => item.category)
+                    .filter(Boolean)
+            )
+        ];
+
         let html = `
             <div class="fade-in">
 
                 <div class="breadcrumb">
-                    <span onclick="resetView()">🏠 الرئيسية</span>
+                    <span onclick="resetView()">
+                        🏠 الرئيسية
+                    </span>
                     >
-                    <span>📚 مصادر إضافية</span>
+                    <span>
+                        🌐 مصادر خارجية
+                    </span>
                 </div>
 
                 <h2 class="section-title">
-                    مصادر إضافية
+                    🌐 مصادر خارجية
                 </h2>
 
                 <div class="grid-container">
         `;
 
-        if (!data || data.length === 0) {
+        if (categories.length === 0) {
 
             html += `
                 <p style="
-                    text-align: center;
-                    color: var(--text-muted);
-                    padding: 30px;
-                    grid-column: 1 / -1;
+                    text-align:center;
+                    color:var(--text-muted);
+                    padding:30px;
+                    grid-column:1 / -1;
                 ">
-                    لا توجد مصادر متاحة حالياً.
+                    لا توجد مصادر خارجية متاحة حالياً.
                 </p>
             `;
 
         } else {
 
-            data.forEach(item => {
+            categories.forEach(category => {
+
+                const categoryResources = data.filter(
+                    item => item.category === category
+                );
+
+                // ناخد أيقونة أول مصدر في التصنيف
+                const categoryIcon =
+                    categoryResources.find(item => item.icon)?.icon || '📚';
 
                 html += `
                     <div
                         class="card"
-                        onclick="openAdditionalResource('${item.id}')"
+                        onclick='renderExternalResourcesByCategory(${JSON.stringify(category)})'
                     >
 
                         <div class="card-header-icon">
-                            ${item.icon || '📚'}
+                            ${categoryIcon}
                         </div>
 
-                        <h3>${escapeHtml(item.title)}</h3>
+                        <h3>
+                            ${escapeHtml(category)}
+                        </h3>
 
                         <p class="card-info">
-                            ${escapeHtml(item.description) || ''}
+                            ${categoryResources.length} مصدر متاح
                         </p>
 
                         <div class="card-footer">
 
-                            <span style="color:var(--primary-color)">
-                                ${escapeHtml(item.category) || 'مصدر إضافي'}
+                            <span style="
+                                color:var(--primary-color);
+                                font-weight:bold;
+                            ">
+                                ${categoryResources.length} مصدر
                             </span>
 
                             <span style="
+                                color:var(--secondary-color);
                                 font-weight:bold;
-                                color:var(--secondary-color)
                             ">
                                 [دخول]
                             </span>
@@ -1312,7 +1349,7 @@ async function renderAdditionalResources() {
     } catch (error) {
 
         console.error(
-            '❌ خطأ في تحميل المصادر الإضافية:',
+            '❌ خطأ في تحميل المصادر الخارجية:',
             error
         );
 
@@ -1323,8 +1360,154 @@ async function renderAdditionalResources() {
                     color:red;
                     padding:30px;
                 ">
-                    حدث خطأ أثناء تحميل المصادر الإضافية.
+                    حدث خطأ أثناء تحميل المصادر الخارجية.
                 </p>
+            </div>
+        `;
+    }
+}
+// =========================================
+// عرض مصادر التصنيف
+// البيانات كلها من Supabase
+// =========================================
+
+async function renderExternalResourcesByCategory(category) {
+
+    const contentArea = document.getElementById('contentArea');
+
+    contentArea.innerHTML = `
+        <div class="loading-screen">
+            <div class="loading-spinner">📚</div>
+            <p>جاري تحميل المصادر...</p>
+        </div>
+    `;
+
+    try {
+
+        const { data, error } = await supabaseClient
+            .from('additional_resources')
+            .select('*')
+            .eq('category', category)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        let html = `
+            <div class="fade-in">
+
+                <div class="breadcrumb">
+
+                    <span onclick="resetView()">
+                        🏠 الرئيسية
+                    </span>
+
+                    >
+
+                    <span onclick="renderAdditionalResources()">
+                        🌐 مصادر خارجية
+                    </span>
+
+                    >
+
+                    <span>
+                        ${escapeHtml(category)}
+                    </span>
+
+                </div>
+
+                <h2 class="section-title">
+                    ${escapeHtml(category)}
+                </h2>
+
+                <div class="grid-container">
+        `;
+
+        if (!data || data.length === 0) {
+
+            html += `
+                <p style="
+                    text-align:center;
+                    color:var(--text-muted);
+                    padding:30px;
+                    grid-column:1 / -1;
+                ">
+                    لا توجد مصادر متاحة في هذا التصنيف حالياً.
+                </p>
+            `;
+
+        } else {
+
+            data.forEach(item => {
+
+                html += `
+                <div 
+                    class="card external-resource-card"
+                    onclick="openAdditionalResource('${item.id}')"
+                >
+
+                    <div class="card-header-icon">
+                        ${item.content_icon || '📚'}
+                    </div>
+
+                    <h3>
+                        ${escapeHtml(item.title)}
+                    </h3>
+                    
+
+                    ${
+                        item.description
+                        ? `
+                            <p class="card-info">
+                                ${escapeHtml(item.description)}
+                            </p>
+                        `
+                        : ''
+                    }
+
+                    <div class="card-footer">
+
+                        <span>
+                            ${escapeHtml(item.category || '')}
+                        </span>
+
+                        <span class="external-resource-arrow">
+                            فتح ↗
+                        </span>
+
+                    </div>
+
+                </div>
+            `;
+
+            });
+
+        }
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+
+    } catch (error) {
+
+        console.error(
+            '❌ خطأ في تحميل مصادر التصنيف:',
+            error
+        );
+
+        contentArea.innerHTML = `
+            <div class="fade-in">
+
+                <p style="
+                    text-align:center;
+                    color:red;
+                    padding:30px;
+                ">
+                    حدث خطأ أثناء تحميل المصادر.
+                </p>
+
             </div>
         `;
     }
@@ -1352,59 +1535,443 @@ async function openAdditionalResource(id) {
                 <div class="breadcrumb">
                     <span onclick="resetView()">🏠 الرئيسية</span>
                     >
-                    <span onclick="selectProgram('مصادر إضافية')">
-                        📚 مصادر إضافية
+                    <span onclick="renderAdditionalResources()">
+                        🌐 مصادر خارجية
                     </span>
                     >
                     <span>${escapeHtml(data.title)}</span>
                 </div>
 
-                <div class="material-view">
+                <div class="external-resource-card">
+
+            <div class="external-resource-icon">
+                    ${data.content_icon || '📚'}
+            </div>
+
+    <h2 class="external-resource-title">
+        ${escapeHtml(data.title)}
+    </h2>
+
+    ${
+        data.description
+        ? `
+            <p class="external-resource-description">
+                ${escapeHtml(data.description)}
+            </p>
+        `
+        : ''
+    }
+            ${
+            data.created_at
+            ? `
+                <div class="external-resource-date">
+                    تاريخ الإضافة:
+                    ${new Date(data.created_at).toLocaleDateString('ar-EG', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
+                </div>
+            `
+            : ''
+        }
+
+    ${
+        data.link
+        ? `
+            <div class="external-resource-action">
+                <a
+                    href="${data.link}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="external-resource-button"
+                >
+                    فتح المصدر
+                </a>
+            </div>
+        `
+        : ''
+    }
+
+</div>
+            </div>
+        `;
+
+    } catch (error) {
+
+        console.error(
+            '❌ خطأ في فتح المصدر الإضافي:',
+            error
+        );
+
+    }
+}async function renderAdditionalResources() {
+    const contentArea = document.getElementById('contentArea');
+
+    contentArea.innerHTML = `
+        <div class="loading-screen">
+            <div class="loading-spinner">🌐</div>
+            <p>جاري تحميل المصادر الخارجية...</p>
+        </div>
+    `;
+
+    try {
+        const { data, error } = await supabaseClient
+            .from('additional_resources')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        // استخراج التصنيفات الموجودة في Supabase فقط
+        const categories = [
+            ...new Set(
+                (data || [])
+                    .map(item => item.category)
+                    .filter(Boolean)
+            )
+        ];
+
+        let html = `
+            <div class="fade-in">
+
+                <div class="breadcrumb">
+                    <span onclick="resetView()">
+                        🏠 الرئيسية
+                    </span>
+                    >
+                    <span>
+                        🌐 مصادر خارجية
+                    </span>
+                </div>
+
+                <h2 class="section-title">
+                    🌐 مصادر خارجية
+                </h2>
+
+                <div class="grid-container">
+        `;
+
+        if (categories.length === 0) {
+
+            html += `
+                <p style="
+                    text-align:center;
+                    color:var(--text-muted);
+                    padding:30px;
+                    grid-column:1 / -1;
+                ">
+                    لا توجد مصادر خارجية متاحة حالياً.
+                </p>
+            `;
+
+        } else {
+
+            categories.forEach(category => {
+
+                const categoryResources = data.filter(
+                    item => item.category === category
+                );
+
+                // ناخد أيقونة أول مصدر في التصنيف
+                const categoryIcon =
+                    categoryResources.find(item => item.icon)?.icon || '📚';
+
+                html += `
+                    <div
+                        class="card"
+                        onclick='renderExternalResourcesByCategory(${JSON.stringify(category)})'
+                    >
+
+                        <div class="card-header-icon">
+                            ${categoryIcon}
+                        </div>
+
+                        <h3>
+                            ${escapeHtml(category)}
+                        </h3>
+
+                        <p class="card-info">
+                            ${categoryResources.length} مصدر متاح
+                        </p>
+
+                        <div class="card-footer">
+
+                            <span style="
+                                color:var(--primary-color);
+                                font-weight:bold;
+                            ">
+                                ${categoryResources.length} مصدر
+                            </span>
+
+                            <span style="
+                                color:var(--secondary-color);
+                                font-weight:bold;
+                            ">
+                                [دخول]
+                            </span>
+
+                        </div>
+
+                    </div>
+                `;
+            });
+        }
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+
+    } catch (error) {
+
+        console.error(
+            '❌ خطأ في تحميل المصادر الخارجية:',
+            error
+        );
+
+        contentArea.innerHTML = `
+            <div class="fade-in">
+                <p style="
+                    text-align:center;
+                    color:red;
+                    padding:30px;
+                ">
+                    حدث خطأ أثناء تحميل المصادر الخارجية.
+                </p>
+            </div>
+        `;
+    }
+}
+// =========================================
+// عرض مصادر التصنيف
+// البيانات كلها من Supabase
+// =========================================
+
+async function renderExternalResourcesByCategory(category) {
+
+    const contentArea = document.getElementById('contentArea');
+
+    contentArea.innerHTML = `
+        <div class="loading-screen">
+            <div class="loading-spinner">📚</div>
+            <p>جاري تحميل المصادر...</p>
+        </div>
+    `;
+
+    try {
+
+        const { data, error } = await supabaseClient
+            .from('additional_resources')
+            .select('*')
+            .eq('category', category)
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        let html = `
+            <div class="fade-in">
+
+                <div class="breadcrumb">
+
+                    <span onclick="resetView()">
+                        🏠 الرئيسية
+                    </span>
+
+                    >
+
+                    <span onclick="renderAdditionalResources()">
+                        🌐 مصادر خارجية
+                    </span>
+
+                    >
+
+                    <span>
+                        ${escapeHtml(category)}
+                    </span>
+
+                </div>
+
+                <h2 class="section-title">
+                    ${escapeHtml(category)}
+                </h2>
+
+                <div class="grid-container">
+        `;
+
+        if (!data || data.length === 0) {
+
+            html += `
+                <p style="
+                    text-align:center;
+                    color:var(--text-muted);
+                    padding:30px;
+                    grid-column:1 / -1;
+                ">
+                    لا توجد مصادر متاحة في هذا التصنيف حالياً.
+                </p>
+            `;
+
+        } else {
+
+            data.forEach(item => {
+
+                html += `
+                <div 
+                    class="card external-resource-card"
+                    onclick="openAdditionalResource('${item.id}')"
+                >
 
                     <div class="card-header-icon">
-                        ${data.icon || '📚'}
+                        ${item.icon || '📚'}
                     </div>
 
-                    <h2 class="section-title">
-                        ${escapeHtml(data.title)}
-                    </h2>
+                    <h3>
+                        ${escapeHtml(item.title)}
+                    </h3>
 
                     ${
-                        data.description
+                        item.description
                         ? `
-                            <p style="
-                                text-align:center;
-                                color:var(--text-muted);
-                                margin:20px 0;
-                            ">
-                                ${escapeHtml(data.description)}
+                            <p class="card-info">
+                                ${escapeHtml(item.description)}
                             </p>
                         `
                         : ''
                     }
 
-                    ${
-                        data.link
-                        ? `
-                            <div style="
-                                text-align:center;
-                                margin-top:30px;
-                            ">
-                                <a
-                                    href="${data.link_1}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn"
-                                >
-                                    🔗 فتح المصدر
-                                </a>
-                            </div>
-                        `
-                        : ''
-                    }
+                    <div class="card-footer">
+
+                        <span>
+                            ${escapeHtml(item.category || '')}
+                        </span>
+
+                        <span class="external-resource-arrow">
+                            فتح ↗
+                        </span>
+
+                    </div>
 
                 </div>
+            `;
 
+            });
+
+        }
+
+        html += `
+                </div>
+            </div>
+        `;
+
+        contentArea.innerHTML = html;
+
+    } catch (error) {
+
+        console.error(
+            '❌ خطأ في تحميل مصادر التصنيف:',
+            error
+        );
+
+        contentArea.innerHTML = `
+            <div class="fade-in">
+
+                <p style="
+                    text-align:center;
+                    color:red;
+                    padding:30px;
+                ">
+                    حدث خطأ أثناء تحميل المصادر.
+                </p>
+
+            </div>
+        `;
+    }
+}
+async function openAdditionalResource(id) {
+
+    try {
+
+        const { data, error } = await supabaseClient
+            .from('additional_resources')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+        if (error) throw error;
+
+        if (!data) {
+            console.error('❌ لم يتم العثور على المصدر');
+            return;
+        }
+
+        document.getElementById('contentArea').innerHTML = `
+            <div class="fade-in">
+
+                <div class="breadcrumb">
+                    <span onclick="resetView()">🏠 الرئيسية</span>
+                    >
+                    <span onclick="renderAdditionalResources()">
+                        🌐 مصادر خارجية
+                    </span>
+                    >
+                    <span>${escapeHtml(data.title)}</span>
+                </div>
+
+                <div class="external-resource-card">
+
+            <div class="external-resource-icon">
+                    ${data.content_icon || '📚'}
+            </div>
+
+    <h2 class="external-resource-title">
+        ${escapeHtml(data.title)}
+    </h2>
+
+    ${
+        data.description
+        ? `
+            <p class="external-resource-description">
+                ${escapeHtml(data.description)}
+            </p>
+        `
+        : ''
+    }
+            ${
+            data.created_at
+            ? `
+                <div class="external-resource-date">
+                    تاريخ الإضافة:
+                    ${new Date(data.created_at).toLocaleDateString('ar-EG', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    })}
+                </div>
+            `
+            : ''
+        }
+
+    ${
+        data.link
+        ? `
+            <div class="external-resource-action">
+                <a
+                    href="${data.link}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="external-resource-button"
+                >
+                    فتح المصدر
+                </a>
+            </div>
+        `
+        : ''
+    }
+
+</div>
             </div>
         `;
 

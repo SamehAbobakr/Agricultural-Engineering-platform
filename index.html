@@ -101,201 +101,203 @@
 
 
     <!-- =========================
-         القائمة الجانبية
-    ========================== -->
-
-    <aside
-        class="sidebar"
-        id="sidebarContainer"
-    >
-
-        <div class="sidebar-brand">
-            قائمة التنقل
-        </div>
-
-
-        <ul class="sidebar-menu">
-
-
-            <!-- الرئيسية -->
-
-            <li
-                class="sidebar-item menu-item active"
-                id="side-home"
-                onclick="resetView()"
-            >
-
-                <span class="menu-icon">
-                    🏠
-                </span>
-
-                الرئيسية
-
-            </li>
-
-
-
-            <!-- الفرقة الأولى -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-g1"
-                onclick="selectGrade('الفرقة الأولى')"
-            >
-
-                <span class="menu-icon">
-                    <img 
-                        src="assets/images/icons/Grade1.jfif" 
-                        alt="الفرقة الأولى" 
-                    >
-                </span>
-
-                الفرقة الأولى
-
-            </li>
-
-
-
-            <!-- الفرقة الثانية -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-g2"
-                onclick="selectGrade('الفرقة الثانية')"
-            >
-
-                <span class="menu-icon">
-                    <img 
-                        src="assets/images/icons/Grade2.jfif" 
-                        alt="الفرقة الثانية" 
-                    >
-                </span>
-
-                الفرقة الثانية
-
-            </li>
-
-
-
-            <!-- الفرقة الثالثة -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-g3"
-                onclick="selectGrade('الفرقة الثالثة')"
-            >
-
-                <span class="menu-icon">
-                    <img 
-                        src="assets/images/icons/Grade3.jfif" 
-                        alt="الفرقة الثالثة" 
-                    >
-                </span>
-
-                الفرقة الثالثة
-
-            </li>
-
-
-
-            <!-- الفرقة الرابعة -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-g4"
-                onclick="selectGrade('الفرقة الرابعة')"
-            >
-
-                <span class="menu-icon">
-                    <img 
-                        src="assets/images/icons/Grade4.jfif" 
-                        alt="الفرقة الرابعة" 
-                    >
-                </span>
-
-                الفرقة الرابعة
-
-            </li>
-
-
-            <!-- =========================
-                الأدوات
+                القائمة الجانبية
             ========================== -->
 
-            <!-- Obsidian -->
-
-            <li 
-                class="menu-item tool-item" 
-                onclick="openObsidian()" 
+            <aside
+                class="sidebar"
+                id="sidebarContainer"
             >
 
-                <span class="menu-icon"> 
-                    <img 
-                        src="assets/images/icons/obsidian-.png" 
-                        alt="Obsidian" 
+                <div class="sidebar-brand">
+                    قائمة التنقل
+                </div>
+
+
+                <ul class="sidebar-menu">
+
+
+                    <!-- =========================
+                        الرئيسية
+                    ========================== -->
+
+                    <li
+                        class="sidebar-item menu-item active"
+                        id="side-home"
+                        onclick="resetView()"
                     >
-                </span>
 
-                Obsidian
+                        <span class="menu-icon">
+                            🏠
+                        </span>
 
-            </li>
+                        الرئيسية
 
-
-                <!-- مؤقت المذاكرة -->
-
-                <li  
-                    class="menu-item tool-item"  
-                    onclick="openStudyTimer()"  
-                >
-
-                    <span class="menu-icon">  
-                        <img  
-                            src="assets/images/icons/alarm-clock.png"  
-                            alt="مؤقت المذاكرة"  
-                        >  
-                    </span>  
-
-                    مؤقت المذاكرة  
-
-                </li>
+                    </li>
 
 
-            <!-- NotebookLM -->
+                    <!-- =========================
+                        الهندسة الزراعية
+                    ========================== -->
 
-            <li 
-                class="menu-item tool-item" 
-                onclick="openNotebookLM()" 
-            >
-
-                <span class="menu-icon"> 
-                    <img 
-                        src="assets/images/icons/NotebookLM.jfif" 
-                        alt="NotebookLM" 
+                    <li
+                        class="sidebar-item menu-item"
+                        id="side-agricultural"
+                        onclick="selectProgram('الهندسة الزراعية')"
                     >
-                </span>
 
-                NotebookLM
+                        <span class="menu-icon">
+                            🚜
+                        </span>
 
-            </li>
+                        الهندسة الزراعية
+
+                    </li>
 
 
-            <!-- سبورة الشرح -->
+                    <!-- =========================
+                        اللاندسكيب والمسطحات الخضراء
+                    ========================== -->
 
-            <li 
-                class="menu-item tool-item" 
-                onclick="openWhiteboard()" 
-            >
+                    <li
+                        class="sidebar-item menu-item"
+                        id="side-landscape"
+                        onclick="selectProgram('اللاندسكيب والمسطحات الخضراء')"
+                    >
 
-                <span class="menu-icon"> 
-                    🖊️ 
-                </span>
+                        <span class="menu-icon">
+                            🌱
+                        </span>
 
-                سبورة الشرح
+                        اللاندسكيب والمسطحات الخضراء
 
-            </li>
-        </ul>
+                    </li>
 
-    </aside>
+
+                    <!-- =========================
+                        مصادر إضافية
+                    ========================== -->
+
+                    <li
+                        class="sidebar-item menu-item"
+                        id="side-external"
+                        onclick="selectProgram('مصادر إضافية')"
+                    >
+
+                        <span class="menu-icon">
+                            🌐
+                        </span>
+
+                        مصادر إضافية
+
+                    </li>
+
+
+                    <!-- =========================
+                        المزيد
+                    ========================== -->
+
+                    <li
+                        class="sidebar-item menu-item"
+                        id="side-more"
+                        onclick="selectProgram('المزيد')"
+                    >
+
+                        <span class="menu-icon">
+                            ➕
+                        </span>
+
+                        المزيد
+
+                    </li>
+
+
+                    <!-- =========================
+                        الأدوات
+                    ========================== -->
+
+                    <!-- Obsidian -->
+
+                    <li
+                        class="menu-item tool-item"
+                        onclick="openObsidian()"
+                    >
+
+                        <span class="menu-icon">
+
+                            <img
+                                src="assets/images/icons/obsidian-.png"
+                                alt="Obsidian"
+                            >
+
+                        </span>
+
+                        Obsidian
+
+                    </li>
+
+
+                    <!-- مؤقت المذاكرة -->
+
+                    <li
+                        class="menu-item tool-item"
+                        onclick="openStudyTimer()"
+                    >
+
+                        <span class="menu-icon">
+
+                            <img
+                                src="assets/images/icons/alarm-clock.png"
+                                alt="مؤقت المذاكرة"
+                            >
+
+                        </span>
+
+                        مؤقت المذاكرة
+
+                    </li>
+
+
+                    <!-- NotebookLM -->
+
+                    <li
+                        class="menu-item tool-item"
+                        onclick="openNotebookLM()"
+                    >
+
+                        <span class="menu-icon">
+
+                            <img
+                                src="assets/images/icons/NotebookLM.jfif"
+                                alt="NotebookLM"
+                            >
+
+                        </span>
+
+                        NotebookLM
+
+                    </li>
+
+
+                    <!-- سبورة الشرح -->
+
+                    <li
+                        class="menu-item tool-item"
+                        onclick="openWhiteboard()"
+                    >
+
+                        <span class="menu-icon">
+                            🖊️
+                        </span>
+
+                        سبورة الشرح
+
+                    </li>
+
+
+                </ul>
+
+            </aside>
 
 
 
