@@ -4,7 +4,6 @@
 
 <head>
 
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -25,10 +24,11 @@
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/search.css">
 
-
 </head>
 
+
 <body>
+
 
 <!-- =========================
      الهيدر
@@ -39,6 +39,7 @@
     <div class="header-container">
 
         <!-- الشعار -->
+
         <div class="logo-area">
 
             <span class="logo-icon">
@@ -53,6 +54,7 @@
 
 
         <!-- النص في المنتصف -->
+
         <div class="welcome-center">
 
             <span class="welcome-text">
@@ -63,6 +65,7 @@
 
 
         <!-- أزرار التنقل -->
+
         <div class="navigation-controls">
 
             <button
@@ -75,6 +78,7 @@
                 →
             </button>
 
+
             <button
                 type="button"
                 id="forwardBtn"
@@ -82,7 +86,7 @@
                 aria-label="تقدم"
                 title="تقدم"
             >
-                ← 
+                ←
             </button>
 
         </div>
@@ -101,203 +105,204 @@
 
 
     <!-- =========================
-                القائمة الجانبية
+         القائمة الجانبية
+    ========================== -->
+
+    <aside
+        class="sidebar"
+        id="sidebarContainer"
+    >
+
+        <div class="sidebar-brand">
+            قائمة التنقل
+        </div>
+
+
+        <ul class="sidebar-menu">
+
+
+            <!-- =========================
+                 الرئيسية
             ========================== -->
 
-            <aside
-                class="sidebar"
-                id="sidebarContainer"
+            <li
+                class="sidebar-item menu-item active"
+                id="side-home"
+                onclick="resetView()"
             >
 
-                <div class="sidebar-brand">
-                    قائمة التنقل
-                </div>
+                <span class="menu-icon">
+                    🏠
+                </span>
+
+                الرئيسية
+
+            </li>
 
 
-                <ul class="sidebar-menu">
+            <!-- =========================
+                 الهندسة الزراعية
+            ========================== -->
+
+            <li
+                class="sidebar-item menu-item"
+                id="side-agricultural"
+                onclick="selectProgram('الهندسة الزراعية')"
+            >
+
+                <span class="menu-icon">
+                    🚜
+                </span>
+
+                الهندسة الزراعية
+
+            </li>
 
 
-                    <!-- =========================
-                        الرئيسية
-                    ========================== -->
+            <!-- =========================
+                 اللاندسكيب والمسطحات الخضراء
+            ========================== -->
 
-                    <li
-                        class="sidebar-item menu-item active"
-                        id="side-home"
-                        onclick="resetView()"
+            <li
+                class="sidebar-item menu-item"
+                id="side-landscape"
+                onclick="selectProgram('اللاندسكيب والمسطحات الخضراء')"
+            >
+
+                <span class="menu-icon">
+                    🌱
+                </span>
+
+                اللاندسكيب والمسطحات الخضراء
+
+            </li>
+
+
+            <!-- =========================
+                 مصادر خارجية
+            ========================== -->
+
+            <li
+                class="sidebar-item menu-item"
+                id="side-external"
+                onclick="selectProgram('مصادر إضافية')"
+            >
+
+                <span class="menu-icon">
+                    🌐
+                </span>
+
+                مصادر خارجية
+
+            </li>
+
+
+            <!-- =========================
+                 المزيد
+            ========================== -->
+
+            <li
+                class="sidebar-item menu-item"
+                id="side-more"
+                onclick="selectProgram('المزيد')"
+            >
+
+                <span class="menu-icon">
+                    ➕
+                </span>
+
+                المزيد
+
+            </li>
+
+
+            <!-- =========================
+                 الأدوات
+            ========================== -->
+
+
+            <!-- Obsidian -->
+
+            <li
+                class="menu-item tool-item"
+                onclick="openObsidian()"
+            >
+
+                <span class="menu-icon">
+
+                    <img
+                        src="assets/images/icons/obsidian-.png"
+                        alt="Obsidian"
                     >
 
-                        <span class="menu-icon">
-                            🏠
-                        </span>
+                </span>
 
-                        الرئيسية
+                Obsidian
 
-                    </li>
+            </li>
 
 
-                    <!-- =========================
-                        الهندسة الزراعية
-                    ========================== -->
+            <!-- مؤقت المذاكرة -->
 
-                    <li
-                        class="sidebar-item menu-item"
-                        id="side-agricultural"
-                        onclick="selectProgram('الهندسة الزراعية')"
+            <li
+                class="menu-item tool-item"
+                onclick="openStudyTimer()"
+            >
+
+                <span class="menu-icon">
+
+                    <img
+                        src="assets/images/icons/alarm-clock.png"
+                        alt="مؤقت المذاكرة"
                     >
 
-                        <span class="menu-icon">
-                            🚜
-                        </span>
+                </span>
 
-                        الهندسة الزراعية
+                مؤقت المذاكرة
 
-                    </li>
+            </li>
 
 
-                    <!-- =========================
-                        اللاندسكيب والمسطحات الخضراء
-                    ========================== -->
+            <!-- NotebookLM -->
 
-                    <li
-                        class="sidebar-item menu-item"
-                        id="side-landscape"
-                        onclick="selectProgram('اللاندسكيب والمسطحات الخضراء')"
+            <li
+                class="menu-item tool-item"
+                onclick="openNotebookLM()"
+            >
+
+                <span class="menu-icon">
+
+                    <img
+                        src="assets/images/icons/NotebookLM.jfif"
+                        alt="NotebookLM"
                     >
 
-                        <span class="menu-icon">
-                            🌱
-                        </span>
+                </span>
 
-                        اللاندسكيب والمسطحات الخضراء
+                NotebookLM
 
-                    </li>
+            </li>
 
 
-                    <!-- =========================
-                        مصادر إضافية
-                    ========================== -->
+            <!-- سبورة الشرح -->
 
-                    <li
-                        class="sidebar-item menu-item"
-                        id="side-external"
-                        onclick="selectProgram('مصادر إضافية')"
-                    >
+            <li
+                class="menu-item tool-item"
+                onclick="openWhiteboard()"
+            >
 
-                        <span class="menu-icon">
-                            🌐
-                        </span>
+                <span class="menu-icon">
+                    🖊️
+                </span>
 
-                        مصادر إضافية
+                سبورة الشرح
 
-                    </li>
+            </li>
 
 
-                    <!-- =========================
-                        المزيد
-                    ========================== -->
+        </ul>
 
-                    <li
-                        class="sidebar-item menu-item"
-                        id="side-more"
-                        onclick="selectProgram('المزيد')"
-                    >
-
-                        <span class="menu-icon">
-                            ➕
-                        </span>
-
-                        المزيد
-
-                    </li>
-
-
-                    <!-- =========================
-                        الأدوات
-                    ========================== -->
-
-                    <!-- Obsidian -->
-
-                    <li
-                        class="menu-item tool-item"
-                        onclick="openObsidian()"
-                    >
-
-                        <span class="menu-icon">
-
-                            <img
-                                src="assets/images/icons/obsidian-.png"
-                                alt="Obsidian"
-                            >
-
-                        </span>
-
-                        Obsidian
-
-                    </li>
-
-
-                    <!-- مؤقت المذاكرة -->
-
-                    <li
-                        class="menu-item tool-item"
-                        onclick="openStudyTimer()"
-                    >
-
-                        <span class="menu-icon">
-
-                            <img
-                                src="assets/images/icons/alarm-clock.png"
-                                alt="مؤقت المذاكرة"
-                            >
-
-                        </span>
-
-                        مؤقت المذاكرة
-
-                    </li>
-
-
-                    <!-- NotebookLM -->
-
-                    <li
-                        class="menu-item tool-item"
-                        onclick="openNotebookLM()"
-                    >
-
-                        <span class="menu-icon">
-
-                            <img
-                                src="assets/images/icons/NotebookLM.jfif"
-                                alt="NotebookLM"
-                            >
-
-                        </span>
-
-                        NotebookLM
-
-                    </li>
-
-
-                    <!-- سبورة الشرح -->
-
-                    <li
-                        class="menu-item tool-item"
-                        onclick="openWhiteboard()"
-                    >
-
-                        <span class="menu-icon">
-                            🖊️
-                        </span>
-
-                        سبورة الشرح
-
-                    </li>
-
-
-                </ul>
-
-            </aside>
+    </aside>
 
 
 
@@ -320,6 +325,7 @@
 </div>
 
 
+
 <!-- =========================
      زر الدعم والتواصل
 ========================== -->
@@ -328,7 +334,9 @@
 
     <div class="floating-contact-options">
 
+
         <!-- دعم المنصة -->
+
         <button
             class="floating-contact-option"
             id="supportBtn"
@@ -345,7 +353,7 @@
                     دعم المنصة
                 </strong>
 
-                <small>            
+                <small>
                     يمكنك المساهمة في استمرار الخدمة وتطوير المنصة.
                 </small>
 
@@ -354,7 +362,9 @@
         </button>
 
 
+
         <!-- التواصل -->
+
         <a
             href="https://wa.me/201551743249"
             class="floating-contact-option"
@@ -380,10 +390,12 @@
 
         </a>
 
+
     </div>
 
 
     <!-- الزر الرئيسي -->
+
     <button
         class="floating-contact-main"
         id="floatingContactBtn"
@@ -395,6 +407,7 @@
     </button>
 
 </div>
+
 
 
 <!-- =========================
@@ -409,6 +422,9 @@
 
     <div class="support-modal-content">
 
+
+        <!-- زر الإغلاق -->
+
         <button
             class="support-modal-close"
             id="supportModalClose"
@@ -418,20 +434,93 @@
             ×
         </button>
 
+
+        <!-- الأيقونة -->
+
         <div class="support-modal-icon">
             ❤️
         </div>
+
+
+        <!-- العنوان -->
 
         <h3>
             دعم المنصة
         </h3>
 
-        <p>
 
-❤️ المنصة مجانية للجميع، ولو استفدت منها وساعدتك في دراستك، تقدر تساهم في استمرارها وتطويرها بأي مبلغ بسيط.
+        <!-- رسالة الدعم -->
 
-تساعد في توفير المزيد من الملفات والخدمات لزملائك
-        </p>
+        <div class="support-message">
+
+
+            <p class="support-intro">
+                المنصة مجانية للجميع، واستمرارها وتطويرها يحتاج إلى تغطية تكاليف التشغيل والاستضافة.
+            </p>
+
+
+            <div class="support-points">
+
+
+                <!-- النقطة الأولى -->
+
+                <div class="support-point">
+
+                    <span class="support-point-icon">
+                        💰
+                    </span>
+
+                    <p>
+                        المنصة تحتاج إلى تكاليف تشغيل للتخزين وقاعدة البيانات،
+                        وإذا أردنا استمرارها وظهورها على الإنترنت بشكل دائم،
+                        سنحتاج إلى دعم يساعد في تغطية هذه التكاليف.
+                    </p>
+
+                </div>
+
+
+                <!-- النقطة الثانية -->
+
+                <div class="support-point">
+
+                    <span class="support-point-icon">
+                        🚀
+                    </span>
+
+                    <p>
+                        أي مساهمة، مهما كانت بسيطة، تساعد في استمرار المنصة
+                        وتطويرها وإضافة محتوى وخدمات أفضل.
+                    </p>
+
+                </div>
+
+
+                <!-- النقطة الثالثة -->
+
+                <div class="support-point">
+
+                    <span class="support-point-icon">
+                        ❤️
+                    </span>
+
+                    <p>
+                        ولو مش قادر تدعم ماديًا، مفيش مشكلة؛
+                        مجرد استخدامك للمنصة، ونشرها بين زملائك،
+                        وإرسال ملاحظاتك واقتراحاتك يعتبر دعمًا مهمًا جدًا.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             رقم الكاش
+        ========================== -->
 
         <div class="cash-box">
 
@@ -439,9 +528,11 @@
                 رقم كاش
             </span>
 
+
             <strong id="cashNumber">
                 01554850896
             </strong>
+
 
             <button
                 id="copyCashNumber"
@@ -452,131 +543,151 @@
 
         </div>
 
+
     </div>
 
 </div>
-    <!-- =========================
-         زر العودة للأعلى
-    ========================== -->
-
-    <button
-        id="scrollTopBtn"
-        onclick="scrollToTop()"
-        aria-label="العودة إلى أعلى الصفحة"
-    >
-        ↑
-    </button>
 
 
-    <!-- =========================
-         الفوتر
-    ========================== -->
 
-    <footer class="main-footer">
+<!-- =========================
+     زر العودة للأعلى
+========================== -->
 
-            <p>
-            © 2026 Sameh Abobakr — منصة كلية الهندسة الزراعية                   
-            </p>
-
-    </footer>
-
-
-    <!-- =========================
-         Supabase Library
-    ========================== -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<button
+    id="scrollTopBtn"
+    onclick="scrollToTop()"
+    aria-label="العودة إلى أعلى الصفحة"
+>
+    ↑
+</button>
 
 
-    <!-- =========================
-         إعدادات Supabase
-    ========================== -->
 
-    <script src="js/config.js"></script>
+<!-- =========================
+     الفوتر
+========================== -->
 
+<footer class="main-footer">
 
-    <!-- =========================
-         حالة التطبيق
-    ========================== -->
+    <p>
+        © 2026 Sameh Abobakr — منصة كلية الهندسة الزراعية
+    </p>
 
-    <script src="js/state.js"></script>
-
-
-    <!-- =========================
-         البيانات الثابتة
-    ========================== -->
-
-    <script src="js/data.js"></script>
+</footer>
 
 
-    <!-- =========================
-         Supabase
-    ========================== -->
 
-    <script src="js/supabase.js"></script>
+<!-- =========================
+     Supabase Library
+========================== -->
 
-
-    <!-- =========================
-         واجهة المستخدم
-    ========================== -->
-
-    <script src="js/ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
-    <!-- =========================
-         التنقل
-    ========================== -->
 
-    <script src="js/navigation.js"></script>
+<!-- =========================
+     إعدادات Supabase
+========================== -->
 
-
-    <!-- =========================
-         الأقسام
-    ========================== -->
-
-    <script src="js/departments.js"></script>
+<script src="js/config.js"></script>
 
 
-    <!-- =========================
-         الصفحة الرئيسية
-    ========================== -->
 
-    <script src="js/home.js"></script>
+<!-- =========================
+     حالة التطبيق
+========================== -->
 
-
-    <!-- =========================
-         المواد
-    ========================== -->
-
-    <script src="js/subjects.js"></script>
+<script src="js/state.js"></script>
 
 
-    <!-- =========================
-         ملفات المواد
-    ========================== -->
 
-    <script src="js/materials.js"></script>
+<!-- =========================
+     البيانات الثابتة
+========================== -->
 
-
-    <!-- =========================
-         البحث
-    ========================== -->
-
-    <script src="js/search.js"></script>
+<script src="js/data.js"></script>
 
 
-    <!-- =========================
-         المساعد الذكي
-    ========================== -->
 
-    <script src="js/ai-assistant.js"></script>
+<!-- =========================
+     Supabase
+========================== -->
+
+<script src="js/supabase.js"></script>
 
 
-    <!-- =========================
-         تشغيل التطبيق
-    ========================== -->
 
-    <script src="js/app.js"></script>
+<!-- =========================
+     واجهة المستخدم
+========================== -->
+
+<script src="js/ui.js"></script>
+
+
+
+<!-- =========================
+     التنقل
+========================== -->
+
+<script src="js/navigation.js"></script>
+
+
+
+<!-- =========================
+     الأقسام
+========================== -->
+
+<script src="js/departments.js"></script>
+
+
+
+<!-- =========================
+     الصفحة الرئيسية
+========================== -->
+
+<script src="js/home.js"></script>
+
+
+
+<!-- =========================
+     المواد
+========================== -->
+
+<script src="js/subjects.js"></script>
+
+
+
+<!-- =========================
+     ملفات المواد
+========================== -->
+
+<script src="js/materials.js"></script>
+
+
+
+<!-- =========================
+     البحث
+========================== -->
+
+<script src="js/search.js"></script>
+
+
+
+<!-- =========================
+     المساعد الذكي
+========================== -->
+
+<script src="js/ai-assistant.js"></script>
+
+
+
+<!-- =========================
+     تشغيل التطبيق
+========================== -->
+
+<script src="js/app.js"></script>
+
 
 </body>
 
