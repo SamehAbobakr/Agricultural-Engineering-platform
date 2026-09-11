@@ -26,10 +26,13 @@ function renderDepartments() {
 
     departmentsList.forEach(dept => {
 
+        const deptNameJson =
+            JSON.stringify(dept.name).replace(/"/g, '&quot;');
+
         html += `
             <div
                 class="card"
-                onclick="selectDepartment('${dept.name}')"
+                onclick="selectDepartment(${deptNameJson})"
             >
 
                 <div class="card-header-icon">

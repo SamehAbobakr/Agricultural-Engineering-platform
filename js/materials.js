@@ -148,12 +148,18 @@ async function renderMaterialPage(subject) {
                 const activeClass = index === 0 ? ' active' : '';
                 const defaultId = index === 0 ? ' id="defaultTabBtn"' : '';
 
+                // إصلاح: استخدام JSON.stringify + ترميز الاقتباسات كـ HTML entity
+                // بدل الـ escaping اليدوي الناقص (كان بيهرب علامة الاقتباس المفردة
+                // بس، ومش بيتعامل مع الـ backslash، ده كان بيفتح ثغرة XSS)
+                const categoryJson =
+                    JSON.stringify(category).replace(/"/g, '&quot;');
+
                 html += `
                     <button
                         class="tab-btn${activeClass}"
                         ${defaultId}
-                        onclick="switchMaterialTab(this, '${category.replace(/'/g, "\\'")}', ${subJson})">
-                        ${category}
+                        onclick="switchMaterialTab(this, ${categoryJson}, ${subJson})">
+                        ${escapeHtml(category)}
                     </button>
                 `;
             });
@@ -385,8 +391,8 @@ async function switchMaterialTab(btnElement, type, subject) {
                             type="button"
                             class="material-download-btn"
                             onclick="downloadMaterialFile(
-                                '${targetUrl}',
-                                '${fileTitle.replace(/'/g, "\\'")}'
+                                ${JSON.stringify(targetUrl).replace(/"/g, '&quot;')},
+                                ${JSON.stringify(fileTitle).replace(/"/g, '&quot;')}
                             )"
                         >
                             <span>⬇️</span>

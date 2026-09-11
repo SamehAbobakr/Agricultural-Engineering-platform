@@ -49,7 +49,7 @@ async function renderHome() {
                     onclick="selectProgram('الهندسة الزراعية')">
 
                     <div class="card-header-icon">
-                        🌾
+                        🚜
                     </div>
 
                     <h3>
