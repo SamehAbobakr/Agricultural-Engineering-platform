@@ -2070,10 +2070,10 @@ function openMorePdf(item, title, icon) {
                     <button
                         type="button"
                         class="material-download-btn"
-                        onclick="downloadMaterialFile(
-                            '${item.pdf_url.replace(/'/g, "\\'")}',
-                            '${item.title.replace(/'/g, "\\'")}'
-                        )"
+                        onclick='downloadMaterialFile(
+                            ${JSON.stringify(item.pdf_url)},
+                            ${JSON.stringify(item.title)}
+                        )'
                     >
                         <span>⬇️</span>
                         <span>تحميل الملف</span>
