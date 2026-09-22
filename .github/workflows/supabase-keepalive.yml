@@ -5,6 +5,8 @@ name: Supabase Keep Alive
     - cron: '0 12 */3 * *'
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   keep-alive:
     runs-on: ubuntu-latest
