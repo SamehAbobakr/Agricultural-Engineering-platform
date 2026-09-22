@@ -6,6 +6,29 @@ async function renderHome() {
 
     updateSidebarActive();
 
+    const contentStatus = [
+    {
+        program: 'الهندسة الزراعية',
+        grade: 'الفرقة الأولى',
+        status: 'الترم الأول والثاني متاحان'
+    },
+    {
+        program: 'الهندسة الزراعية',
+        grade: 'الفرقة الثانية',
+        status: 'الترم الأول والثاني متاحان'
+    },
+    {
+        program: 'الهندسة الزراعية',
+        grade: 'الفرقة الثالثة',
+        status: 'الترم الأول متاح'
+    },
+    {
+        program: 'الهندسة الزراعية',
+        grade: 'الفرقة الرابعة',
+        status: 'الترم الأول متاح'
+    }
+];
+
 
     // =========================================
     // عرض الصفحة أولاً
@@ -37,6 +60,56 @@ async function renderHome() {
                 </div>
 
             </div>
+            <div class="content-status-card">
+
+    <div class="content-status-header">
+
+        <div>
+            <h2>حالة المحتوى الدراسي</h2>
+
+            <p>
+                تم بحمد الله تحديث المحتوى المتاح على المنصة
+            </p>
+        </div>
+
+        <span class="content-status-icon">
+            ✓
+        </span>
+
+    </div>
+
+<div class="content-status-list">
+
+    ${contentStatus.map(item => `
+
+        <div class="content-status-item">
+
+            <div class="content-status-info">
+
+                <div class="content-status-program">
+                    <span class="program-icon">🚜</span>
+                    <strong>${item.program}</strong>
+                </div>
+
+                <div class="content-status-grade">
+                    <span class="status-dot"></span>
+                    <span>${item.grade}</span>
+                </div>
+
+            </div>
+
+            <span class="content-status-text">
+                ${item.status}
+            </span>
+
+        </div>
+
+    `).join('')}
+
+</div>
+
+</div>
+
 
             <h2 class="section-title">
                 اختر القسم التعليمي

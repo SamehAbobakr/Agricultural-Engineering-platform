@@ -80,29 +80,6 @@ body {
         flex-direction: column;
     }
 
-    .sidebar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-
-        width: 280px;
-        min-width: 280px;
-
-        height: 100vh;
-        max-height: 100vh;
-
-        transform: translateX(100%);
-
-        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
-
-        z-index: 1000;
-    }
-
-    .sidebar.open {
-        transform: translateX(0);
-    }
-
     #mobileMenuBtn {
         display: flex;
         align-items: center;

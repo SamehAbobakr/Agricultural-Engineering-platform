@@ -1705,3 +1705,25 @@ function openMorePdf(item, title, icon) {
         </div>
     `;
 }
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebarContainer');
+    const toggle = document.getElementById('sidebarToggle');
+
+    if (!sidebar || !toggle) return;
+
+    const isCollapsed = sidebar.classList.toggle('collapsed');
+
+    toggle.setAttribute(
+        'aria-expanded',
+        String(!isCollapsed)
+    );
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('sidebarContainer');
+    const toggle = document.getElementById('sidebarToggle');
+
+    if (!sidebar || !toggle) return;
+
+    sidebar.classList.add('collapsed');
+    toggle.setAttribute('aria-expanded', 'false');
+});

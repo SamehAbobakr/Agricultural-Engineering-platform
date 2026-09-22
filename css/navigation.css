@@ -6,7 +6,7 @@
     width: 270px;
     min-width: 270px;
     background: var(--card-bg);
-    border-left: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
@@ -17,6 +17,38 @@
     top: 65px;
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 99;
+}
+
+/* =========================================
+   القائمة الجانبية - جهة اليسار
+========================================= */
+
+.app-layout {
+    direction: ltr;
+}
+
+.sidebar {
+    order: 1;
+    border-left: none;
+    border-right: 1px solid var(--border-color);
+}
+
+.content-area {
+    direction: rtl;
+    order: 2;
+}
+
+/* =========================================
+   حالة إخفاء القائمة الجانبية
+========================================= */
+
+.sidebar.collapsed {
+    width: 0;
+    min-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+    border: none;
 }
 
 .sidebar-brand {
@@ -34,7 +66,6 @@
     flex-direction: column;
     gap: 8px;
 }
-
 
 /* =========================================
    عناصر القائمة
@@ -81,7 +112,6 @@
     border-color: rgba(16, 185, 129, 0.3);
 }
 
-
 /* =========================================
    القائمة الفرعية
 ========================================= */
@@ -114,7 +144,6 @@
     background: rgba(255, 255, 255, 0.05);
 }
 
-
 /* =========================================
    زر القائمة في الموبايل
 ========================================= */
@@ -136,7 +165,6 @@
     color: var(--primary-color);
 }
 
-
 /* =========================================
    طبقة الخلفية عند فتح القائمة
 ========================================= */
@@ -156,7 +184,6 @@
     visibility: visible;
 }
 
-
 /* =========================================
    تحسين التركيز
 ========================================= */
@@ -167,11 +194,13 @@
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
+
 /* =========================================
    الهيدر - الكمبيوتر
 ========================================= */
 
 .main-header {
+    position: relative;
     margin: 0;
     padding: 0;
     min-height: 0;
@@ -185,17 +214,13 @@
     align-items: center;
     justify-content: space-between;
     direction: rtl;
-
     width: 100%;
     height: 50px;
     min-height: 50px;
-
     padding: 2px 8px;
     margin: 0;
-
     box-sizing: border-box;
 }
-
 
 /* =========================================
    الجرار - أقصى اليسار
@@ -215,7 +240,6 @@
     font-size: 24px;
 }
 
-
 /* =========================================
    النص - المنتصف
 ========================================= */
@@ -224,9 +248,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
-
     transform: translate(-50%, -50%);
-
     white-space: nowrap;
     margin: 0;
     padding: 0;
@@ -236,28 +258,21 @@
     font-size: 14px;
 }
 
-
 /* =========================================
    أزرار التنقل - أقصى اليمين
 ========================================= */
 
 .navigation-controls {
     order: 1;
-
     margin: 0 0 0 auto;
     padding: 0;
-
     display: flex;
     align-items: center;
-
     gap: 5px;
-
     border: none;
     background: transparent;
-
     flex-shrink: 0;
 }
-
 
 /* =========================================
    أزرار الأسهم - الكمبيوتر
@@ -266,26 +281,18 @@
 .navigation-controls button {
     width: 32px;
     height: 32px;
-
     margin: 0;
     padding: 0;
-
     border: 1px solid var(--border-color);
     border-radius: 6px;
-
     background: var(--card-bg);
     color: var(--text-color);
-
     font-size: 18px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     box-sizing: border-box;
-
     cursor: pointer;
-
     transition: 0.2s ease;
 }
 
@@ -298,7 +305,6 @@
     opacity: 0.35;
     cursor: not-allowed;
 }
-
 
 /* =========================================
    الموبايل - تصغير الهيدر
@@ -316,18 +322,15 @@
     .header-container {
         height: 32px;
         min-height: 32px;
-
         padding: 1px 4px;
         margin: 0;
     }
 
-
-    /* الجرار */
+    /* إخفاء الجرار على الموبايل */
 
     .logo-icon {
-        font-size: 16px;
+        display: none;
     }
-
 
     /* النص */
 
@@ -335,21 +338,131 @@
         font-size: 9px;
     }
 
-
     /* الأسهم */
 
     .navigation-controls {
         margin-left: auto;
         margin-right: 0;
-
         gap: 4px;
     }
 
     .navigation-controls button {
         width: 22px;
         height: 22px;
-
         font-size: 13px;
         border-radius: 4px;
+    }
+}
+
+/* =========================================
+   زر القائمة الجانبية
+========================================= */
+
+.sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+
+    background: var(--card-bg);
+    color: var(--text-color);
+
+    font-size: 20px;
+    line-height: 1;
+
+    cursor: pointer;
+    z-index: 110;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.sidebar-toggle:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* =========================================
+   زر القائمة - الموبايل
+========================================= */
+
+@media (max-width: 768px) {
+
+    .sidebar-toggle {
+        display: flex;
+
+        position: absolute;
+
+        left: 5px;
+        right: auto;
+
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 24px;
+        height: 24px;
+
+        padding: 0;
+
+        font-size: 15px;
+        border-radius: 5px;
+
+        z-index: 110;
+    }
+}
+
+/* =========================================
+   القائمة - الموبايل
+========================================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: fixed;
+
+        top: 32px;
+        left: 0;
+
+        width: 270px;
+        min-width: 270px;
+
+        height: calc(100vh - 32px);
+
+        z-index: 1000;
+
+        background: var(--card-bg);
+
+        transition: none;
+    }
+
+    .sidebar.collapsed {
+        width: 0;
+        min-width: 0;
+
+        padding-left: 0;
+        padding-right: 0;
+
+        overflow: hidden;
+
+        border: none;
     }
 }
