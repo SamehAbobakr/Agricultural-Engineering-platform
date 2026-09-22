@@ -19,3 +19,25 @@
     --grade-3: #f59e0b;
     --grade-4: #a855f7;
 }
+
+/* =========================================
+   الوضع النهاري
+========================================= */
+
+body.light-mode {
+    --bg-color: #f1f5f9;
+    --card-bg: #ffffff;
+
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+
+    --border-color: #e2e8f0;
+
+    --primary-color: #10b981;
+    --secondary-color: #3b82f6;
+
+    --grade-1: #3b82f6;
+    --grade-2: #10b981;
+    --grade-3: #f59e0b;
+    --grade-4: #a855f7;
+}

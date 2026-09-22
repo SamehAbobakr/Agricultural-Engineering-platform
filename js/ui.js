@@ -1727,3 +1727,47 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.add('collapsed');
     toggle.setAttribute('aria-expanded', 'false');
 });
+function toggleTheme() {
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (!body || !themeToggle) return;
+
+    const isLightMode = body.classList.toggle('light-mode');
+
+    localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+
+    themeToggle.textContent = isLightMode ? '☀️' : '🌙';
+
+    themeToggle.setAttribute(
+        'aria-label',
+        isLightMode ? 'تفعيل الوضع الليلي' : 'تفعيل الوضع النهاري'
+    );
+
+    themeToggle.setAttribute(
+        'title',
+        isLightMode ? 'الوضع الليلي' : 'الوضع النهاري'
+    );
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (!themeToggle) return;
+
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.textContent = '☀️';
+
+        themeToggle.setAttribute(
+            'aria-label',
+            'تفعيل الوضع الليلي'
+        );
+
+        themeToggle.setAttribute(
+            'title',
+            'الوضع الليلي'
+        );
+    }
+});
