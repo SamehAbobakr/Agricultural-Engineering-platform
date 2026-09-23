@@ -80,11 +80,7 @@
 ========================================= */
 
 .material-file-card {
-    background: linear-gradient(
-        145deg,
-        rgba(30, 41, 59, 0.98),
-        rgba(25, 36, 53, 0.98)
-    );
+    background: var(--card-bg);
 
     border: 1px solid var(--border-color);
     border-radius: 16px;
