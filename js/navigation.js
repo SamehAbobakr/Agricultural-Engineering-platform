@@ -52,7 +52,7 @@ function saveNavigationState() {
             state.subject?.id || null
         )
     ) {
-        updateNavigationButtons();
+        
         return;
     }
 
@@ -60,60 +60,9 @@ function saveNavigationState() {
 
     navigationIndex = navigationHistory.length - 1;
 
-    updateNavigationButtons();
+    
 }
 
-
-// =========================================
-// الرجوع خطوة
-// =========================================
-
-function goBack() {
-
-    if (navigationIndex <= 0) {
-        return;
-    }
-
-    navigationIndex--;
-
-    const state = navigationHistory[navigationIndex];
-
-    currentProgram = state.program || '';
-    currentGrade = state.grade || '';
-    currentDept = state.dept || '';
-    currentTerm = state.term || '';
-    currentSubject = state.subject || null;
-
-    renderNavigationState();
-
-    updateNavigationButtons();
-}
-
-
-// =========================================
-// التقدم خطوة
-// =========================================
-
-function goForward() {
-
-    if (navigationIndex >= navigationHistory.length - 1) {
-        return;
-    }
-
-    navigationIndex++;
-
-    const state = navigationHistory[navigationIndex];
-
-    currentProgram = state.program || '';
-    currentGrade = state.grade || '';
-    currentDept = state.dept || '';
-    currentTerm = state.term || '';
-    currentSubject = state.subject || null;
-
-    renderNavigationState();
-
-    updateNavigationButtons();
-}
 
 
 // =========================================
@@ -142,7 +91,7 @@ function goToHistoryState(index) {
 
     renderNavigationState();
 
-    updateNavigationButtons();
+    
 }
 // =========================================
 // الانتقال إلى مستوى معين في الـHistory
@@ -228,8 +177,6 @@ function goToHistoryLevel(level) {
 
 function renderNavigationState() {
 
-    updateSidebarActive();
-
     showLoading(() => {
 
         // داخل مادة
@@ -287,31 +234,12 @@ function renderNavigationState() {
         renderSubjects();
     });
 }
-// =========================================
-// تحديث حالة أزرار التنقل
-// =========================================
-
-function updateNavigationButtons() {
-
-    const backBtn = document.getElementById('backBtn');
-    const forwardBtn = document.getElementById('forwardBtn');
-
-    if (!backBtn || !forwardBtn) {
-        return;
-    }
-
-    backBtn.disabled = navigationIndex <= 0;
-
-    forwardBtn.disabled =
-        navigationIndex >= navigationHistory.length - 1;
-}
 
 function selectGrade(grade) {
     currentGrade = grade;
     currentDept = '';
     currentTerm = '';
 
-    updateSidebarActive();
     saveNavigationState();
 
     showLoading(() => {
@@ -340,7 +268,6 @@ function selectDeptDirect(grade, dept) {
     currentDept = dept;
     currentTerm = '';
 
-    updateSidebarActive();
 
     saveNavigationState();
 
@@ -378,7 +305,7 @@ function resetView() {
 
     renderNavigationState();
 
-    updateNavigationButtons();
+    
 }
 
 function selectProgram(program) {

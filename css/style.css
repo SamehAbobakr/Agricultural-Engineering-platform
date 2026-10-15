@@ -18,7 +18,11 @@ html {
 }
 
 body {
-    background: linear-gradient(135deg, #0f172a, #16243f, #1e293b);
+    background: linear-gradient(
+        135deg,
+        var(--bg-color),
+        var(--card-bg)
+    );
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
@@ -26,7 +30,6 @@ body {
     overflow-x: hidden;
     direction: rtl;
 }
-
 html,
 body {
     max-width: 100%;

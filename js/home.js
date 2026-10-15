@@ -4,32 +4,6 @@ async function renderHome() {
     currentDept = '';
     currentTerm = '';
 
-    updateSidebarActive();
-
-    const contentStatus = [
-    {
-        program: 'الهندسة الزراعية',
-        grade: 'الفرقة الأولى',
-        status: 'الترم الأول والثاني متاحان'
-    },
-    {
-        program: 'الهندسة الزراعية',
-        grade: 'الفرقة الثانية',
-        status: 'الترم الأول والثاني متاحان'
-    },
-    {
-        program: 'الهندسة الزراعية',
-        grade: 'الفرقة الثالثة',
-        status: 'الترم الأول متاح'
-    },
-    {
-        program: 'الهندسة الزراعية',
-        grade: 'الفرقة الرابعة',
-        status: 'الترم الأول متاح'
-    }
-];
-
-
     // =========================================
     // عرض الصفحة أولاً
     // =========================================
@@ -50,63 +24,13 @@ async function renderHome() {
                 </div>
 
                 <div class="stat-card">
-                    <h3 id="toolsCount">...</h3>
-                    <p>🛠️ الأدوات التعليمية</p>
-                </div>
-
-                <div class="stat-card">
                     <h3 id="professorsCount">...</h3>
                     <p>👨‍🏫 أعضاء هيئة التدريس</p>
                 </div>
 
             </div>
-            <div class="content-status-card">
+            
 
-    <div class="content-status-header">
-
-        <div>
-            <h2>حالة المحتوى الدراسي</h2>
-
-            <p>
-                تم بحمد الله تحديث المحتوى المتاح على المنصة
-            </p>
-        </div>
-
-        <span class="content-status-icon">
-            ✓
-        </span>
-
-    </div>
-
-<div class="content-status-list">
-
-    ${contentStatus.map(item => `
-
-        <div class="content-status-item">
-
-            <div class="content-status-info">
-
-                <div class="content-status-program">
-                    <span class="program-icon">🚜</span>
-                    <strong>${item.program}</strong>
-                </div>
-
-                <div class="content-status-grade">
-                    <span class="status-dot"></span>
-                    <span>${item.grade}</span>
-                </div>
-
-            </div>
-
-            <span class="content-status-text">
-                ${item.status}
-            </span>
-
-        </div>
-
-    `).join('')}
-
-</div>
 
 </div>
 
@@ -216,225 +140,14 @@ async function renderHome() {
             </div>
 
             </div>
-            </div>
-
-
-            <h2 class="section-title" style="margin-top: 35px;">
-                أدوات المنصة
-            </h2>
-
-            <div class="tools-grid">
-
-                <!-- =========================
-                    Obsidian
-                ========================== -->
-
-                <div class="card"
-                    style="
-                        border-top: 4px solid var(--primary-color);
-                    ">
-
-                    <div class="card-header-icon">
-
-                        <img
-                            src="assets/images/icons/obsidian-.png"
-                            alt="Obsidian"
-                            style="
-                                width: 52px;
-                                height: 52px;
-                                object-fit: contain;
-                            "
-                        >
-
-                    </div>
-
-                    <h3>
-                        Obsidian
-                    </h3>
-
-                    <p class="card-info">
-                        أداة لتنظيم الملاحظات وربط الأفكار والمعلومات،
-                        تساعدك على بناء قاعدة معرفة خاصة بك للمذاكرة.
-                    </p>
-
-                    <div class="tool-actions">
-
-                        <a
-                            class="tool-button"
-                            href="https://www.youtube.com/watch?v=NHVXgWJiIcs"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            🎬 مشاهدة الشرح
-                        </a>
-
-                        <a
-                            class="tool-button"
-                            href="https://obsidian.md/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            🌐 الموقع الرسمي
-                        </a>
-
-                    </div>
-
-                </div>
-                <!-- =========================
-                    مؤقت المذاكرة
-                ========================== -->
-
-                <div class="card"
-                    style="
-                        border-top: 4px solid var(--primary-color);
-                    ">
-
-                    <div class="card-header-icon">
-
-                        <img
-                            src="assets/images/icons/alarm-clock.png"
-                            alt="مؤقت المذاكرة"
-                            style="
-                                width: 52px;
-                                height: 52px;
-                                object-fit: contain;
-                            "
-                        >
-
-                    </div>
-
-                    <h3>
-                        مؤقت المذاكرة
-                    </h3>
-
-                    <p class="card-info">
-                        أداة تساعدك على تنظيم وقت المذاكرة والتركيز،
-                        من خلال مؤقت بسيط وسهل الاستخدام.
-                    </p>
-
-                    <div class="tool-actions">
-
-                        <a
-                            class="tool-button"
-                            href="tools/study-timer.html"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            ⏱️ فتح المؤقت
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =========================
-                    NotebookLM
-                ========================== -->
-
-                <div class="card"
-                    style="
-                        border-top: 4px solid var(--primary-color);
-                    ">
-
-                    <div class="card-header-icon">
-
-                        <img
-                            src="assets/images/icons/NotebookLM.jfif"
-                            alt="NotebookLM"
-                            style="
-                                width: 52px;
-                                height: 52px;
-                                object-fit: contain;
-                            "
-                        >
-
-                    </div>
-
-                    <h3>
-                        NotebookLM
-                    </h3>
-
-                    <p class="card-info">
-                        مساعد ذكي يساعدك على فهم وتلخيص المصادر والملفات
-                        الدراسية والإجابة عن أسئلتك اعتمادًا على محتواها.
-                    </p>
-
-                    <div class="tool-actions">
-
-                        <a
-                            class="tool-button"
-                            href="https://www.youtube.com/watch?v=YTfhgzDZZ0w"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            🎬 مشاهدة الشرح
-                        </a>
-
-                        <a
-                            class="tool-button"
-                            href="https://notebooklm.google.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            🌐 الموقع الرسمي
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =========================
-                    سبورة الشرح
-                ========================== -->
-
-                <div class="card"
-                    style="
-                        border-top: 4px solid var(--primary-color);
-                    ">
-
-                    <div class="card-header-icon">
-                        🖊️
-                    </div>
-
-                    <h3>
-                        سبورة الشرح
-                    </h3>
-
-                    <p class="card-info">
-                        سبورة تفاعلية للشرح والمذاكرة والمحاضرات.
-                    </p>
-
-                    <div class="tool-actions">
-
-                        <a
-                            class="tool-button"
-                            href="https://spahboard.ninjascribe.workers.dev/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            فتح السبورة
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
+        </div>
     `;
+
 
 
     document.getElementById('contentArea').innerHTML = html;
 
-
-    // =========================================
-    // عدد الأدوات من HTML
-    // =========================================
-
-const toolsCount = document.querySelectorAll('.tool-item').length;  
-
-
+ 
     // =========================================
     // جلب الإحصائيات من Supabase
     // =========================================
@@ -512,12 +225,6 @@ const toolsCount = document.querySelectorAll('.tool-item').length;
                 'professorsCount',
                 uniqueProfessors.size
             );
-
-            animateCounter(
-                'toolsCount',
-                toolsCount
-            );
-
 
     } catch (error) {
 

@@ -2,7 +2,14 @@
 
 <html lang="ar" dir="rtl">
 
-<head>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "yxoktfjh1b");
+</script>
+     <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,93 +37,78 @@
 <body>
 
 
+
 <!-- =========================
-     الهيدر
+     الهيدر الرئيسي
 ========================== -->
 
 <header class="main-header">
-
-     <!-- زر القائمة الجانبية -->
-
-    <button
-    type="button"
-    class="sidebar-toggle"
-    id="sidebarToggle"
-    aria-label="فتح وإغلاق القائمة"
-    aria-expanded="true"
-    onclick="toggleSidebar()"
->
-    ☰
-</button>
-<button
-    type="button"
-    class="theme-toggle"
-    id="themeToggle"
-    aria-label="تفعيل الوضع النهاري"
-    title="الوضع النهاري"
-    onclick="toggleTheme()"
->
-    🌙
-</button>
     <div class="header-container">
-        
-        
-        <!-- الشعار -->
 
-        <div class="logo-area">
-
-            <span class="logo-icon">
-                🚜
+        <!-- شعار واسم المنصة -->
+        <a href="index.html" class="logo-area" aria-label="الصفحة الرئيسية">
+            <span class="logo-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M19 3h10l1.4 5.1 4.1 1.7 4.7-2.5 5 8.7-3.8 3.6v4.8l3.8 3.6-5 8.7-4.7-2.5-4.1 1.7L29 43H19l-1.4-5.1-4.1-1.7-4.7 2.5-5-8.7 3.8-3.6v-4.8l-3.8-3.6 5-8.7 4.7 2.5 4.1-1.7L19 3Z"
+                        stroke="currentColor" stroke-width="2.5"
+                        stroke-linejoin="round"/>
+                    <circle cx="24" cy="24" r="9"
+                        stroke="currentColor" stroke-width="2.5"/>
+                    <path d="M24 29v-9m0 5c-5 0-6-4-6-4 4-1 6 1 6 4Zm0-3c0-4 3-6 6-6 0 4-2 6-6 6Z"
+                        stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </span>
 
-            <h1>
-                كلية الهندسة الزراعية - جامعة الأزهر
-            </h1>
-
-        </div>
-
-
-        <!-- النص في المنتصف -->
-
-        <div class="welcome-center">
-
-            <span class="welcome-text">
-                مرحباً بك فى منصة الهندسة الزراعية
+            <span class="logo-text">
+                <strong>منصة الهندسة الزراعية</strong>
+                <small>جامعة الأزهر</small>
             </span>
+        </a>
 
-        </div>
+        <!-- روابط التنقل -->
+        
+        
+<nav class="main-nav" aria-label="التنقل الرئيسي">
+    <a href="index.html" class="nav-link" data-nav="home">
+        الرئيسية
+    </a>
+
+    <a href="#" class="nav-link" data-nav="dashboard">
+        لوحة إنجاز الطالب
+    </a>
+
+    <a href="#" class="nav-link" data-nav="about">
+        عن الكلية
+    </a>
+
+    <a href="/tools/tools.html"
+        class="nav-link active"
+        data-nav="tools"
+        aria-current="page">
+            الأدوات
+        </a>
+</nav>
 
 
-        <!-- أزرار التنقل -->
 
-        <div class="navigation-controls">
-
-            <button
-                type="button"
-                id="backBtn"
-                onclick="goBack()"
-                aria-label="رجوع"
-                title="رجوع"
-            >
-                →
-            </button>
-
-
-            <button
-                type="button"
-                id="forwardBtn"
-                onclick="goForward()"
-                aria-label="تقدم"
-                title="تقدم"
-            >
-                ←
-            </button>
-
-        </div>
+        <!-- الوضع الليلي -->
+        <button
+            type="button"
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="تغيير الوضع"
+            title="الوضع النهاري أو الليلي"
+            onclick="toggleTheme()"
+        >
+            🌙
+        </button>
 
     </div>
-
 </header>
+
+
+
 
 
 
@@ -126,224 +118,9 @@
 
 <div class="app-layout">
 
-
-    <!-- =========================
-         القائمة الجانبية
-    ========================== -->
-
-    <aside
-        class="sidebar"
-        id="sidebarContainer"
-    >
-
-        <div class="sidebar-brand">
-            قائمة التنقل
-        </div>
-
-
-        <ul class="sidebar-menu">
-
-
-            <!-- =========================
-                 الرئيسية
-            ========================== -->
-
-            <li
-                class="sidebar-item menu-item active"
-                id="side-home"
-                onclick="resetView()"
-            >
-
-                <span class="menu-icon">
-                    🏠
-                </span>
-
-                الرئيسية
-
-            </li>
-
-
-            <!-- =========================
-                 الهندسة الزراعية
-            ========================== -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-agricultural"
-                onclick="selectProgram('الهندسة الزراعية')"
-            >
-
-                <span class="menu-icon">
-                    🚜
-                </span>
-
-                الهندسة الزراعية
-
-            </li>
-
-
-            <!-- =========================
-                 اللاندسكيب والمسطحات الخضراء
-            ========================== -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-landscape"
-                onclick="selectProgram('اللاندسكيب والمسطحات الخضراء')"
-            >
-
-                <span class="menu-icon">
-                    🌿
-                </span>
-
-                اللاندسكيب والمسطحات الخضراء
-
-            </li>
-
-
-            <!-- =========================
-                 مصادر إضافية
-            ========================== -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-external"
-                onclick="selectProgram('مصادر إضافية')"
-            >
-
-                <span class="menu-icon">
-                    🌐
-                </span>
-
-                مصادر إضافية
-
-            </li>
-
-
-            <!-- =========================
-                 المزيد
-            ========================== -->
-
-            <li
-                class="sidebar-item menu-item"
-                id="side-more"
-                onclick="selectProgram('المزيد')"
-            >
-
-                <span class="menu-icon">
-                    ➕
-                </span>
-
-                المزيد
-
-            </li>
-
-
-            <!-- =========================
-                 الأدوات
-            ========================== -->
-
-
-            <!-- Obsidian -->
-
-            <li
-                class="menu-item tool-item"
-                onclick="openObsidian()"
-            >
-
-                <span class="menu-icon">
-
-                    <img
-                        src="assets/images/icons/obsidian-.png"
-                        alt="Obsidian"
-                    >
-
-                </span>
-
-                Obsidian
-
-            </li>
-
-
-            <!-- مؤقت المذاكرة -->
-
-            <li
-                class="menu-item tool-item"
-                onclick="openStudyTimer()"
-            >
-
-                <span class="menu-icon">
-
-                    <img
-                        src="assets/images/icons/alarm-clock.png"
-                        alt="مؤقت المذاكرة"
-                    >
-
-                </span>
-
-                مؤقت المذاكرة
-
-            </li>
-
-
-            <!-- NotebookLM -->
-
-            <li
-                class="menu-item tool-item"
-                onclick="openNotebookLM()"
-            >
-
-                <span class="menu-icon">
-
-                    <img
-                        src="assets/images/icons/NotebookLM.jfif"
-                        alt="NotebookLM"
-                    >
-
-                </span>
-
-                NotebookLM
-
-            </li>
-
-
-            <!-- سبورة الشرح -->
-
-            <li
-                class="menu-item tool-item"
-                onclick="openWhiteboard()"
-            >
-
-                <span class="menu-icon">
-                    🖊️
-                </span>
-
-                سبورة الشرح
-
-            </li>
-
-
-        </ul>
-
-    </aside>
-
-
-
-    <!-- =========================
-         مساحة المحتوى
-    ========================== -->
-
-    <main
-        class="content-area"
-        id="contentArea"
-    >
-
-        <!--
-            المحتوى يتم إنشاؤه بواسطة JavaScript
-        -->
-
+    <main class="content-area" id="contentArea">
+        <!-- المحتوى يتم إنشاؤه بواسطة JavaScript -->
     </main>
-
 
 </div>
 

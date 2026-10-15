@@ -1,29 +1,4 @@
-function updateSidebarActive() {
-    document.querySelectorAll('.sidebar-item').forEach(el => {
-        el.classList.remove('active');
-    });
 
-    if (!currentGrade) {
-        const homeEl = document.getElementById('side-home');
-        if (homeEl) homeEl.classList.add('active');
-
-    } else if (currentGrade === 'الفرقة الأولى') {
-        const g1 = document.getElementById('side-g1');
-        if (g1) g1.classList.add('active');
-
-    } else if (currentGrade === 'الفرقة الثانية') {
-        const g2 = document.getElementById('side-g2');
-        if (g2) g2.classList.add('active');
-
-    } else if (currentGrade === 'الفرقة الثالثة') {
-        const g3 = document.getElementById('side-g3');
-        if (g3) g3.classList.add('active');
-
-    } else if (currentGrade === 'الفرقة الرابعة') {
-        const g4 = document.getElementById('side-g4');
-        if (g4) g4.classList.add('active');
-    }
-}
 
 function toggleScrollBtn() {
     const btn = document.getElementById('scrollTopBtn');
@@ -703,7 +678,7 @@ async function openMoreItem(id) {
 
         navigationIndex = navigationHistory.length - 1;
 
-        updateNavigationButtons();
+        
 
 
         // =========================================
@@ -1705,28 +1680,7 @@ function openMorePdf(item, title, icon) {
         </div>
     `;
 }
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebarContainer');
-    const toggle = document.getElementById('sidebarToggle');
 
-    if (!sidebar || !toggle) return;
-
-    const isCollapsed = sidebar.classList.toggle('collapsed');
-
-    toggle.setAttribute(
-        'aria-expanded',
-        String(!isCollapsed)
-    );
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.getElementById('sidebarContainer');
-    const toggle = document.getElementById('sidebarToggle');
-
-    if (!sidebar || !toggle) return;
-
-    sidebar.classList.add('collapsed');
-    toggle.setAttribute('aria-expanded', 'false');
-});
 function toggleTheme() {
     const body = document.body;
     const themeToggle = document.getElementById('themeToggle');
@@ -1771,3 +1725,34 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 });
+
+/* =========================================
+   تحديد رابط الهيدر النشط تلقائيًا
+========================================= */
+
+function updateHeaderActiveLink() {
+    const links = document.querySelectorAll('.main-nav .nav-link');
+    const currentPath = window.location.pathname.toLowerCase();
+
+    let activeNav = 'home';
+
+    if (/\/student_dashboard(?:\.html)?\/?$/.test(currentPath)) {
+        activeNav = 'dashboard';
+    } else if (/\/tools\/tools\.html$/.test(currentPath)) {
+        activeNav = 'tools';
+    }
+
+    links.forEach(link => {
+        const isActive = link.dataset.nav === activeNav;
+
+        link.classList.toggle('active', isActive);
+
+        if (isActive) {
+            link.setAttribute('aria-current', 'page');
+        } else {
+            link.removeAttribute('aria-current');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', updateHeaderActiveLink);
