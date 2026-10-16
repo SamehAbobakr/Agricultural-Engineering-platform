@@ -46,7 +46,7 @@
     <div class="header-container">
 
         <!-- شعار واسم المنصة -->
-        <a href="index.html" class="logo-area" aria-label="الصفحة الرئيسية">
+        <a href="../index.html" class="logo-area" aria-label="الصفحة الرئيسية">
             <span class="logo-icon" aria-hidden="true">
                 <svg viewBox="0 0 48 48" fill="none">
                     <path d="M19 3h10l1.4 5.1 4.1 1.7 4.7-2.5 5 8.7-3.8 3.6v4.8l3.8 3.6-5 8.7-4.7-2.5-4.1 1.7L29 43H19l-1.4-5.1-4.1-1.7-4.7 2.5-5-8.7 3.8-3.6v-4.8l-3.8-3.6 5-8.7 4.7 2.5 4.1-1.7L19 3Z"
@@ -67,29 +67,30 @@
         </a>
 
         <!-- روابط التنقل -->
-        
-        
-<nav class="main-nav" aria-label="التنقل الرئيسي">
-    <a href="../index.html" class="nav-link" data-nav="home">
-        الرئيسية
-    </a>
+        <nav class="main-nav" aria-label="التنقل الرئيسي">
+            <a href="../index.html" class="nav-link" data-nav="home">
+                الرئيسية
+            </a>
 
-    <a href="student_dashboard/index.html" class="nav-link" data-nav="dashboard">
-        لوحة إنجاز الطالب
-    </a>
+            <a href="../student_dashboard/index.html"
+               class="nav-link"
+               data-nav="dashboard">
+                لوحة إنجاز الطالب
+            </a>
 
-    <a href="../about/about.html" class="nav-link" data-nav="about">
-        عن الكلية
-    </a>
+            <a href="../about/about.html"
+               class="nav-link"
+               data-nav="about">
+                عن الكلية
+            </a>
 
-    <a href="../tools/tools.html"
-        class="nav-link"
-        data-nav="tools">
-        الأدوات
-    </a>
-</nav>
-
-
+            <a href="./tools.html"
+               class="nav-link"
+               data-nav="tools"
+               aria-current="page">
+                الأدوات
+            </a>
+        </nav>
 
         <!-- الوضع الليلي -->
         <button
@@ -98,30 +99,23 @@
             id="themeToggle"
             aria-label="تغيير الوضع"
             title="الوضع النهاري أو الليلي"
-            onclick="toggleTheme()"
-        >
+            onclick="toggleTheme()">
             🌙
         </button>
 
     </div>
 </header>
 
-
-
-
-
-
 <!-- =========================
      الهيكل الرئيسي
 ========================== -->
 
 <div class="app-layout">
-
     <main class="content-area" id="contentArea">
         <!-- المحتوى يتم إنشاؤه بواسطة JavaScript -->
     </main>
-
 </div>
+
 
 
 
