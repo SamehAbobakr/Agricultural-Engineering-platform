@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="لوحة متابعة المذاكرة والأهداف لطلاب كلية الهندسة الزراعية">
+    <meta name="theme-color" content="#10b981">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚜%3C/text%3E%3C/svg%3E">
+    <title>منصة الهندسة الزراعية | لوحة إنجاز الطالب</title>
+    
+    <!-- خط Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@0.469.0"></script>
+    <!-- Tailwind: أدوات التخطيط فقط (flex/grid/المسافات). الألوان والوضع الداكن من CSS المنصة -->
+    <link rel="stylesheet" href="css/tailwind.css">
+
+    <!-- CSS المنصة الرئيسي (المجلد المشترك ../css) — نفس ترتيب التحميل: المتغيرات أولًا والـ responsive أخيرًا -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <!-- تنسيقات مكونات لوحة الإنجاز فقط (تعتمد على متغيرات المنصة) -->
+    <style>
+/* =========================================================================
+   لوحة إنجاز الطالب — تنسيقات المكونات الخاصة باللوحة فقط
+   -------------------------------------------------------------------------
+   • لا يعرّف هذا الملف أي ألوان أو خطوط أو وضع داكن خاص به.
+   • كل القيم تأتي من متغيرات المنصة في ../css/variables.css:
+       --bg-color  --card-bg  --text-main  --text-muted  --border-color
+       --primary-color  --secondary-color  --grade-1..4
+   • الوضع الداكن/النهاري: الافتراضي داكن، والنهاري بـ body.light-mode
+     (نفس آلية المنصة)، والمتغيرات هي التي تتبدل تلقائياً.
+   • يُحمَّل هذا الملف بعد ملفات ../css/*.css وبعد tailwind.css.
+   ========================================================================= */
+
+
+/* =========================================
+   أساسيات
+========================================= */
+
+/* لون الحدود الافتراضي لأدوات Tailwind (border / border-t / border-b)
+   يتبع متغير المنصة. :where() يُبقي أولويته صفرًا فلا يمس حدود المنصة. */
+:where(.dashboard-page) *,
+:where(.dashboard-page) ::before,
+:where(.dashboard-page) ::after {
+    border-color: var(--border-color);
+}
+
+/* عناصر قوائم select في المتصفحات التي ترسمها بألوان النظام */
+.dashboard-page select option {
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+/* مراعاة تفضيل تقليل الحركة (غير موجود في المنصة) */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-page *,
+    .dashboard-page ::before,
+    .dashboard-page ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ألوان مساعدة (المنصة لا تعرّف أدوات ألوان) */
+.dash-muted   { color: var(--text-muted); }
+.dash-strong  { color: var(--text-main); font-weight: 700; }
+.dash-accent  { color: var(--primary-color); }
+.dash-danger  { color: #ef4444; }
+.dash-note-icon { color: var(--grade-3); }
+
+
+/* =========================================
+   الهيدر: عناصر لا يعرّفها CSS المنصة
+   (الشعار والروابط وزر الوضع الليلي من navigation.css)
+========================================= */
+
+/* responsive.css يجعل .header-actions بعرض 100% على الموبايل؛
+   هنا هي مجموعة أزرار صغيرة بجانب الشعار */
+.main-header .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    width: auto;
+}
+
+/* أيقونة الشمس في الداكن، والقمر في النهاري (بدل dark: في Tailwind) */
+.theme-icon-moon { display: none; }
+body.light-mode .theme-icon-sun  { display: none; }
+body.light-mode .theme-icon-moon { display: block; }
+
+/* زر الملف الشخصي */
+.profile-header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 4px 6px 4px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 13px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.profile-header-btn:hover {
+    background: rgba(16, 185, 129, 0.07);
+    border-color: var(--primary-color);
+}
+
+.profile-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: #06130e;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.profile-user-name {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-chevron {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+@media (max-width: 700px) {
+    .profile-header-btn {
+        min-height: 36px;
+        padding: 3px;
+        border-radius: 11px;
+    }
+
+    .profile-user-name,
+    .profile-chevron {
+        display: none;
+    }
+}
+
+
+/* =========================================
+   الأزرار (المنصة لا تعرّف .btn عامًا)
+   الأبعاد والألوان مطابقة لـ .tool-button و .material-open-btn
+========================================= */
+
+.dash-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.2s ease, background-color 0.2s ease,
+                border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dash-btn:hover {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.dash-btn:active:not(:disabled) { transform: scale(0.98); }
+
+.dash-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* أساسي (مثل .material-open-btn) */
+.dash-btn--primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #06130e;
+    font-weight: 800;
+}
+
+.dash-btn--primary:hover {
+    background: var(--primary-color);
+    color: #06130e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.22);
+}
+
+/* خفيف: لون المنصة الأساسي بشفافية */
+.dash-btn--soft {
+    background: rgba(16, 185, 129, 0.12);
+    border-color: rgba(16, 185, 129, 0.25);
+    color: var(--primary-color);
+}
+
+.dash-btn--soft:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.2);
+}
+
+/* رابط ثانوي (مثل .material-download-btn) */
+.dash-btn--link {
+    background: transparent;
+    border-color: rgba(59, 130, 246, 0.38);
+    color: var(--secondary-color);
+}
+
+.dash-btn--link:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+/* بدون إطار (إلغاء) */
+.dash-btn--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--text-muted);
+}
+
+.dash-btn--ghost:hover {
+    background: rgba(16, 185, 129, 0.07);
+    border-color: transparent;
+    color: var(--text-main);
+}
+
+/* أحجام */
+.dash-btn--sm {
+    min-height: 34px;
+    padding: 4px 10px;
+    gap: 5px;
+    font-size: 0.75rem;
+    border-radius: 8px;
+}
+
+.dash-btn--icon {
+    width: 42px;
+    padding: 0;
+}
+
+.dash-btn--icon.dash-btn--sm {
+    width: 34px;
+}
+
+/* زر أيقونة بلا إطار (تعديل / إغلاق / حذف) */
+.dash-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    min-height: 0;
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dash-icon-btn:hover {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--primary-color);
+}
+
+
+/* =========================================
+   البطل (الترحيب)
+========================================= */
+
+.dash-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border: 1px solid rgba(16, 185, 129, 0.22);
+    border-radius: 20px;
+    background:
+        linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(16, 185, 129, 0.03)),
+        var(--card-bg);
+    color: var(--text-main);
+}
+
+@media (min-width: 768px) {
+    .dash-hero { padding: 32px; }
+}
+
+.dash-hero-glow {
+    position: absolute;
+    left: -40px;
+    bottom: -40px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(16, 185, 129, 0.12);
+    filter: blur(48px);
+    pointer-events: none;
+}
+
+.dash-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.dash-pill--sm {
+    padding: 1px 8px;
+}
+
+.dash-hero h1 { color: var(--text-main); }
+.dash-hero-quote { color: var(--text-muted); }
+
+
+/* =========================================
+   بطاقات الإحصائيات
+   تعتمد على .stats-grid و .stat-card من components.css
+   (الرقم h3 والعنوان p بتنسيق المنصة)؛ هنا فقط الأيقونة والاتجاه
+========================================= */
+
+.stat-card.dash-stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: start;
+    padding: 16px;
+}
+
+.dash-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 12px;
+}
+
+.dash-stat-icon--1 { color: var(--grade-1); background: rgba(59, 130, 246, 0.12); }
+.dash-stat-icon--2 { color: var(--grade-2); background: rgba(16, 185, 129, 0.12); }
+.dash-stat-icon--3 { color: var(--grade-3); background: rgba(245, 158, 11, 0.12); }
+.dash-stat-icon--4 { color: var(--grade-4); background: rgba(168, 85, 247, 0.12); }
+
+.dash-stat-body { min-width: 0; }
+
+.stat-card.dash-stat .dash-stat-sub {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    white-space: normal;
+    color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+    .stat-card.dash-stat {
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 6px;
+        text-align: center;
+    }
+
+    .dash-stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+    }
+
+    .stat-card.dash-stat p {
+        font-size: 0.72rem;
+        white-space: normal;
+    }
+
+    .stat-card.dash-stat .dash-stat-sub { font-size: 0.62rem; }
+}
+
+
+/* =========================================
+   اللوحات (حاويات الأقسام)
+   نفس قيم .material-view في المنصة
+========================================= */
+
+.dash-panel {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    background: var(--card-bg);
+}
+
+@media (max-width: 768px) {
+    .dash-panel {
+        padding: 12px;
+        border-radius: 11px;
+    }
+}
+
+/* عنوان قسم: يستخدم .section-title من المنصة بحجم أصغر وأيقونة */
+.section-title.dash-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 1.1rem;
+}
+
+.dash-title-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--primary-color);
+}
+
+.dash-caption { font-size: 0.7rem; color: var(--text-muted); }
+
+.dash-empty {
+    padding: 48px 16px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+
+/* =========================================
+   حقول الإدخال: تعتمد على .inner-search من المنصة
+   (الخلفية والحد والتركيز والـ placeholder)؛ هنا تعديلات الاستخدام فقط
+========================================= */
+
+.inner-search.dash-field {
+    margin-bottom: 0;
+}
+
+/* الحقل الذي بجانبه أيقونة بحث */
+.inner-search.dash-search-input {
+    padding-inline-start: 2.25rem;
+}
+
+/* قوائم الاختيار: سهم يتبع لون النص الخافت للمنصة (بدل صورة لكل وضع) */
+select.inner-search.dash-select {
+    width: auto;
+    max-width: 12rem;
+    padding: 8px 12px 8px 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+        linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+    background-position: 12px 52%, 17px 52%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    text-overflow: ellipsis;
+}
+
+select.inner-search.dash-select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+textarea.inner-search.dash-field {
+    resize: none;
+    line-height: 1.7;
+}
+
+.dash-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   بطاقة المادة: تعتمد على .card و .card-footer من المنصة
+========================================= */
+
+.card.course-card {
+    gap: 1rem;
+    cursor: default;
+    animation: dash-fade-in 0.25s ease both;
+}
+
+/* تأثير ظهور بالشفافية فقط: لو تضمّن transform لعطّل تأثير hover في .card */
+@keyframes dash-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.card.course-card h3 {
+    margin-bottom: 2px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.course-card .card-footer {
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.75rem;
+}
+
+.dash-status {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* شريط التقدم (لا يوجد له مقابل في المنصة) */
+.progress-bar-bg {
+    height: 0.5rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: var(--border-color);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: var(--primary-color);
+    transition: width 0.4s ease-out;
+}
+
+
+/* =========================================
+   الأهداف
+========================================= */
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    background: var(--card-bg);
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.goal-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.goal-item.completed {
+    opacity: 0.7;
+    background: var(--bg-color);
+}
+
+.goal-item.completed .goal-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.goal-title {
+    color: var(--text-main);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.goal-check {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    min-height: 0;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1.5px solid var(--text-muted);
+    border-radius: 6px;
+    background: transparent;
+    color: #06130e;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+/* توسيع منطقة اللمس بدون تغيير الحجم المرئي */
+.goal-check::after {
+    content: "";
+    position: absolute;
+    inset: -10px;
+}
+
+.goal-check:hover { border-color: var(--primary-color); }
+
+.goal-check.is-done {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.goal-tag {
+    padding: 2px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-color);
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    white-space: nowrap;
+}
+
+.goal-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    min-height: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.goal-delete:hover { color: #ef4444; }
+
+
+/* =========================================
+   النوافذ المنبثقة
+   (الإظهار والإخفاء بـ .hidden كما في الكود الأصلي)
+========================================= */
+
+.modal-backdrop {
+    z-index: 1100;                       /* أعلى من الهيدر (100) كما في .support-modal */
+    background: rgba(0, 0, 0, 0.55);     /* نفس خلفية .support-modal */
+}
+
+.dash-modal {
+    border: 1px solid var(--border-color);
+    border-radius: 18px;                 /* نفس .support-modal-content */
+    background: var(--card-bg);
+    color: var(--text-main);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+.dash-modal-title {
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   الإشعارات (Toast): الكود يبدّل الصنف toast--success|error|warning|info
+========================================= */
+
+.toast {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1200;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 24rem;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-inline-start-width: 4px;
+    border-radius: 14px;
+    background: var(--card-bg);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
+}
+
+.toast.hidden { display: none; }
+
+@media (min-width: 640px) {
+    .toast { right: auto; }
+}
+
+.toast--success { border-inline-start-color: var(--primary-color); }
+.toast--error   { border-inline-start-color: #ef4444; }
+.toast--warning { border-inline-start-color: var(--grade-3); }
+.toast--info    { border-inline-start-color: var(--secondary-color); }
+
+.toast--success .toast-icon { color: var(--primary-color); }
+.toast--error   .toast-icon { color: #ef4444; }
+.toast--warning .toast-icon { color: var(--grade-3); }
+.toast--info    .toast-icon { color: var(--secondary-color); }
+
+.toast-title   { color: var(--text-main);  font-size: 0.875rem; font-weight: 700; }
+.toast-message { color: var(--text-muted); font-size: 0.75rem; margin-top: 4px; }
+
+
+/* =========================================
+   تعطيل العناصر
+========================================= */
+
+.dashboard-page button:disabled,
+.dashboard-page input:disabled,
+.dashboard-page select:disabled {
+    cursor: not-allowed;
+}
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- الوضع النهاري/الليلي: نفس آلية المنصة (body.light-mode، والافتراضي داكن) — يُطبّق مبكرًا لمنع الوميض -->
+    <script>try{if(localStorage.getItem('theme')==='light')document.body.classList.add('light-mode')}catch(e){}</script>
+     
+    
+
+<!-- الهيدر الموحد للمنصة -->
+<header class="main-header">
+    <div class="header-container">
+
+        <!-- شعار واسم المنصة -->
+        <a href="../index.html" class="logo-area" aria-label="الصفحة الرئيسية">
+            <span class="logo-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M19 3h10l1.4 5.1 4.1 1.7 4.7-2.5 5 8.7-3.8 3.6v4.8l3.8 3.6-5 8.7-4.7-2.5-4.1 1.7L29 43H19l-1.4-5.1-4.1-1.7-4.7 2.5-5-8.7 3.8-3.6v-4.8l-3.8-3.6 5-8.7 4.7 2.5 4.1-1.7L19 3Z"
+                        stroke="currentColor" stroke-width="2.5"
+                        stroke-linejoin="round"/>
+                    <circle cx="24" cy="24" r="9"
+                        stroke="currentColor" stroke-width="2.5"/>
+                    <path d="M24 29v-9m0 5c-5 0-6-4-6-4 4-1 6 1 6 4Zm0-3c0-4 3-6 6-6 0 4-2 6-6 6Z"
+                        stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+
+            <span class="logo-text">
+                <strong>منصة الهندسة الزراعية</strong>
+                <small>جامعة الأزهر</small>
+            </span>
+        </a>
+
+        <!-- روابط التنقل -->
+        <nav class="main-nav" aria-label="التنقل الرئيسي">
+            <a href="../index.html" class="nav-link" data-nav="home">
+                الرئيسية
+            </a>
+
+            <a href="../student_dashboard/index.html" class="nav-link active" data-nav="dashboard" aria-current="page">
+                لوحة إنجاز الطالب
+            </a>
+
+            <a href="../about/about.html" class="nav-link" data-nav="about">
+                عن الكلية
+            </a>
+
+            <a href="../tools/tools.html" class="nav-link" data-nav="tools">
+                الأدوات
+            </a>
+        </nav>
+
+        <!-- أدوات المستخدم -->
+        <div class="header-actions">
+
+            <button
+                type="button"
+                class="theme-toggle"
+                id="theme-toggle"
+                aria-label="تبديل المظهر"
+                title="تبديل الوضع النهاري والليلي"
+            >
+                <i data-lucide="sun" class="w-5 h-5 theme-icon-sun"></i>
+                <i data-lucide="moon" class="w-5 h-5 theme-icon-moon"></i>
+            </button>
+
+            <!-- الملف الشخصي: نحافظ على وظيفته -->
+            <button
+                id="open-profile-modal-btn"
+                type="button"
+                aria-label="تخصيص الملف الشخصي"
+                class="profile-header-btn"
+            >
+                <span id="user-avatar-badge" class="profile-avatar">--</span>
+
+                <span id="header-user-name" class="profile-user-name">
+                    جاري التحميل...
+                </span>
+
+                <i data-lucide="chevron-down" class="profile-chevron"></i>
+            </button>
+
+        </div>
+    </div>
+</header>
+
+    <!-- Main Container -->
+
+<main class="content-area">
+        <!-- Section 1: Welcome & Student Profile Header -->
+        <section class="dash-hero">
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="space-y-2">
+                    <div class="dash-pill">
+                        <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                        <span id="student-academic-badge">جاري جلب البيانات...</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                        مرحباً بك، <span id="student-name-display" class="dash-accent">...</span> 
+                    </h1>
+                    <p id="student-quote-display" class="dash-hero-quote text-sm max-w-2xl italic">
+                        "استعن بالله ولا تعجز.. كل خطوة  تقربك من هدفك."
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto border-t md:border-t-0 pt-4 md:pt-0">
+                    <button id="add-goal-btn" type="button" class="dash-btn dash-btn--primary flex-1 md:flex-initial">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                        إضافة هدف جديد
+                    </button>
+                    <button id="edit-profile-btn" type="button" class="dash-btn dash-btn--icon" title="تعديل بيانات الحساب">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Background Decorative Pattern -->
+            <div class="dash-hero-glow"></div>
+        </section>
+
+        <!-- Section 2: الإحصائيات — .stats-grid و .stat-card من CSS المنصة -->
+        <section class="stats-grid">
+            <div class="stat-card dash-stat">
+                <div class="dash-stat-icon dash-stat-icon--1"><i data-lucide="book-open" class="w-6 h-6"></i></div>
+                <div class="dash-stat-body">
+                    <p>إجمالي المقررات</p>
+                    <h3 id="stat-total-courses">--</h3>
+                    <p class="dash-stat-sub">للتيرم الحالي</p>
+                </div>
+            </div>
+
+            <div class="stat-card dash-stat">
+                <div class="dash-stat-icon dash-stat-icon--2"><i data-lucide="check-circle-2" class="w-6 h-6"></i></div>
+                <div class="dash-stat-body">
+                    <p>الأهداف المكتملة</p>
+                    <h3 id="stat-completed-goals">--</h3>
+                    <p id="stat-goals-ratio" class="dash-stat-sub">-- % إنجاز</p>
+                </div>
+            </div>
+
+            <div class="stat-card dash-stat">
+                <div class="dash-stat-icon dash-stat-icon--3"><i data-lucide="file-text" class="w-6 h-6"></i></div>
+                <div class="dash-stat-body">
+                    <p>تقدّم المراجعة</p>
+                    <h3 id="stat-total-files">--</h3>
+                    <p id="stat-files-sub" class="dash-stat-sub">--</p>
+                </div>
+            </div>
+
+            <div class="stat-card dash-stat">
+                <div class="dash-stat-icon dash-stat-icon--4"><i data-lucide="award" class="w-6 h-6"></i></div>
+                <div class="dash-stat-body">
+                    <p>المعدل / التقدير</p>
+                    <h3 id="stat-gpa-display">غير محدد</h3>
+                    <p id="stat-academic-year-label" class="dash-stat-sub">السنة الدراسية</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Split Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Left Col (2 Columns Wide on Desktop): Academic Courses & Materials -->
+            <section class="lg:col-span-2 space-y-6">
+                
+                <!-- Courses Section Header with Year/Term Selector -->
+                <div class="dash-panel space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b">
+                        <div>
+                            <h2 class="section-title dash-title">
+                                <i data-lucide="library" class="dash-title-icon"></i>
+                                المقررات الدراسية والمحتوى
+                            </h2>
+                            <p class="text-xs dash-muted mt-0.5">استعرض المواد المقررة والوصول المباشر لملفاتها التعليمية</p>
+                        </div>
+
+                     
+                    <div class="flex items-center gap-2 flex-wrap">
+                            <select id="main-year-select" aria-label="الفرقة" class="inner-search dash-field dash-select">
+                                <option value="1">الفرقة الأولى</option><option value="2">الفرقة الثانية</option>
+                                <option value="3">الفرقة الثالثة</option><option value="4">الفرقة الرابعة</option>
+                            </select>
+                            <select id="main-term-select" aria-label="الترم" class="inner-search dash-field dash-select">
+                                <option value="1">الترم الأول</option><option value="2">الترم الثاني</option>
+                            </select>
+                            <select id="main-department-select" aria-label="القسم" class="inner-search dash-field dash-select"><option value="">كل الأقسام</option></select>
+                        </div>
+                    </div>
+
+                    <!-- Search & Filter Controls inside Courses -->
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex-grow">
+                            <i data-lucide="search" class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 dash-muted pointer-events-none"></i>
+                            <input type="text" id="course-search-input" placeholder="ابحث باسم المادة..." class="inner-search dash-field dash-search-input">
+                        </div>
+                    </div>
+
+                    <!-- Courses Grid Container -->
+                    <div id="courses-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <!-- Loading State -->
+                        <div class="loading-screen col-span-full">
+                            <div class="loading-spinner" aria-hidden="true">⏳</div>
+                            <p>جاري تحميل المواد الدراسية...</p>
+                        </div>
+                    </div>
+
+                    <!-- Empty Courses State -->
+                    <div id="courses-empty-state" class="hidden dash-empty space-y-3">
+                        <i data-lucide="folder-open" class="w-10 h-10 mx-auto dash-muted"></i>
+                        <p class="text-sm dash-strong">لا توجد مواد مسجلة لهذا الترم حالياً</p>
+                        <p class="text-xs dash-muted">تأكد من اختيار الفرقة والترم الصحيحين من أعلى الشاشة.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Col (1 Column Wide on Desktop): Goals & Quick Notes -->
+            <section class="space-y-6">
+                
+                <!-- Goals & Tasks Card -->
+                <div class="dash-panel space-y-4">
+                    <div class="flex items-center justify-between pb-3 border-b">
+                        <h2 class="section-title dash-title">
+                            <i data-lucide="target" class="dash-title-icon"></i>
+                            أهدافي 
+                        </h2>
+                        <span id="goals-count-badge" class="dash-pill dash-pill--sm">
+                            0/0
+                        </span>
+                    </div>
+
+                    <!-- Goals List -->
+                    <div id="goals-list-container" class="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
+                        <!-- Loading State -->
+                        <p class="text-xs dash-muted text-center py-4">جاري تحميل الأهداف...</p>
+                    </div>
+
+                    <!-- Empty Goals State -->
+                    <div id="goals-empty-state" class="hidden text-center py-6 space-y-2">
+                        <i data-lucide="check-square" class="w-8 h-8 mx-auto dash-muted"></i>
+                        <p class="text-xs font-semibold dash-muted">لا توجد أهداف محددة بعد</p>
+                        <button id="add-first-goal-btn" class="text-xs dash-accent font-bold hover:underline">
+                            + اضف هدفك الأول الآن
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Personal Notes Card -->
+                <div class="dash-panel space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm flex items-center gap-2 dash-strong">
+                            <i data-lucide="sticky-note" class="w-4 h-4 dash-note-icon"></i>
+                            ملاحظات ومذكرات حرة
+                        </h3>
+                        <span id="notes-save-status" class="text-[10px] dash-muted">محفوظ تلقائياً</span>
+                    </div>
+                    <textarea id="student-quick-notes" rows="4" placeholder="اكتب ملاحظاتك السريعة، مواعيد الامتحانات، أو التنبيهات المهمة هنا..." class="inner-search dash-field"></textarea>
+                </div>
+
+            </section>
+        </div>
+
+    </main>
+
+
+<!-- Footer -->
+<footer class="main-footer">
+    <p>
+        © <span id="current-year">2026</span> Sameh Abobakr — منصة كلية الهندسة الزراعية
+    </p>
+</footer>
+
+    <div id="toast-container" role="status" aria-live="polite" class="toast hidden">
+        <span id="toast-icon-wrap" class="shrink-0 mt-0.5"></span>
+        <div class="flex-grow"><h4 id="toast-title" class="toast-title"></h4><p id="toast-message" class="toast-message"></p></div>
+        <button id="toast-close-btn" type="button" aria-label="إغلاق" class="dash-icon-btn"><i data-lucide="x" class="w-4 h-4"></i></button>
+    </div>
+
+    <!-- MODALS SECTION -->
+
+    <!-- 1. Profile & Settings Modal -->
+    <div id="profile-modal" class="fixed inset-0 hidden flex items-center justify-center p-4 modal-backdrop">
+        <div class="dash-modal w-full max-w-md p-6 space-y-5">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="dash-modal-title flex items-center gap-2">
+                    <i data-lucide="user-cog" class="dash-title-icon"></i>
+                    تخصيص البيانات الشخصية
+                </h3>
+                <button id="close-profile-modal-btn" type="button" class="dash-icon-btn">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="profile-form" class="space-y-4">
+                <div>
+                    <label for="input-student-name" class="dash-label">اسم الطالب الكامل</label>
+                    <input type="text" id="input-student-name" required placeholder="أدخل اسمك كما تحب أن يظهر" class="inner-search dash-field">
+                </div>
+
+
+                <div>
+                    <label for="input-student-gpa" class="dash-label">التقدير / التراكمي (اختياري)</label>
+                    <input type="text" id="input-student-gpa" placeholder="مثال: امتياز أو 3.65" class="inner-search dash-field">
+                </div>
+
+                <div>
+                    <label for="input-student-quote" class="dash-label">عبارة تحفيزية شخصية</label>
+                    <input type="text" id="input-student-quote" placeholder="اكتب شعارك الشخصي..." class="inner-search dash-field">
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-3 border-t">
+                    <button id="cancel-profile-btn" type="button" class="dash-btn dash-btn--ghost">إلغاء</button>
+                    <button type="submit" class="dash-btn dash-btn--primary">حفظ التغييرات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Add Goal Modal -->
+    <div id="goal-modal" class="fixed inset-0 hidden flex items-center justify-center p-4 modal-backdrop">
+        <div class="dash-modal w-full max-w-md p-6 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="dash-modal-title flex items-center gap-2">
+                    <i data-lucide="plus-circle" class="dash-title-icon"></i>
+                    إضافة هدف أكاديمي جديد
+                </h3>
+                <button id="close-goal-modal-btn" type="button" class="dash-icon-btn">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="goal-form" class="space-y-4">
+                <div>
+                    <label for="input-goal-title" class="dash-label">عنوان الهدف</label>
+                    <input type="text" id="input-goal-title" required placeholder="مثال: إنهاء تلخيص شيت هندسة القوى" class="inner-search dash-field">
+                </div>
+
+                <div>
+                    <label for="input-goal-category" class="dash-label">التصنيف</label>
+                    <select id="input-goal-category" class="inner-search dash-field">
+                        <option value="مذاكرة">مذاكرة ومراجعة</option>
+                        <option value="مشاريع">مشروع / شيتات</option>
+                        <option value="امتحانات">استعداد للامتحانات</option>
+                        <option value="عام">هدف عام</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center justify-end gap-2 pt-3 border-t">
+                    <button id="cancel-goal-btn" type="button" class="dash-btn dash-btn--ghost">إلغاء</button>
+                    <button type="submit" class="dash-btn dash-btn--primary">إضافة الهدف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 3. Edit Course Modal -->
+    <div id="course-modal" class="fixed inset-0 hidden flex items-center justify-center p-4 modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="course-modal-name">
+        <div class="dash-modal w-full max-w-md p-6 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3 gap-3">
+                <h3 id="course-modal-name" class="dash-modal-title"></h3>
+                <button id="close-course-modal-btn" type="button" aria-label="إغلاق" class="dash-icon-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <form id="course-form" class="space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label for="input-course-total" class="dash-label">إجمالي المحاضرات</label><input type="number" min="0" max="999" id="input-course-total" required class="inner-search dash-field"></div>
+                    <div><label for="input-course-reviewed" class="dash-label">تمت مراجعتها</label><input type="number" min="0" max="999" id="input-course-reviewed" class="inner-search dash-field"></div>
+                </div>
+                <div><label for="input-course-link" class="dash-label">رابط ملفات المادة (اختياري)</label><input type="url" id="input-course-link" dir="ltr" placeholder="https://..." class="inner-search dash-field"></div>
+                <div class="flex items-center justify-end gap-2 pt-3 border-t">
+                    <button id="cancel-course-btn" type="button" class="dash-btn dash-btn--ghost">إلغاء</button>
+                    <button type="submit" class="dash-btn dash-btn--primary">حفظ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+
+    <!-- Scripts -->
+    <script type="module">
+/**
+ * لوحة إنجاز الطالب - الهندسة الزراعية
+ * المواد تتحمل من Supabase، وتقدّم الطالب والأهداف والملاحظات تتخزن محلياً في المتصفح.
+ */
+import { APP_CONFIG } from './js/config.js';
+import { INITIAL_DATA } from './js/dashboard-data.js';
+import { supabaseClient } from './js/supabase-client.js';
+
+const $ = id => document.getElementById(id);
+const clone = o => JSON.parse(JSON.stringify(o));
+const YEARS = { '1': 'الفرقة الأولى', '2': 'الفرقة الثانية', '3': 'الفرقة الثالثة', '4': 'الفرقة الرابعة' };
+const TERMS = { '1': 'الترم الأول', '2': 'الترم الثاني' };
+const invert = o => Object.fromEntries(Object.entries(o).map(([k, v]) => [v, k]));
+
+let appState = {};
+let remoteSubjects = [];
+let loadStatus = 'loading'; // loading | ready | error
+let toastTimer;
+let editingId = null;
+
+const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]));
+const safeUrl = u => (/^https?:\/\//i.test(u || '') ? u : '');
+const today = () => new Date().toLocaleDateString('en-CA');
+const icons = () => window.lucide && window.lucide.createIcons();
+
+/* ---------- الحفظ والتحميل ---------- */
+function migrate(d) {
+    const base = clone(INITIAL_DATA);
+    const s = { ...base, ...d, userProfile: { ...base.userProfile, ...(d.userProfile || {}) } };
+    s.progress = d.progress && typeof d.progress === 'object' ? d.progress : {};
+    s.goals = Array.isArray(d.goals) ? d.goals : [];
+    s.version = APP_CONFIG.DATA_VERSION;
+    delete s.subjects; delete s.studyLogs;
+    return s;
+}
+
+function loadState() {
+    try {
+        const raw = localStorage.getItem(APP_CONFIG.STORAGE_KEY);
+        appState = migrate(raw ? JSON.parse(raw) : {});
+    } catch (err) {
+        console.error('تعذر قراءة البيانات المحفوظة:', err);
+        appState = migrate({});
+    }
+}
+
+function persist() {
+    try {
+        localStorage.setItem(APP_CONFIG.STORAGE_KEY, JSON.stringify(appState));
+        return true;
+    } catch (err) {
+        console.error(err);
+        showToast('خطأ في الحفظ', 'مساحة التخزين في المتصفح ممتلئة أو غير متاحة.', 'error');
+        return false;
+    }
+}
+
+function applySharedTheme(theme) {
+    const isDark = theme !== 'light';
+
+    appState.theme = isDark ? 'dark' : 'light';
+    document.body.classList.toggle('light-mode', !isDark);
+
+    const themeToggle = $('theme-toggle');
+    if (themeToggle) {
+        themeToggle.setAttribute(
+            'aria-label',
+            isDark ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي'
+        );
+        themeToggle.setAttribute(
+            'title',
+            isDark ? 'الوضع الليلي' : 'الوضع النهاري'
+        );
+    }
+}
+
+window.addEventListener('storage', (event) => {
+    if (event.key !== 'theme') return;
+
+    applySharedTheme(event.newValue);
+});
+function saveState() { if (persist()) renderAll(); }
+
+/* ---------- الإشعارات ---------- */
+const TOAST = { success: ['check-circle-2', 'success'], error: ['alert-circle', 'error'], warning: ['alert-triangle', 'warning'], info: ['info', 'info'] };
+
+function showToast(title, message, type = 'info') {
+    const box = $('toast-container');
+    if (!box) return;
+    const [icon, kind] = TOAST[type] || TOAST.info;
+    $('toast-title').textContent = title;
+    $('toast-message').textContent = message;
+    $('toast-icon-wrap').innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 toast-icon"></i>`;
+    box.className = `toast toast--${kind}`;
+    icons();
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => box.classList.add('hidden'), 4000);
+}
+
+/* ---------- حسابات مساعدة ---------- */
+const termCourses = () => remoteSubjects.filter(s =>
+    s.year === String(appState.userProfile.academicYear) && s.term === String(appState.userProfile.academicTerm));
+
+function setProgress(c, patch) {
+    Object.assign(c, patch);
+    appState.progress[c.id] = { totalFiles: c.totalFiles, reviewedFiles: c.reviewedFiles, link: c.link };
+    saveState();
+}
+
+/* ---------- العرض ---------- */
+function renderHeaderAndProfile() {
+    const p = appState.userProfile;
+    const name = p.studentName || 'طالب هندسة زراعية';
+    $('student-name-display').textContent = name;
+    $('header-user-name').textContent = name;
+    $('user-avatar-badge').textContent = name.trim().split(/\s+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2) || '--';
+    $('student-academic-badge').textContent = `${YEARS[p.academicYear] || ''} • ${TERMS[p.academicTerm] || ''}`;
+    $('student-quote-display').textContent = `"${p.quote || INITIAL_DATA.userProfile.quote}"`;
+    const notes = $('student-quick-notes');
+    if (document.activeElement !== notes) notes.value = p.quickNotes || '';
+    $('main-year-select').value = p.academicYear;
+    $('main-term-select').value = p.academicTerm;
+}
+
+function renderStatsOverview() {
+    const list = termCourses();
+    const total = list.reduce((a, c) => a + c.totalFiles, 0);
+    const done = list.reduce((a, c) => a + c.reviewedFiles, 0);
+    const pct = total ? Math.round(done / total * 100) : 0;
+    $('stat-total-courses').textContent = loadStatus === 'ready' ? list.length : '--';
+    $('stat-total-files').textContent = total ? `${pct}%` : '--';
+    $('stat-files-sub').textContent = total ? `${done} من ${total} محاضرة تمت مراجعتها` : 'حدّد عدد المحاضرات لكل مادة';
+
+    const goals = appState.goals, doneGoals = goals.filter(g => g.completed).length;
+    $('stat-completed-goals').textContent = `${doneGoals} / ${goals.length}`;
+    $('stat-goals-ratio').textContent = `${goals.length ? Math.round(doneGoals / goals.length * 100) : 0}% نسبة الإنجاز`;
+    $('stat-gpa-display').textContent = appState.userProfile.gpa || 'غير محدد';
+    $('stat-academic-year-label').textContent = YEARS[appState.userProfile.academicYear] || '';
+}
+
+function courseCard(c) {
+    const total = c.totalFiles, rev = c.reviewedFiles;
+    const pct = total ? Math.round(rev / total * 100) : 0;
+    const done = total > 0 && rev >= total;
+    const link = safeUrl(c.link);
+    return `
+    <article class="card course-card">
+        <div class="space-y-2">
+            <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                    <h3>${escapeHtml(c.name)}</h3>
+                    ${c.department ? `<span class="dash-caption">${escapeHtml(c.department)}</span>` : ''}
+                </div>
+                <button type="button" data-action="edit" data-id="${escapeHtml(c.id)}" aria-label="تعديل المادة" title="تعديل المادة" class="dash-icon-btn">
+                    <i data-lucide="pencil" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="flex items-center justify-between text-xs dash-muted">
+                <span>مراجعة المحاضرات</span>
+                <span class="dash-strong">${total ? `${rev} من ${total}` : 'غير محدد'}</span>
+            </div>
+            <div class="progress-bar-bg" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="card-footer">
+            <span class="dash-status">${done ? '✓ تمت المراجعة' : `${pct}% مكتمل`}</span>
+            <div class="flex items-center gap-1">
+                ${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="dash-btn dash-btn--link dash-btn--sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i>الملفات</a>` : ''}
+                <button type="button" data-action="dec" data-id="${escapeHtml(c.id)}" ${rev <= 0 ? 'disabled' : ''} aria-label="تراجع عن مراجعة" title="تراجع" class="dash-btn dash-btn--icon dash-btn--sm"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
+                <button type="button" data-action="inc" data-id="${escapeHtml(c.id)}" ${rev >= total ? 'disabled' : ''} class="dash-btn dash-btn--soft dash-btn--sm"><i data-lucide="plus" class="w-3.5 h-3.5"></i>سجّل مراجعة</button>
+            </div>
+        </div>
+    </article>`;
+}
+
+function renderCoursesList() {
+    const box = $('courses-container'), empty = $('courses-empty-state');
+    if (loadStatus === 'loading') {
+        empty.classList.add('hidden');
+        box.innerHTML = `<div class="loading-screen col-span-full"><div class="loading-spinner" aria-hidden="true">⏳</div><p>جاري تحميل المواد الدراسية...</p></div>`;
+        return;
+    }
+    if (loadStatus === 'error') {
+        empty.classList.add('hidden');
+        box.innerHTML = `<div class="col-span-full py-10 text-center space-y-3"><i data-lucide="wifi-off" class="w-9 h-9 mx-auto dash-danger"></i><p class="text-sm font-semibold dash-muted">تعذر تحميل المواد. تأكد من الاتصال بالإنترنت.</p><button id="retry-load-btn" type="button" class="dash-btn dash-btn--primary">إعادة المحاولة</button></div>`;
+        icons();
+        return;
+    }
+    const q = $('course-search-input').value.trim().toLowerCase();
+    
+const year = String(appState.userProfile.academicYear);
+const dep = $('main-department-select').value;
+
+const list = termCourses()
+    .filter(c => {
+        const matchesName = c.name.toLowerCase().includes(q);
+
+        // أولى وثانية: كل المواد العامة بلا فلتر أقسام
+        if (year === '1' || year === '2') {
+            return matchesName;
+        }
+
+        // ثالثة ورابعة: التصفية حسب القسم المختار
+        return matchesName && (!dep || c.department === dep);
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+    box.innerHTML = list.map(courseCard).join('');
+
+    empty.classList.toggle('hidden', list.length > 0);
+
+    icons();
+}
+
+
+function renderDepartments() {
+    const sel = $('main-department-select');
+    const year = String(appState.userProfile.academicYear);
+
+    // أولى وثانية: مفيش اختيار أقسام
+    if (year === '1' || year === '2') {
+        sel.innerHTML = '';
+        sel.value = '';
+        sel.disabled = true;
+        sel.classList.add('hidden');
+        return;
+    }
+
+    // ثالثة ورابعة: إظهار الأقسام الموجودة في الفرقة والترم المختارين
+    sel.disabled = false;
+    sel.classList.remove('hidden');
+
+    const current = sel.value;
+
+    const deps = [
+        ...new Set(termCourses().map(s => s.department).filter(Boolean))
+    ].sort((a, b) => a.localeCompare(b, 'ar'));
+
+    sel.innerHTML =
+        '<option value="">كل الأقسام</option>' +
+        deps.map(d =>
+            `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`
+        ).join('');
+
+    sel.value = deps.includes(current) ? current : '';
+}
+
+function renderGoalsList() {
+    const box = $('goals-list-container'), empty = $('goals-empty-state');
+    const goals = appState.goals;
+    $('goals-count-badge').textContent = `${goals.filter(g => g.completed).length}/${goals.length}`;
+    empty.classList.toggle('hidden', goals.length > 0);
+    box.innerHTML = goals.map(g => `
+        <div class="goal-item ${g.completed ? 'completed' : ''}">
+            <div class="flex items-center gap-2.5 flex-grow overflow-hidden pr-1">
+                <button type="button" class="toggle-goal-btn goal-check ${g.completed ? 'is-done' : ''}" data-id="${escapeHtml(g.id)}" role="checkbox" aria-checked="${!!g.completed}" aria-label="تم إنجاز: ${escapeHtml(g.title)}">${g.completed ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}</button>
+                <span class="goal-title truncate" title="${escapeHtml(g.title)}">${escapeHtml(g.title)}</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="goal-tag">${escapeHtml(g.category || 'عام')}</span>
+                <button type="button" class="delete-goal-btn goal-delete" data-id="${escapeHtml(g.id)}" title="حذف الهدف" aria-label="حذف الهدف"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+            </div>
+        </div>`).join('');
+    icons();
+}
+
+function renderAll() {
+    renderHeaderAndProfile();
+    renderStatsOverview();
+    renderCoursesList();
+    renderGoalsList();
+}
+
+/* ---------- النوافذ المنبثقة ---------- */
+function openModal(id) {
+    const m = $(id);
+    m.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+    const first = m.querySelector('input,select,textarea');
+    if (first) setTimeout(() => first.focus(), 30);
+}
+function closeModal(id) {
+    $(id).classList.add('hidden');
+    if (!document.querySelector('.modal-backdrop:not(.hidden)')) document.body.classList.remove('overflow-hidden');
+}
+
+function openCourseModal(c) {
+    editingId = c.id;
+    $('course-modal-name').textContent = c.name;
+    $('input-course-total').value = c.totalFiles;
+    $('input-course-reviewed').value = c.reviewedFiles;
+    $('input-course-link').value = c.link;
+    openModal('course-modal');
+}
+
+function setupModals() {
+    [['profile-modal', ['close-profile-modal-btn', 'cancel-profile-btn']],
+     ['goal-modal', ['close-goal-modal-btn', 'cancel-goal-btn']],
+     ['course-modal', ['close-course-modal-btn', 'cancel-course-btn']]].forEach(([id, btns]) => {
+        btns.forEach(b => $(b).addEventListener('click', () => closeModal(id)));
+        $(id).addEventListener('click', e => { if (e.target === $(id)) closeModal(id); });
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop:not(.hidden)').forEach(m => closeModal(m.id));
+    });
+
+    const openProfile = () => {
+        const p = appState.userProfile;
+        $('input-student-name').value = p.studentName || '';
+        $('input-student-gpa').value = p.gpa || '';
+        $('input-student-quote').value = p.quote || '';
+        openModal('profile-modal');
+    };
+    $('open-profile-modal-btn').addEventListener('click', openProfile);
+    $('edit-profile-btn').addEventListener('click', openProfile);
+    $('profile-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const p = appState.userProfile;
+        p.studentName = $('input-student-name').value.trim() || INITIAL_DATA.userProfile.studentName;
+        p.gpa = $('input-student-gpa').value.trim();
+        p.quote = $('input-student-quote').value.trim();
+        saveState();
+        closeModal('profile-modal');
+        showToast('تم الحفظ', 'تم تحديث بياناتك الشخصية بنجاح.', 'success');
+    });
+
+    const openGoal = () => openModal('goal-modal');
+    $('add-goal-btn').addEventListener('click', openGoal);
+    $('add-first-goal-btn').addEventListener('click', openGoal);
+    $('goal-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const title = $('input-goal-title').value.trim();
+        if (!title) return;
+        appState.goals.unshift({ id: 'goal_' + Date.now(), title, category: $('input-goal-category').value, completed: false, createdAt: today() });
+        saveState();
+        $('goal-form').reset();
+        closeModal('goal-modal');
+        showToast('تمت الإضافة', 'تم إدراج الهدف الأكاديمي بنجاح.', 'success');
+    });
+
+    $('course-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const c = remoteSubjects.find(s => s.id === editingId);
+        if (!c) return closeModal('course-modal');
+        const total = parseInt($('input-course-total').value, 10);
+        const rev = parseInt($('input-course-reviewed').value, 10) || 0;
+        const link = $('input-course-link').value.trim();
+        if (!(total >= 0) || rev < 0 || rev > total) return showToast('بيانات غير صحيحة', 'عدد المحاضرات المراجَعة لازم يكون بين 0 والإجمالي.', 'warning');
+        if (link && !safeUrl(link)) return showToast('رابط غير صحيح', 'الرابط لازم يبدأ بـ http:// أو https://', 'warning');
+        setProgress(c, { totalFiles: total, reviewedFiles: rev, link });
+        closeModal('course-modal');
+        showToast('تم التحديث', 'تم حفظ بيانات المادة.', 'success');
+    });
+}
+
+/* ---------- الأحداث ---------- */
+function bindEvents() {
+    
+
+$('theme-toggle').addEventListener('click', () => {
+    const nextTheme = document.body.classList.contains('light-mode')
+        ? 'dark'
+        : 'light';
+
+    try {
+        localStorage.setItem('theme', nextTheme);
+    } catch (error) {
+        console.warn('تعذر حفظ الوضع المختار:', error);
+    }
+
+    applySharedTheme(nextTheme);
+    persist();
+});
+    $('toast-close-btn').addEventListener('click', () => $('toast-container').classList.add('hidden'));
+
+    
+$('main-year-select').addEventListener('change', e => {
+    appState.userProfile.academicYear = e.target.value;
+    renderDepartments();
+    saveState();
+});
+
+$('main-term-select').addEventListener('change', e => {
+    appState.userProfile.academicTerm = e.target.value;
+    renderDepartments();
+    saveState();
+});
+    $('main-department-select').addEventListener('change', renderCoursesList);
+    $('course-search-input').addEventListener('input', renderCoursesList);
+
+    const notes = $('student-quick-notes'), status = $('notes-save-status');
+    let timer;
+    notes.addEventListener('input', () => {
+        status.textContent = 'جارٍ الحفظ...';
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            appState.userProfile.quickNotes = notes.value;
+            status.textContent = persist() ? 'تم الحفظ ✓' : 'تعذر الحفظ';
+        }, 600);
+    });
+
+    $('courses-container').addEventListener('click', e => {
+        if (e.target.closest('#retry-load-btn')) return loadSubjects();
+        const btn = e.target.closest('[data-action]');
+        if (!btn) return;
+        const c = remoteSubjects.find(s => s.id === btn.dataset.id);
+        if (!c) return;
+        if (btn.dataset.action === 'edit') return openCourseModal(c);
+        const next = c.reviewedFiles + (btn.dataset.action === 'inc' ? 1 : -1);
+        if (next < 0 || next > c.totalFiles) return;
+        setProgress(c, { reviewedFiles: next });
+        if (next === c.totalFiles) showToast('ما شاء الله 🎉', `خلصت مراجعة مادة: ${c.name}`, 'success');
+    });
+
+    $('goals-list-container').addEventListener('click', e => {
+        const t = e.target.closest('.toggle-goal-btn'), d = e.target.closest('.delete-goal-btn');
+        if (t) {
+            const g = appState.goals.find(x => x.id === t.dataset.id);
+            if (g) { g.completed = !g.completed; saveState(); }
+        } else if (d) {
+            appState.goals = appState.goals.filter(x => x.id !== d.dataset.id);
+            saveState();
+        }
+    });
+
+    setupModals();
+}
+
+/* ---------- تحميل المواد ---------- */
+async function loadSubjects() {
+    loadStatus = 'loading';
+    renderCoursesList();
+    try {
+        if (!supabaseClient) throw new Error('مكتبة Supabase لم يتم تحميلها');
+        const { data, error } = await supabaseClient
+            .from('subjects')
+            .select('id, name, grade, term, department')
+            .eq('program', 'الهندسة الزراعية')
+            .limit(500);
+        if (error) throw error;
+
+        const gradeMap = invert(YEARS), termMap = invert(TERMS);
+        remoteSubjects = (data || []).map(r => {
+            const id = String(r.id), p = appState.progress[id] || {};
+            const total = Math.max(0, parseInt(p.totalFiles, 10) || 0);
+            return {
+                id,
+                name: String(r.name || 'مادة بدون اسم').trim(),
+                year: gradeMap[String(r.grade || '').trim()] || '',
+                term: termMap[String(r.term || '').trim()] || '',
+                department: String(r.department || '').trim(),
+                totalFiles: total,
+                reviewedFiles: Math.min(total, Math.max(0, parseInt(p.reviewedFiles, 10) || 0)),
+                link: safeUrl(p.link)
+            };
+        }).filter(s => s.year && s.term);
+        loadStatus = 'ready';
+        renderDepartments();
+    } catch (err) {
+        console.error('خطأ في تحميل المواد:', err);
+        loadStatus = 'error';
+        showToast('تعذر تحميل المواد', 'تحقق من الاتصال بالإنترنت وحاول مرة أخرى.', 'error');
+    }
+    renderAll();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadState();
+
+    let savedTheme = null;
+
+    try {
+        savedTheme = localStorage.getItem('theme');
+    } catch (error) {
+        // التخزين غير متاح
+    }
+
+    // الوضع الافتراضي هو الليلي، مثل المنصة الرئيسية
+    if (savedTheme !== 'light' && savedTheme !== 'dark') {
+        savedTheme = 'dark';
+    }
+
+    applySharedTheme(savedTheme);
+
+    bindEvents();
+    renderAll();
+    loadSubjects();
+});
+
+
+    </script>
+    
+    <script>
+        // Automatic Year Updater
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

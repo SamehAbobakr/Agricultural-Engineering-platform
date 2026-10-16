@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f172a">
+<title>عن الكلية | منصة الهندسة الزراعية</title>
+<meta name="description" content="تعرّف على الهندسة الزراعية وأقسامها ومجالات العمل.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+
+<!-- ملفات التنسيق المشتركة -->
+<link rel="stylesheet" href="../css/variables.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/navigation.css">
+<link rel="stylesheet" href="../css/responsive.css">
+
+<script>
+(function () {
+    try {
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.add('light-mode');
+        }
+    } catch (e) {}
+})();
+document.documentElement.classList.add('js');
+</script>
+
+<style>
+:root {
+    --about-bg: var(--bg-color, #0f172a);
+    --about-panel: var(--card-bg, #1e293b);
+    --about-text: var(--text-main, #f8fafc);
+    --about-muted: var(--text-muted, #cbd5e1);
+    --about-primary: var(--primary-color, #10b981);
+    --about-secondary: var(--secondary-color, #3b82f6);
+    --about-line: var(--border-color, #334155);
+    --about-head: "Readex Pro", "Segoe UI", Tahoma, sans-serif;
+    --about-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+}
+
+body {
+    margin: 0;
+    background: var(--about-bg);
+    color: var(--about-text);
+    font: 400 1.05rem/1.9 var(--about-body);
+    overflow-x: hidden;
+}
+
+body.light-mode {
+    color-scheme: light;
+}
+
+a { color: var(--about-primary); }
+
+button { font: inherit; }
+
+:focus-visible {
+    outline: 3px solid var(--about-secondary);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* =========================
+   الهيدر الرئيسي للمنصة
+========================= */
+
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card-bg, #1e293b);
+    border-bottom: 1px solid var(--border-color, #334155);
+    padding: 10px 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-color, #10b981);
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+}
+
+.logo-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.45;
+}
+
+.logo-text strong {
+    color: var(--primary-color, #10b981);
+    font-size: .98rem;
+    font-weight: 700;
+}
+
+.logo-text small {
+    color: var(--text-muted, #cbd5e1);
+    font-size: .76rem;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.main-nav .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted, #cbd5e1);
+    text-decoration: none;
+    padding: 7px 11px;
+    border-radius: 10px;
+    font-size: .9rem;
+    transition: background .2s, color .2s;
+}
+
+.main-nav .nav-link:hover,
+.main-nav .nav-link[aria-current="page"] {
+    background: color-mix(in srgb, var(--primary-color, #10b981) 14%, transparent);
+    color: var(--primary-color, #10b981);
+}
+
+.theme-toggle {
+    border: 1px solid var(--border-color, #334155);
+    background: var(--bg-color, #0f172a);
+    color: var(--text-main, #f8fafc);
+    border-radius: 10px;
+    min-width: 42px;
+    min-height: 42px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* شريط أقسام الصفحة */
+.about-subnav {
+    position: sticky;
+    top: 61px;
+    z-index: 40;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 9px 12px;
+    background: var(--bg-color, #0f172a);
+    border-bottom: 1px solid var(--border-color, #334155);
+}
+
+.about-subnav a {
+    color: var(--text-muted, #cbd5e1);
+    text-decoration: none;
+    padding: 4px 11px;
+    border-radius: 99px;
+    font-size: .86rem;
+}
+
+.about-subnav a:hover,
+.about-subnav a.on {
+    color: var(--text-main, #f8fafc);
+    background: color-mix(in srgb, var(--primary-color, #10b981) 18%, transparent);
+}
+
+#bar {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    height: 3px;
+    z-index: 120;
+    background: linear-gradient(90deg, var(--about-primary), var(--about-secondary));
+    transform-origin: right;
+    transform: scaleX(0);
+}
+
+/* =========================
+   تنسيق الصفحة
+========================= */
+
+.about-page {
+    min-height: 60vh;
+}
+
+.about-page .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.1rem;
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3 {
+    font-family: var(--about-head);
+    line-height: 1.45;
+    margin: 0;
+}
+
+.about-page h2 {
+    font-size: clamp(1.55rem, 5vw, 2.35rem);
+    margin-bottom: .8rem;
+}
+
+.about-page h3 {
+    font-size: 1.12rem;
+    margin-bottom: .3rem;
+}
+
+.about-page p {
+    margin: 0 0 .9rem;
+    max-width: 70ch;
+}
+
+.about-page section {
+    padding: 3.4rem 0;
+    position: relative;
+}
+
+/* الغلاف الرئيسي */
+.about-page .hero {
+    min-height: min(760px, 86vh);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 3rem 0;
+    position: relative;
+    isolation: isolate;
+}
+
+.about-page .hero::before,
+.about-page .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(75px);
+    opacity: .27;
+    pointer-events: none;
+    z-index: -1;
+    animation: about-drift 14s ease-in-out infinite alternate;
+}
+
+.about-page .hero::before {
+    width: 380px;
+    height: 380px;
+    background: var(--about-primary);
+    top: -100px;
+    right: -70px;
+}
+
+.about-page .hero::after {
+    width: 320px;
+    height: 320px;
+    background: var(--about-secondary);
+    bottom: -90px;
+    left: -45px;
+    animation-delay: -6s;
+}
+
+.about-page .grid-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(color-mix(in srgb, var(--about-line) 55%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--about-line) 55%, transparent) 1px, transparent 1px);
+    background-size: 46px 46px;
+    opacity: .32;
+    -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 10%, transparent 72%);
+    mask-image: radial-gradient(circle at 50% 40%, #000 10%, transparent 72%);
+}
+
+.about-page .hero .wrap {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    z-index: 1;
+}
+
+.about-page .hero h1 {
+    font-size: clamp(2.1rem, 8vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.about-page .hero h1 .w {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(28px) scale(.96);
+    animation: about-pop .7s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay: calc(var(--i) * .12s + .15s);
+}
+
+.about-page .hero h1 .g {
+    background: linear-gradient(90deg, var(--about-primary), var(--about-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.about-page .lead {
+    color: var(--about-muted);
+    font-size: 1.08rem;
+}
+
+.about-page .btns {
+    display: flex;
+    gap: .7rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+}
+
+.about-page .btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 600;
+    padding: .7rem 1.35rem;
+    border-radius: 99px;
+    background: var(--about-primary);
+    color: #fff;
+    border: 1px solid transparent;
+    transition: transform .2s, filter .2s;
+}
+
+.about-page .btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+}
+
+.about-page .btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+    left: -60%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+    transform: skewX(-20deg);
+    animation: about-shine 3.5s infinite;
+}
+
+.about-page .btn.ghost {
+    background: transparent;
+    color: var(--about-text);
+    border-color: var(--about-line);
+}
+
+.about-page .btn.ghost::after {
+    display: none;
+}
+
+/* المدار */
+.about-page .orbit {
+    position: relative;
+    width: min(300px, 78vw);
+    aspect-ratio: 1;
+    margin: 0 auto;
+}
+
+.about-page .orbit .ring,
+.about-page .orbit .ring2 {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px dashed color-mix(in srgb, var(--about-primary) 35%, var(--about-line));
+}
+
+.about-page .orbit .ring2 {
+    inset: 18%;
+    border-style: solid;
+    opacity: .6;
+}
+
+.about-page .orbit .core {
+    position: absolute;
+    inset: 32%;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 2.6rem;
+    background: radial-gradient(circle, var(--about-panel), var(--about-bg));
+    border: 1px solid var(--about-line);
+    box-shadow: 0 0 50px color-mix(in srgb, var(--about-primary) 22%, transparent);
+    animation: about-pulse 3s ease-in-out infinite;
+}
+
+.about-page .spin {
+    position: absolute;
+    inset: 0;
+    animation: about-spin 26s linear infinite;
+}
+
+.about-page .sat {
+    position: absolute;
+    inset: 0;
+    transform: rotate(var(--a));
+}
+
+.about-page .sat span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 54px;
+    height: 54px;
+    margin: -27px 0 0 -27px;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    border-radius: 16px;
+    background: var(--about-panel);
+    border: 1px solid var(--about-line);
+    animation: about-cspin 26s linear infinite;
+}
+
+/* الشريط المتحرك */
+.about-page .marq {
+    overflow: hidden;
+    border-block: 1px solid var(--about-line);
+    background: var(--about-panel);
+    padding: .7rem 0;
+    direction: ltr;
+}
+
+.about-page .marq div {
+    display: flex;
+    gap: 2.5rem;
+    width: max-content;
+    animation: about-marq 30s linear infinite;
+    color: var(--about-muted);
+    font-family: var(--about-head);
+    direction: rtl;
+}
+
+.about-page .marq span::before {
+    content: "✦";
+    color: var(--about-primary);
+    margin-inline-end: 2.5rem;
+}
+
+/* الظهور عند التمرير */
+.about-page .rv {
+    opacity: 1;
+    transform: none;
+}
+
+.js .about-page .rv {
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.js .about-page .rv.in {
+    opacity: 1;
+    transform: none;
+}
+
+.about-page .d1 { transition-delay: .1s !important; }
+.about-page .d2 { transition-delay: .2s !important; }
+.about-page .d3 { transition-delay: .3s !important; }
+
+.about-page .stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 1.2rem 0;
+}
+
+.about-page .stat b {
+    display: block;
+    font: 700 2.5rem/1.1 var(--about-head);
+    color: var(--about-primary);
+}
+
+.about-page .stat small {
+    color: var(--about-muted);
+}
+
+.about-page .split {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+}
+
+/* أماكن الصور */
+.about-page .ph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1.5px dashed var(--about-line);
+    background: var(--about-panel);
+    color: var(--about-muted);
+    border-radius: 18px;
+    font-size: .9rem;
+    padding: 1rem;
+    aspect-ratio: 16/10;
+    width: 100%;
+}
+
+.about-page .ph.sm {
+    aspect-ratio: 16/7;
+    margin-bottom: .9rem;
+    border-radius: 12px;
+}
+
+.about-page .ph img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+/* البطاقات */
+.about-page .cards {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    perspective: 900px;
+}
+
+.about-page .card {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    background: var(--about-panel);
+    color: var(--about-text);
+    border: 1px solid var(--about-line);
+    border-radius: 18px;
+    padding: 1.2rem;
+    overflow: hidden;
+    transition: transform .15s ease-out, border-color .3s;
+    will-change: transform;
+}
+
+.about-page .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        260px circle at var(--mx) var(--my),
+        color-mix(in srgb, var(--about-primary) 17%, transparent),
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+}
+
+.about-page .card:hover {
+    border-color: color-mix(in srgb, var(--about-primary) 65%, var(--about-line));
+}
+
+.about-page .card:hover::before {
+    opacity: 1;
+}
+
+.about-page .card .ico {
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-bottom: .3rem;
+}
+
+.about-page .card h3 {
+    color: var(--about-primary);
+}
+
+.about-page .card p {
+    color: var(--about-muted);
+    margin-bottom: .5rem;
+}
+
+.about-page .card .k {
+    color: var(--about-text);
+    font-weight: 600;
+}
+
+.about-page .note {
+    border-inline-start: 4px solid var(--about-secondary);
+    background: var(--about-panel);
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    font-size: .92rem;
+    color: var(--about-muted);
+    margin: 1.2rem 0;
+    max-width: 75ch;
+}
+
+/* التبويبات */
+.about-page .tabs {
+    display: inline-flex;
+    gap: 4px;
+    background: var(--about-panel);
+    border: 1px solid var(--about-line);
+    border-radius: 99px;
+    padding: .3rem;
+    margin: .6rem 0 1.2rem;
+    flex-wrap: wrap;
+}
+
+.about-page .tabs button {
+    font: 500 1rem var(--about-body);
+    color: var(--about-muted);
+    background: none;
+    border: 0;
+    padding: .55rem 1.2rem;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.about-page .tabs button[aria-selected="true"] {
+    background: var(--about-primary);
+    color: #fff;
+}
+
+.about-page .panel {
+    animation: about-fade .45s ease;
+}
+
+.about-page .panel[hidden] {
+    display: none;
+}
+
+.about-page .panel .card {
+    max-width: 700px;
+}
+
+.about-page .audio {
+    font-size: .92rem;
+    color: var(--about-muted);
+    margin-top: .6rem;
+}
+
+.about-page .audio audio {
+    width: 100%;
+    max-width: 420px;
+    display: block;
+    margin-top: .3rem;
+}
+
+/* الختام والفوتر */
+.about-page .cta {
+    text-align: center;
+    background: radial-gradient(circle at 50% 0, var(--about-panel), var(--about-bg) 70%);
+    border-top: 1px solid var(--about-line);
+}
+
+.about-page .cta p {
+    margin-inline: auto;
+}
+
+.about-page .cta .wrap {
+    padding-block: .5rem;
+}
+
+.about-footer {
+    padding: 1.4rem 1rem 2rem;
+    color: var(--about-muted);
+    font-size: .88rem;
+    border-top: 1px solid var(--about-line);
+    text-align: center;
+}
+
+.about-footer p {
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+@keyframes about-pop {
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes about-drift {
+    to { transform: translate(40px,30px) scale(1.15); }
+}
+
+@keyframes about-spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes about-cspin {
+    from { transform: rotate(calc(-1 * var(--a))); }
+    to { transform: rotate(calc(-1 * var(--a) - 360deg)); }
+}
+
+@keyframes about-pulse {
+    50% { box-shadow: 0 0 75px color-mix(in srgb, var(--about-secondary) 28%, transparent); }
+}
+
+@keyframes about-shine {
+    0%,60% { left: -60%; }
+    100% { left: 140%; }
+}
+
+@keyframes about-marq {
+    to { transform: translateX(-50%); }
+}
+
+@keyframes about-fade {
+    from { opacity: 0; transform: translateY(12px); }
+}
+
+@media (min-width: 760px) {
+    .about-page .hero .wrap { grid-template-columns: 1.2fr .8fr; }
+    .about-page .split { grid-template-columns: 1fr 1fr; }
+    .about-page .cards.two { grid-template-columns: 1fr 1fr; }
+    .about-page .cards.three { grid-template-columns: repeat(3, 1fr); }
+    .about-page { font-size: 1.06rem; }
+}
+
+@media (max-width: 900px) {
+    .main-header { padding: 9px 12px; }
+    .header-container { flex-wrap: wrap; }
+    .main-nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+    .main-nav .nav-link {
+        font-size: .84rem;
+        padding: 6px 9px;
+    }
+    .about-subnav { top: 105px; }
+}
+
+@media (max-width: 480px) {
+    .logo-icon { width: 32px; height: 32px; }
+    .logo-text strong { font-size: .84rem; }
+    .logo-text small { font-size: .7rem; }
+    .about-page .hero {
+        min-height: auto;
+        padding: 3rem 0 2.5rem;
+    }
+    .about-page section { padding: 2.7rem 0; }
+    .about-page .stats { gap: 1.2rem; }
+    .about-page .stat b { font-size: 2rem; }
+    .about-page .btns { align-items: stretch; }
+    .about-page .btn { width: 100%; }
+    .about-subnav { top: 100px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .about-page .hero h1 .w {
+        opacity: 1;
+        transform: none;
+    }
+
+    .js .about-page .rv {
+        opacity: 1;
+        transform: none;
+    }
+
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+
+<body>
+<div id="bar" aria-hidden="true"></div>
+
+<!-- الهيدر الرئيسي -->
+<header class="main-header">
+    <div class="header-container">
+
+        <a href="../index.html" class="logo-area" aria-label="الصفحة الرئيسية">
+            <span class="logo-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M19 3h10l1.4 5.1 4.1 1.7 4.7-2.5 5 8.7-3.8 3.6v4.8l3.8 3.6-5 8.7-4.7-2.5-4.1 1.7L29 43H19l-1.4-5.1-4.1-1.7-4.7 2.5-5-8.7 3.8-3.6v-4.8l-3.8-3.6 5-8.7 4.7 2.5 4.1-1.7L19 3Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+                    <circle cx="24" cy="24" r="9" stroke="currentColor" stroke-width="2.5"/>
+                    <path d="M24 29v-9m0 5c-5 0-6-4-6-4 4-1 6 1 6 4Zm0-3c0-4 3-6 6-6 0 4-2 6-6 6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+
+            <span class="logo-text">
+                <strong>منصة الهندسة الزراعية</strong>
+                <small>جامعة الأزهر</small>
+            </span>
+        </a>
+
+        <nav class="main-nav" aria-label="التنقل الرئيسي">
+            <a href="../index.html" class="nav-link" data-nav="home">الرئيسية</a>
+            <a href="../student_dashboard/index.html" class="nav-link" data-nav="dashboard">لوحة إنجاز الطالب</a>
+            <a href="../about/about.html" class="nav-link" data-nav="about" aria-current="page">عن الكلية</a>
+            <a href="../tools/tools.html" class="nav-link" data-nav="tools">الأدوات</a>
+        </nav>
+
+        <button type="button" class="theme-toggle" id="themeToggle"
+            aria-label="تغيير الوضع" title="الوضع النهاري أو الليلي">🌙</button>
+    </div>
+</header>
+
+<!-- هيدر فرعي لأقسام الصفحة -->
+<nav class="about-subnav" aria-label="أقسام صفحة عن الكلية">
+    <a href="#about">نبذة</a>
+    <a href="#departments">الأقسام</a>
+    <a href="#careers">مجالات العمل</a>
+    <a href="#difference">الفرق بين المجالين</a>
+</nav>
+
+<main class="about-page">
+
+    <!-- الغلاف -->
+    <div class="hero">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="wrap">
+            <div>
+                <h1>
+                    <span class="w" style="--i:0">تعرّف</span>
+                    <span class="w" style="--i:1">على</span>
+                    <span class="w g" style="--i:2">الهندسة</span>
+                    <span class="w g" style="--i:3">الزراعية</span>
+                </h1>
+                <p class="lead">رحلة سريعة داخل كلية الهندسة الزراعية: ما طبيعة التخصص، وما الأقسام العلمية، وإلى أين يمكن أن يقودك هذا المجال.</p>
+                <div class="btns">
+                    <a class="btn" href="#departments">استكشف الأقسام</a>
+                    <a class="btn ghost" href="#difference">ما الفرق عن العلوم الزراعية؟</a>
+                </div>
+            </div>
+
+            <div class="orbit" role="img" aria-label="رسم يوضح مجالات الدراسة حول الهندسة الزراعية">
+                <div class="ring"></div>
+                <div class="ring2"></div>
+                <div class="core">🌾</div>
+                <div class="spin">
+                    <div class="sat" style="--a:0deg"><span>⚙️</span></div>
+                    <div class="sat" style="--a:90deg"><span>💧</span></div>
+                    <div class="sat" style="--a:180deg"><span>🌱</span></div>
+                    <div class="sat" style="--a:270deg"><span>🏭</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط المجالات المتحرك -->
+    <div class="marq" aria-hidden="true"><div>
+        <span>آلات زراعية</span><span>نظم الري</span><span>التحكم البيئي</span>
+        <span>المنشآت الزراعية</span><span>تصنيع الأغذية</span><span>ترشيد المياه</span>
+        <span>آلات زراعية</span><span>نظم الري</span><span>التحكم البيئي</span>
+        <span>المنشآت الزراعية</span><span>تصنيع الأغذية</span><span>ترشيد المياه</span>
+    </div></div>
+
+    <div class="wrap">
+
+        <!-- نبذة -->
+        <section id="about">
+            <div class="split">
+                <div class="rv">
+                    <h2>ما هي الهندسة الزراعية؟</h2>
+                    <p>تطبّق الهندسة الزراعية المبادئ الهندسية على الأنشطة الزراعية: كيف نُشغّل الآلات بكفاءة، وكيف نصمم شبكات الري، وكيف نبني منشآت تحمي الإنتاج، وكيف نحوّل المنتج الزراعي إلى منتج غذائي جاهز.</p>
+                    <p>المهندس الزراعي يجمع بين المعرفة الهندسية وفهم احتياجات الأرض والنبات والحيوان، ليتعامل مع مشكلات عملية مثل ترشيد المياه وتقليل الفاقد.</p>
+
+                    <div class="stats">
+                        <div class="stat"><b data-count="4">٤</b><small>مجالات دراسة (قائمة أولية)</small></div>
+                        <div class="stat"><b data-count="5">٥</b><small>أمثلة لمجالات العمل</small></div>
+                    </div>
+
+                    <div class="audio" data-audio="" data-title="نبذة عن الكلية">
+                        <span class="audio-msg">التسجيل الصوتي لهذا القسم سيُضاف لاحقًا. النص المكتوب متاح كاملًا.</span>
+                    </div>
+                </div>
+
+                <div class="rv d1">
+                    <div class="ph" role="img" aria-label="مساحة محجوزة لصورة الكلية">صورة الكلية تُضاف لاحقًا</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- الأقسام -->
+        <section id="departments">
+            <h2 class="rv">الأقسام العلمية</h2>
+            <div class="note rv">قائمة أولية قيد المراجعة. تُعتمد الأسماء والتصنيفات بعد مطابقتها بالمصادر الرسمية قبل النشر النهائي.</div>
+
+            <div class="cards two">
+                <article class="card rv" data-tilt>
+                    <div class="ph sm" role="img" aria-label="مساحة محجوزة لصورة القسم">صورة تُضاف لاحقًا</div>
+                    <span class="ico">⚙️</span>
+                    <h3>القوى والآلات</h3>
+                    <p>يهتم بالآلات الزراعية ومصادر القدرة، وطرق تشغيلها وصيانتها وتحسين كفاءتها.</p>
+                    <p><span class="k">أمثلة:</span> الجرارات ومعدات الحرث والحصاد.</p>
+                </article>
+
+                <article class="card rv d1" data-tilt>
+                    <div class="ph sm" role="img" aria-label="مساحة محجوزة لصورة القسم">صورة تُضاف لاحقًا</div>
+                    <span class="ico">🌿</span>
+                    <h3>المنشآت والتحكم البيئي</h3>
+                    <p>يتناول تصميم المنشآت الزراعية والتحكم في الحرارة والرطوبة والتهوية حول النبات والحيوان.</p>
+                    <p><span class="k">أمثلة:</span> الصوب والحظائر ومخازن المحاصيل.</p>
+                </article>
+
+                <article class="card rv" data-tilt>
+                    <div class="ph sm" role="img" aria-label="مساحة محجوزة لصورة القسم">صورة تُضاف لاحقًا</div>
+                    <span class="ico">💧</span>
+                    <h3>نظم المياه والري</h3>
+                    <p>يدرس مصادر المياه وطرق توزيعها على الحقول وتصميم نظم الري التي ترشّد الاستهلاك.</p>
+                    <p><span class="k">أمثلة:</span> الري بالتنقيط والرش وشبكات التوزيع.</p>
+                </article>
+
+                <article class="card rv d1" data-tilt>
+                    <div class="ph sm" role="img" aria-label="مساحة محجوزة لصورة القسم">صورة تُضاف لاحقًا</div>
+                    <span class="ico">🏭</span>
+                    <h3>تصنيع المنتجات الغذائية</h3>
+                    <p>يعنى بالعمليات التي تحوّل المنتجات الزراعية إلى منتجات غذائية، من الحفظ والتجهيز إلى التعبئة.</p>
+                    <p><span class="k">أمثلة:</span> خطوط التجفيف والتبريد والتعبئة.</p>
+                </article>
+            </div>
+
+            <div class="note rv">«الشعبة العامة» لم تُدرج كقسم مستقل، لأن موضعها في الهيكل الدراسي ما زال بحاجة إلى تحقق.</div>
+
+            <div class="audio" data-audio="" data-title="الأقسام العلمية">
+                <span class="audio-msg">التسجيل الصوتي لهذا القسم سيُضاف لاحقًا.</span>
+            </div>
+        </section>
+
+        <!-- مجالات العمل -->
+        <section id="careers">
+            <h2 class="rv">مجالات العمل</h2>
+            <p class="rv">تتنوع المسارات حسب القسم والتدريب والمهارات واحتياجات سوق العمل. هذه أمثلة للتعرّف على المجال وليست وعدًا بوظيفة بعد التخرج.</p>
+
+            <div class="cards three">
+                <div class="card rv" data-tilt><span class="ico">🚰</span><h3>الري والمياه</h3><p>مشروعات الري والاستصلاح وإدارة المياه.</p></div>
+                <div class="card rv d1" data-tilt><span class="ico">🚜</span><h3>الآلات الزراعية</h3><p>تشغيل الآلات وصيانتها وإدارة المعدات في المزارع.</p></div>
+                <div class="card rv d2" data-tilt><span class="ico">🏗️</span><h3>المنشآت</h3><p>تصميم الصوب والحظائر والمخازن والإشراف على تنفيذها.</p></div>
+                <div class="card rv" data-tilt><span class="ico">🥫</span><h3>تصنيع الأغذية</h3><p>العمل في خطوط التصنيع والتعبئة داخل مصانع الأغذية.</p></div>
+                <div class="card rv d1" data-tilt><span class="ico">💡</span><h3>الاستشارات والمشروعات</h3><p>الاستشارات الفنية والمشروعات الزراعية الخاصة.</p></div>
+            </div>
+
+            <div class="audio" data-audio="" data-title="مجالات العمل">
+                <span class="audio-msg">التسجيل الصوتي لهذا القسم سيُضاف لاحقًا.</span>
+            </div>
+        </section>
+
+        <!-- المقارنة -->
+        <section id="difference">
+            <h2 class="rv">الهندسة الزراعية والعلوم الزراعية</h2>
+            <p class="rv">يتداخل المجالان في بعض التطبيقات ولا يُفصل بينهما فصلًا مطلقًا. اضغط لترى زاوية كل منهما:</p>
+
+            <div class="tabs rv" role="tablist" aria-label="المقارنة">
+                <button type="button" role="tab" id="t1" aria-selected="true" aria-controls="p1">الهندسة الزراعية</button>
+                <button type="button" role="tab" id="t2" aria-selected="false" aria-controls="p2" tabindex="-1">العلوم الزراعية</button>
+            </div>
+
+            <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+                <div class="card">
+                    <h3>الهندسة الزراعية</h3>
+                    <p>توظّف المبادئ الهندسية والتقنية في تطبيقات زراعية، مثل الآلات والري والمنشآت والتحكم البيئي وبعض عمليات التصنيع.</p>
+                </div>
+            </div>
+
+            <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+                <div class="card">
+                    <h3>العلوم الزراعية</h3>
+                    <p>تشمل مجالات علمية وتطبيقية متعددة، مثل الإنتاج النباتي والحيواني وعلوم التربة وغيرها.</p>
+                </div>
+            </div>
+
+            <div class="note rv">تختلف البرامج الدراسية من مؤسسة إلى أخرى. تُراجع هذه الصياغة مع طبيعة الدراسة الفعلية في الكلية قبل اعتمادها.</div>
+        </section>
+    </div>
+
+    <section class="cta">
+        <div class="wrap rv">
+            <h2>جاهز تكمل رحلتك؟</h2>
+            <p>ارجع إلى المنصة وتصفح المقررات والملفات الدراسية.</p>
+            <a class="btn" href="../index.html">العودة إلى الصفحة الرئيسية</a>
+        </div>
+    </section>
+</main>
+
+<footer class="about-footer">
+    <p>© 2026 Sameh Abobakr — منصة كلية الهندسة الزراعية</p>
+</footer>
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (!body || !themeToggle) return;
+
+    const isLightMode = body.classList.toggle('light-mode');
+    document.documentElement.classList.toggle('light-mode', isLightMode);
+
+    try {
+        localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    } catch (e) {}
+
+    themeToggle.textContent = isLightMode ? '☀️' : '🌙';
+    themeToggle.setAttribute(
+        'aria-label',
+        isLightMode ? 'تفعيل الوضع الليلي' : 'تفعيل الوضع النهاري'
+    );
+    themeToggle.setAttribute(
+        'title',
+        isLightMode ? 'الوضع الليلي' : 'الوضع النهاري'
+    );
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const themeToggle = document.getElementById('themeToggle');
+    let savedTheme = 'dark';
+
+    try {
+        savedTheme = localStorage.getItem('theme') || 'dark';
+    } catch (e) {}
+
+    const isLightMode = savedTheme === 'light';
+    document.body.classList.toggle('light-mode', isLightMode);
+    document.documentElement.classList.toggle('light-mode', isLightMode);
+
+    if (themeToggle) {
+        themeToggle.textContent = isLightMode ? '☀️' : '🌙';
+        themeToggle.setAttribute(
+            'aria-label',
+            isLightMode ? 'تفعيل الوضع الليلي' : 'تفعيل الوضع النهاري'
+        );
+        themeToggle.setAttribute(
+            'title',
+            isLightMode ? 'الوضع الليلي' : 'الوضع النهاري'
+        );
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    /* شريط التقدم */
+    const bar = document.getElementById('bar');
+
+    function updateProgress() {
+        const root = document.documentElement;
+        const max = root.scrollHeight - root.clientHeight;
+
+        if (bar) {
+            bar.style.transform =
+                'scaleX(' + (max > 0 ? root.scrollTop / max : 0) + ')';
+        }
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    /* ظهور العناصر عند التمرير */
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(
+            function (entries, observer) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.15 }
+        );
+
+        document.querySelectorAll('.about-page .rv').forEach(function (el) {
+            revealObserver.observe(el);
+        });
+
+        /* تمييز القسم الحالي */
+        const navLinks = {};
+
+        document.querySelectorAll('.about-subnav a').forEach(function (a) {
+            navLinks[a.hash.slice(1)] = a;
+        });
+
+        const sectionObserver = new IntersectionObserver(
+            function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+
+                    Object.values(navLinks).forEach(function (a) {
+                        a.classList.remove('on');
+                    });
+
+                    if (navLinks[entry.target.id]) {
+                        navLinks[entry.target.id].classList.add('on');
+                    }
+                });
+            },
+            { rootMargin: '-35% 0px -55% 0px' }
+        );
+
+        document.querySelectorAll('.about-page section[id]').forEach(function (section) {
+            sectionObserver.observe(section);
+        });
+    } else {
+        document.querySelectorAll('.about-page .rv').forEach(function (el) {
+            el.classList.add('in');
+        });
+    }
+
+    /* عداد الأرقام */
+    document.querySelectorAll('.about-page [data-count]').forEach(function (el) {
+        const number = Number(el.dataset.count);
+
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            el.textContent = number.toLocaleString('ar-EG');
+            return;
+        }
+
+        const counterObserver = new IntersectionObserver(function (entries, observer) {
+            if (!entries[0].isIntersecting) return;
+
+            observer.disconnect();
+            const start = performance.now();
+
+            function animate(now) {
+                const progress = Math.min((now - start) / 1200, 1);
+                const value = Math.round(
+                    number * (1 - Math.pow(1 - progress, 3))
+                );
+
+                el.textContent = value.toLocaleString('ar-EG');
+
+                if (progress < 1) requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+        });
+
+        counterObserver.observe(el);
+    });
+
+    /* توهج البطاقات وميلانها على أجهزة المؤشر */
+    const finePointer = window.matchMedia(
+        '(hover:hover) and (pointer:fine)'
+    ).matches;
+
+    document.querySelectorAll('.about-page .card').forEach(function (card) {
+        if (!finePointer) return;
+
+        card.addEventListener('pointermove', function (event) {
+            const rect = card.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            card.style.setProperty('--mx', x + 'px');
+            card.style.setProperty('--my', y + 'px');
+
+            if (!reduceMotion && card.hasAttribute('data-tilt')) {
+                card.style.transform =
+                    'rotateX(' + ((0.5 - y / rect.height) * 7) + 'deg) ' +
+                    'rotateY(' + ((x / rect.width - 0.5) * 7) + 'deg) ' +
+                    'translateY(-3px)';
+            }
+        });
+
+        card.addEventListener('pointerleave', function () {
+            card.style.transform = '';
+        });
+    });
+
+    /* التبويبات */
+    const tabs = Array.from(
+        document.querySelectorAll('.about-page [role="tab"]')
+    );
+
+    function selectTab(selectedTab) {
+        tabs.forEach(function (tab) {
+            const active = tab === selectedTab;
+
+            tab.setAttribute('aria-selected', String(active));
+            tab.tabIndex = active ? 0 : -1;
+
+            const panel = document.getElementById(
+                tab.getAttribute('aria-controls')
+            );
+
+            if (panel) panel.hidden = !active;
+        });
+    }
+
+    tabs.forEach(function (tab, index) {
+        tab.addEventListener('click', function () {
+            selectTab(tab);
+        });
+
+        tab.addEventListener('keydown', function (event) {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+
+            event.preventDefault();
+            const nextIndex = (index + 1) % tabs.length;
+            tabs[nextIndex].focus();
+            selectTab(tabs[nextIndex]);
+        });
+    });
+
+    /* تشغيل التسجيلات عند إضافة مسار صوت */
+    const players = [];
+
+    document.querySelectorAll('.about-page .audio[data-audio]').forEach(function (box) {
+        const source = box.getAttribute('data-audio');
+        if (!source) return;
+
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.preload = 'none';
+        audio.src = source;
+
+        audio.setAttribute(
+            'aria-label',
+            'الاستماع إلى: ' + (box.dataset.title || 'التسجيل')
+        );
+
+        const message = box.querySelector('.audio-msg');
+
+        if (message) message.textContent = 'استمع إلى هذا القسم:';
+
+        audio.addEventListener('play', function () {
+            players.forEach(function (player) {
+                if (player !== audio) player.pause();
+            });
+        });
+
+        audio.addEventListener('error', function () {
+            audio.remove();
+
+            if (message) {
+                message.textContent =
+                    'تعذّر تحميل التسجيل حاليًا. النص المكتوب متاح في القسم.';
+            }
+        });
+
+        players.push(audio);
+        box.appendChild(audio);
+    });
+});
+</script>
+</body>
+</html>
