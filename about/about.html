@@ -71,105 +71,6 @@ button { font: inherit; }
     border-radius: 6px;
 }
 
-/* =========================
-   الهيدر الرئيسي للمنصة
-========================= */
-
-.main-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--card-bg, #1e293b);
-    border-bottom: 1px solid var(--border-color, #334155);
-    padding: 10px 20px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--primary-color, #10b981);
-    text-decoration: none;
-    flex-shrink: 0;
-}
-
-.logo-icon {
-    width: 38px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-}
-
-.logo-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.45;
-}
-
-.logo-text strong {
-    color: var(--primary-color, #10b981);
-    font-size: .98rem;
-    font-weight: 700;
-}
-
-.logo-text small {
-    color: var(--text-muted, #cbd5e1);
-    font-size: .76rem;
-}
-
-.main-nav {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.main-nav .nav-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted, #cbd5e1);
-    text-decoration: none;
-    padding: 7px 11px;
-    border-radius: 10px;
-    font-size: .9rem;
-    transition: background .2s, color .2s;
-}
-
-.main-nav .nav-link:hover,
-.main-nav .nav-link[aria-current="page"] {
-    background: color-mix(in srgb, var(--primary-color, #10b981) 14%, transparent);
-    color: var(--primary-color, #10b981);
-}
-
-.theme-toggle {
-    border: 1px solid var(--border-color, #334155);
-    background: var(--bg-color, #0f172a);
-    color: var(--text-main, #f8fafc);
-    border-radius: 10px;
-    min-width: 42px;
-    min-height: 42px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
 /* شريط أقسام الصفحة */
 .about-subnav {
     position: sticky;
@@ -747,20 +648,10 @@ button { font: inherit; }
     .about-page .cards.three { grid-template-columns: repeat(3, 1fr); }
     .about-page { font-size: 1.06rem; }
 }
-
 @media (max-width: 900px) {
-    .main-header { padding: 9px 12px; }
-    .header-container { flex-wrap: wrap; }
-    .main-nav {
-        order: 3;
-        width: 100%;
-        justify-content: center;
+    .about-subnav {
+        top: 105px;
     }
-    .main-nav .nav-link {
-        font-size: .84rem;
-        padding: 6px 9px;
-    }
-    .about-subnav { top: 105px; }
 }
 
 @media (max-width: 480px) {
@@ -822,11 +713,13 @@ button { font: inherit; }
                 <strong>منصة الهندسة الزراعية</strong>
                 <small>جامعة الأزهر</small>
             </span>
-        <a href="../index.html" class="nav-link" data-nav="home">الرئيسية</a>
-            <a href="student_dashboard/index.html" class="nav-link" data-nav="dashboard">لوحة إنجاز الطالب</a>
-            <a href="about/about.html" class="nav-link" data-nav="about" aria-current="page">عن الكلية</a>
-            <a href="tools/tools.html" class="nav-link" data-nav="tools">الأدوات</a>
+        </a>
 
+        <nav class="main-nav" aria-label="التنقل الرئيسي">
+            <a href="../" class="nav-link" data-nav="home">الرئيسية</a>
+            <a href="../student_dashboard/index.html" class="nav-link" data-nav="dashboard">لوحة إنجاز الطالب</a>
+            <a href="../about/about.html" class="nav-link active" data-nav="about" aria-current="page">عن الكلية</a>            
+            <a href="../tools/tools.html" class="nav-link" data-nav="tools">الأدوات</a>
         </nav>
 
         <button type="button" class="theme-toggle" id="themeToggle"

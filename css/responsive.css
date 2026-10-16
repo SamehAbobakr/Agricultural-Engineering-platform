@@ -58,10 +58,6 @@ body {
         padding: 17px;
     }
 
-    .logo-area h1 {
-        font-size: 1rem;
-    }
-
     .user-info-area {
         font-size: 0.8rem;
     }
@@ -95,38 +91,6 @@ body {
 
 @media (max-width: 768px) {
 
-    /* -------------------------------------
-       الهيدر
-    ------------------------------------- */
-
-    .main-header,
-    .site-header {
-        padding: 10px 12px;
-    }
-
-    .header-container {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-    }
-
-    .header-brand,
-    .logo-area {
-        min-width: 0;
-        justify-content: center;
-        gap: 7px;
-    }
-
-    .logo-icon {
-        font-size: 1.4rem;
-        flex-shrink: 0;
-    }
-
-    .logo-area h1 {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
 
     .user-info-area {
         display: none;
@@ -319,29 +283,9 @@ body {
        الهيدر
     ------------------------------------- */
 
-    .main-header,
-    .site-header {
-        padding: 8px 10px;
-        gap: 6px;
-    }
-
-    .header-container {
-        gap: 5px;
-    }
 
     .logo-area {
         gap: 7px;
-    }
-
-    .header-logo,
-    .logo-icon {
-        font-size: 1.4rem;
-    }
-
-    .header-title h2,
-    .logo-area h1 {
-        font-size: 0.85rem;
-        line-height: 1.4;
     }
 
     .user-info-area {
