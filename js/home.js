@@ -243,45 +243,6 @@ async function renderHome() {
     }
 
 }
-function openObsidian() {
-    const obsidianUrl = 'https://obsidian.md/';
-
-    window.open(
-        obsidianUrl,
-        '_blank',
-        'noopener,noreferrer'
-    );
-}
-function openStudyTimer() {
-    window.open(
-        'tools/study-timer.html',
-        '_blank',
-        'noopener,noreferrer'
-    );
-}
-
-function openNotebookLM() {
-    const notebookLMUrl = 'https://notebooklm.google.com/';
-
-    window.open(
-        notebookLMUrl,
-        '_blank',
-        'noopener,noreferrer'
-    );
-}
-function openWhiteboard() {
-    const whiteboardUrl = 'https://spahboard.ninjascribe.workers.dev/';
-
-    window.open(
-        whiteboardUrl,
-        '_blank',
-        'noopener,noreferrer'
-    );
-}
-
-
-
-
 function animateCounter(elementId, target, duration = 1000) {
 
     const element = document.getElementById(elementId);

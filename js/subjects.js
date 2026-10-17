@@ -81,7 +81,7 @@ async function renderSubjects() {
         subjectsToDisplay.forEach(sub => {
 
             const subJson =
-                JSON.stringify(sub).replace(/"/g, '&quot;');
+                inlineArg(sub);
 
             const profName =
                 sub.professor || 'غير متوفر';
@@ -97,7 +97,7 @@ async function renderSubjects() {
                 >
 
                     <div class="card-header-icon">
-                        ${sub.icon || '📘'}
+                        ${escapeHtml(sub.icon || '📘')}
                     </div>
 
                     <h3>${escapeHtml(sub.name)}</h3>

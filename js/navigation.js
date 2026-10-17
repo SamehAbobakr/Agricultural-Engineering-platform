@@ -263,17 +263,6 @@ function selectGrade(grade) {
     });
 }
 
-function selectDeptDirect(grade, dept) {
-    currentGrade = grade;
-    currentDept = dept;
-    currentTerm = '';
-
-
-    saveNavigationState();
-
-    showLoading(() => renderTerms());
-}
-
 function selectDepartment(deptName) {
     currentDept = deptName;
     currentTerm = '';

@@ -59,7 +59,7 @@ function applySharedTheme(theme) {
     const isDark = theme !== 'light';
 
     appState.theme = isDark ? 'dark' : 'light';
-    document.documentElement.classList.toggle('dark', isDark);
+    document.body.classList.toggle('light-mode', !isDark);
 
     const themeToggle = $('theme-toggle');
     if (themeToggle) {
@@ -82,16 +82,16 @@ window.addEventListener('storage', (event) => {
 function saveState() { if (persist()) renderAll(); }
 
 /* ---------- الإشعارات ---------- */
-const TOAST = { success: ['check-circle-2', 'emerald'], error: ['alert-circle', 'red'], warning: ['alert-triangle', 'amber'], info: ['info', 'blue'] };
+const TOAST = { success: ['check-circle-2', 'success'], error: ['alert-circle', 'error'], warning: ['alert-triangle', 'warning'], info: ['info', 'info'] };
 
 function showToast(title, message, type = 'info') {
     const box = $('toast-container');
     if (!box) return;
-    const [icon, color] = TOAST[type] || TOAST.info;
+    const [icon, kind] = TOAST[type] || TOAST.info;
     $('toast-title').textContent = title;
     $('toast-message').textContent = message;
-    $('toast-icon-wrap').innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 text-${color}-500"></i>`;
-    box.className = `fixed bottom-5 left-5 right-5 sm:right-auto z-[60] max-w-sm flex items-start gap-3 rounded-xl p-4 border border-slate-200 dark:border-slate-700 border-s-4 border-s-${color}-500 bg-white dark:bg-slate-900 shadow-lg`;
+    $('toast-icon-wrap').innerHTML = `<i data-lucide="${icon}" class="w-5 h-5 toast-icon"></i>`;
+    box.className = `toast toast--${kind}`;
     icons();
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => box.classList.add('hidden'), 4000);
@@ -143,31 +143,30 @@ function courseCard(c) {
     const pct = total ? Math.round(rev / total * 100) : 0;
     const done = total > 0 && rev >= total;
     const link = safeUrl(c.link);
-    const btn = 'inline-flex items-center justify-center w-7 h-7 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed';
     return `
-    <article class="course-card">
+    <article class="card course-card">
         <div class="space-y-2">
             <div class="flex items-start justify-between gap-2">
                 <div class="min-w-0">
-                    <h3 class="font-bold text-sm text-slate-900 dark:text-white leading-snug">${escapeHtml(c.name)}</h3>
-                    ${c.department ? `<span class="text-[10px] text-slate-400">${escapeHtml(c.department)}</span>` : ''}
+                    <h3>${escapeHtml(c.name)}</h3>
+                    ${c.department ? `<span class="dash-caption">${escapeHtml(c.department)}</span>` : ''}
                 </div>
-                <button type="button" data-action="edit" data-id="${escapeHtml(c.id)}" aria-label="تعديل المادة" title="تعديل المادة" class="${btn} text-slate-400 hover:text-primary-600 hover:bg-slate-100 dark:hover:bg-slate-800 shrink-0">
+                <button type="button" data-action="edit" data-id="${escapeHtml(c.id)}" aria-label="تعديل المادة" title="تعديل المادة" class="dash-icon-btn">
                     <i data-lucide="pencil" class="w-4 h-4"></i>
                 </button>
             </div>
-            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <div class="flex items-center justify-between text-xs dash-muted">
                 <span>مراجعة المحاضرات</span>
-                <span class="font-bold text-slate-700 dark:text-slate-200">${total ? `${rev} من ${total}` : 'غير محدد'}</span>
+                <span class="dash-strong">${total ? `${rev} من ${total}` : 'غير محدد'}</span>
             </div>
             <div class="progress-bar-bg" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
         </div>
-        <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-            <span class="text-xs font-bold ${done ? 'text-emerald-600 dark:text-emerald-400' : 'text-primary-600 dark:text-primary-400'}">${done ? '✓ تمت المراجعة' : `${pct}% مكتمل`}</span>
+        <div class="card-footer">
+            <span class="dash-status">${done ? '✓ تمت المراجعة' : `${pct}% مكتمل`}</span>
             <div class="flex items-center gap-1">
-                ${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 h-7 text-xs font-bold rounded-lg text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors"><i data-lucide="external-link" class="w-3.5 h-3.5"></i>الملفات</a>` : ''}
-                <button type="button" data-action="dec" data-id="${escapeHtml(c.id)}" ${rev <= 0 ? 'disabled' : ''} aria-label="تراجع عن مراجعة" title="تراجع" class="${btn} bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
-                <button type="button" data-action="inc" data-id="${escapeHtml(c.id)}" ${rev >= total ? 'disabled' : ''} class="inline-flex items-center gap-1 px-2.5 h-7 text-xs font-bold bg-primary-50 dark:bg-primary-950/60 text-primary-700 dark:text-primary-300 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"><i data-lucide="plus" class="w-3.5 h-3.5"></i>سجّل مراجعة</button>
+                ${link ? `<a href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer" class="dash-btn dash-btn--link dash-btn--sm"><i data-lucide="external-link" class="w-3.5 h-3.5"></i>الملفات</a>` : ''}
+                <button type="button" data-action="dec" data-id="${escapeHtml(c.id)}" ${rev <= 0 ? 'disabled' : ''} aria-label="تراجع عن مراجعة" title="تراجع" class="dash-btn dash-btn--icon dash-btn--sm"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
+                <button type="button" data-action="inc" data-id="${escapeHtml(c.id)}" ${rev >= total ? 'disabled' : ''} class="dash-btn dash-btn--soft dash-btn--sm"><i data-lucide="plus" class="w-3.5 h-3.5"></i>سجّل مراجعة</button>
             </div>
         </div>
     </article>`;
@@ -177,33 +176,33 @@ function renderCoursesList() {
     const box = $('courses-container'), empty = $('courses-empty-state');
     if (loadStatus === 'loading') {
         empty.classList.add('hidden');
-        box.innerHTML = `<div class="col-span-full py-12 text-center space-y-3"><div class="inline-block w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div><p class="text-xs text-slate-500">جاري تحميل المواد الدراسية...</p></div>`;
+        box.innerHTML = `<div class="loading-screen col-span-full"><div class="loading-spinner" aria-hidden="true">⏳</div><p>جاري تحميل المواد الدراسية...</p></div>`;
         return;
     }
     if (loadStatus === 'error') {
         empty.classList.add('hidden');
-        box.innerHTML = `<div class="col-span-full py-10 text-center space-y-3"><i data-lucide="wifi-off" class="w-9 h-9 mx-auto text-red-400"></i><p class="text-sm font-semibold text-slate-600 dark:text-slate-300">تعذر تحميل المواد. تأكد من الاتصال بالإنترنت.</p><button id="retry-load-btn" type="button" class="px-4 py-2 text-xs font-bold bg-primary-600 hover:bg-primary-700 text-white rounded-xl">إعادة المحاولة</button></div>`;
+        box.innerHTML = `<div class="col-span-full py-10 text-center space-y-3"><i data-lucide="wifi-off" class="w-9 h-9 mx-auto dash-danger"></i><p class="text-sm font-semibold dash-muted">تعذر تحميل المواد. تأكد من الاتصال بالإنترنت.</p><button id="retry-load-btn" type="button" class="dash-btn dash-btn--primary">إعادة المحاولة</button></div>`;
         icons();
         return;
     }
     const q = $('course-search-input').value.trim().toLowerCase();
-    
-const year = String(appState.userProfile.academicYear);
-const dep = $('main-department-select').value;
+    const year = String(appState.userProfile.academicYear);
+    const dep = $('main-department-select').value;
 
-const list = termCourses()
-    .filter(c => {
-        const matchesName = c.name.toLowerCase().includes(q);
+    const list = termCourses()
+        .filter(c => {
+            const matchesName = c.name.toLowerCase().includes(q);
 
-        // أولى وثانية: كل المواد العامة بلا فلتر أقسام
-        if (year === '1' || year === '2') {
-            return matchesName;
-        }
+            // أولى وثانية: كل المواد العامة بلا فلتر أقسام
+            if (year === '1' || year === '2') {
+                return matchesName;
+            }
 
-        // ثالثة ورابعة: التصفية حسب القسم المختار
-        return matchesName && (!dep || c.department === dep);
-    })
-    .sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+            // ثالثة ورابعة: التصفية حسب القسم المختار
+            return matchesName && (!dep || c.department === dep);
+        })
+        .sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+
     box.innerHTML = list.map(courseCard).join('');
 
     empty.classList.toggle('hidden', list.length > 0);
@@ -252,12 +251,12 @@ function renderGoalsList() {
     box.innerHTML = goals.map(g => `
         <div class="goal-item ${g.completed ? 'completed' : ''}">
             <div class="flex items-center gap-2.5 flex-grow overflow-hidden pr-1">
-                <button type="button" class="toggle-goal-btn shrink-0 w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${g.completed ? 'bg-primary-600 border-primary-600 text-white' : 'border-slate-300 dark:border-slate-600 hover:border-primary-500'}" data-id="${escapeHtml(g.id)}" role="checkbox" aria-checked="${!!g.completed}" aria-label="تم إنجاز: ${escapeHtml(g.title)}">${g.completed ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}</button>
-                <span class="goal-title text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title="${escapeHtml(g.title)}">${escapeHtml(g.title)}</span>
+                <button type="button" class="toggle-goal-btn goal-check ${g.completed ? 'is-done' : ''}" data-id="${escapeHtml(g.id)}" role="checkbox" aria-checked="${!!g.completed}" aria-label="تم إنجاز: ${escapeHtml(g.title)}">${g.completed ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}</button>
+                <span class="goal-title truncate" title="${escapeHtml(g.title)}">${escapeHtml(g.title)}</span>
             </div>
             <div class="flex items-center gap-2">
-                <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">${escapeHtml(g.category || 'عام')}</span>
-                <button type="button" class="delete-goal-btn text-slate-400 hover:text-red-500 p-1" data-id="${escapeHtml(g.id)}" title="حذف الهدف" aria-label="حذف الهدف"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+                <span class="goal-tag">${escapeHtml(g.category || 'عام')}</span>
+                <button type="button" class="delete-goal-btn goal-delete" data-id="${escapeHtml(g.id)}" title="حذف الهدف" aria-label="حذف الهدف"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
             </div>
         </div>`).join('');
     icons();
@@ -354,36 +353,35 @@ function setupModals() {
 
 /* ---------- الأحداث ---------- */
 function bindEvents() {
-    
+    $('theme-toggle').addEventListener('click', () => {
+        const nextTheme = document.body.classList.contains('light-mode')
+            ? 'dark'
+            : 'light';
 
-$('theme-toggle').addEventListener('click', () => {
-    const nextTheme = document.documentElement.classList.contains('dark')
-        ? 'light'
-        : 'dark';
+        try {
+            localStorage.setItem('theme', nextTheme);
+        } catch (error) {
+            console.warn('تعذر حفظ الوضع المختار:', error);
+        }
 
-    try {
-        localStorage.setItem('theme', nextTheme);
-    } catch (error) {
-        console.warn('تعذر حفظ الوضع المختار:', error);
-    }
+        applySharedTheme(nextTheme);
+        persist();
+    });
 
-    applySharedTheme(nextTheme);
-    persist();
-});
     $('toast-close-btn').addEventListener('click', () => $('toast-container').classList.add('hidden'));
 
-    
-$('main-year-select').addEventListener('change', e => {
-    appState.userProfile.academicYear = e.target.value;
-    renderDepartments();
-    saveState();
-});
+    $('main-year-select').addEventListener('change', e => {
+        appState.userProfile.academicYear = e.target.value;
+        renderDepartments();
+        saveState();
+    });
 
-$('main-term-select').addEventListener('change', e => {
-    appState.userProfile.academicTerm = e.target.value;
-    renderDepartments();
-    saveState();
-});
+    $('main-term-select').addEventListener('change', e => {
+        appState.userProfile.academicTerm = e.target.value;
+        renderDepartments();
+        saveState();
+    });
+
     $('main-department-select').addEventListener('change', renderCoursesList);
     $('course-search-input').addEventListener('input', renderCoursesList);
 
@@ -485,4 +483,3 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAll();
     loadSubjects();
 });
-

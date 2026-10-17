@@ -6,7 +6,7 @@ export const INITIAL_DATA = {
         academicYear: '3',
         academicTerm: '2',
         gpa: '',
-        quote: 'استعن بالله ولا تعجز.. كل خطوة تقربك من هدفك.',
+        quote: 'استعن بالله ولا تعجز.. كل خطوة هندسية تقربك من هدفك.',
         quickNotes: ''
     },
     progress: {}, // { [subjectId]: { totalFiles, reviewedFiles, link } }

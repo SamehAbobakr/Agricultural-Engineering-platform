@@ -359,3 +359,23 @@
         font-size: 11px;
     }
 }
+/* تمييز الصفحة الحالية في الهيدر */
+.main-nav .nav-link.active {
+    position: relative;
+    background: var(--card-bg);
+    color: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 1px var(--border-color);
+}
+
+/* الخط أسفل الرابط النشط */
+.main-nav .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 3px;
+    right: 12px;
+    left: 12px;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
