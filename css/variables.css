@@ -3,6 +3,9 @@
 ========================================= */
 
 :root {
+    /* الخط الأساسي للمنصة (يُحمَّل Cairo من Google Fonts في كل صفحة) */
+    --font-main: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+
     --bg-color: #0f172a;
     --card-bg: #1e293b;
 
@@ -24,6 +27,7 @@
    الوضع النهاري
 ========================================= */
 
+html.light-mode,
 body.light-mode {
     --bg-color: #f1f5f9;
     --card-bg: #ffffff;

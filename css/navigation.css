@@ -8,8 +8,16 @@
     position: relative;
     z-index: 100;
     width: 100%;
+    padding: 12px 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     background: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-sizing: border-box;
 }
 

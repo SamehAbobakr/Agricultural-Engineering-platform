@@ -10,7 +10,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- ملفات التنسيق المشتركة -->
 <link rel="stylesheet" href="../css/variables.css">
@@ -31,15 +31,18 @@ document.documentElement.classList.add('js');
 
 <style>
 :root {
-    --about-bg: var(--bg-color, #0f172a);
-    --about-panel: var(--card-bg, #1e293b);
-    --about-text: var(--text-main, #f8fafc);
-    --about-muted: var(--text-muted, #cbd5e1);
-    --about-primary: var(--primary-color, #10b981);
-    --about-secondary: var(--secondary-color, #3b82f6);
-    --about-line: var(--border-color, #334155);
-    --about-head: "Readex Pro", "Segoe UI", Tahoma, sans-serif;
-    --about-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+    --about-head: var(--font-main, "Cairo", "Segoe UI", Tahoma, sans-serif);
+    --about-body: var(--font-main, "Cairo", "Segoe UI", Tahoma, sans-serif);
+
+    /* المسافات المتكررة في الصفحة */
+    --about-section-y: 3.4rem;
+    --about-gap: 1rem;
+    --about-gap-lg: 2rem;
+    --about-card-pad: 1.2rem;
+
+    /* ارتفاع الهيدر والقائمة الفرعية: يقيسهما السكربت أسفل الصفحة، والقيم هنا احتياطية */
+    --about-header-h: 101px;
+    --about-subnav-h: 53px;
 }
 
 * { box-sizing: border-box; }
@@ -50,6 +53,15 @@ html {
 }
 
 body {
+    /* تُحسب على body (لا على :root) كي تلتقط قيم الوضع النهاري من body.light-mode */
+    --about-bg: var(--bg-color, #0f172a);
+    --about-panel: var(--card-bg, #1e293b);
+    --about-text: var(--text-main, #f8fafc);
+    --about-muted: var(--text-muted, #cbd5e1);
+    --about-primary: var(--primary-color, #10b981);
+    --about-secondary: var(--secondary-color, #3b82f6);
+    --about-line: var(--border-color, #334155);
+
     margin: 0;
     background: var(--about-bg);
     color: var(--about-text);
@@ -57,6 +69,7 @@ body {
     overflow-x: hidden;
 }
 
+html.light-mode,
 body.light-mode {
     color-scheme: light;
 }
@@ -72,108 +85,23 @@ button { font: inherit; }
 }
 
 /* =========================
-   الهيدر الرئيسي للمنصة
+   الهيدر: تنسيقه من navigation.css المشترك.
+   اللصق (sticky) مقصود في هذه الصفحة، لكنه معطّل فعليًا حاليًا لأن
+   html, body { overflow-x: hidden } في responsive.css يجعل body حاوية تمرير.
+   (سلوك موجود قبل هذا التعديل؛ بانتظار قرار: تفعيله أم جعل الهيدر عاديًا كبقية الصفحات)
 ========================= */
 
 .main-header {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: var(--card-bg, #1e293b);
-    border-bottom: 1px solid var(--border-color, #334155);
-    padding: 10px 20px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--primary-color, #10b981);
-    text-decoration: none;
-    flex-shrink: 0;
-}
-
-.logo-icon {
-    width: 38px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-}
-
-.logo-icon svg {
-    width: 100%;
-    height: 100%;
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.45;
-}
-
-.logo-text strong {
-    color: var(--primary-color, #10b981);
-    font-size: .98rem;
-    font-weight: 700;
-}
-
-.logo-text small {
-    color: var(--text-muted, #cbd5e1);
-    font-size: .76rem;
-}
-
-.main-nav {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.main-nav .nav-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted, #cbd5e1);
-    text-decoration: none;
-    padding: 7px 11px;
-    border-radius: 10px;
-    font-size: .9rem;
-    transition: background .2s, color .2s;
-}
-
-.main-nav .nav-link:hover,
-.main-nav .nav-link[aria-current="page"] {
-    background: color-mix(in srgb, var(--primary-color, #10b981) 14%, transparent);
-    color: var(--primary-color, #10b981);
-}
-
-.theme-toggle {
-    border: 1px solid var(--border-color, #334155);
-    background: var(--bg-color, #0f172a);
-    color: var(--text-main, #f8fafc);
-    border-radius: 10px;
-    min-width: 42px;
-    min-height: 42px;
-    cursor: pointer;
-    flex-shrink: 0;
+    /* line-height الصفحة (1.9) مخصص للنص ولا يُورَّث للهيدر */
+    line-height: normal;
 }
 
 /* شريط أقسام الصفحة */
 .about-subnav {
     position: sticky;
-    top: 61px;
+    top: var(--about-header-h);
     z-index: 40;
     display: flex;
     justify-content: center;
@@ -247,7 +175,7 @@ button { font: inherit; }
 }
 
 .about-page section {
-    padding: 3.4rem 0;
+    padding: var(--about-section-y) 0;
     position: relative;
 }
 
@@ -308,7 +236,7 @@ button { font: inherit; }
 .about-page .hero .wrap {
     position: relative;
     display: grid;
-    gap: 2rem;
+    gap: var(--about-gap-lg);
     align-items: center;
     z-index: 1;
 }
@@ -500,7 +428,7 @@ button { font: inherit; }
 
 .about-page .stats {
     display: flex;
-    gap: 2rem;
+    gap: var(--about-gap-lg);
     flex-wrap: wrap;
     margin: 1.2rem 0;
 }
@@ -517,7 +445,7 @@ button { font: inherit; }
 
 .about-page .split {
     display: grid;
-    gap: 2rem;
+    gap: var(--about-gap-lg);
     align-items: center;
 }
 
@@ -553,7 +481,7 @@ button { font: inherit; }
 /* البطاقات */
 .about-page .cards {
     display: grid;
-    gap: 1rem;
+    gap: var(--about-gap);
     grid-template-columns: 1fr;
     perspective: 900px;
 }
@@ -566,7 +494,7 @@ button { font: inherit; }
     color: var(--about-text);
     border: 1px solid var(--about-line);
     border-radius: 18px;
-    padding: 1.2rem;
+    padding: var(--about-card-pad);
     overflow: hidden;
     transition: transform .15s ease-out, border-color .3s;
     will-change: transform;
@@ -748,25 +676,19 @@ button { font: inherit; }
     .about-page { font-size: 1.06rem; }
 }
 
-@media (max-width: 900px) {
-    .main-header { padding: 9px 12px; }
-    .header-container { flex-wrap: wrap; }
-    .main-nav {
-        order: 3;
-        width: 100%;
-        justify-content: center;
+@media (max-width: 700px) {
+    /* سطر واحد قابل للتمرير بدل الالتفاف على سطرين (نفس سلوك شريط التنقل المشترك) */
+    .about-subnav {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        scrollbar-width: none;
     }
-    .main-nav .nav-link {
-        font-size: .84rem;
-        padding: 6px 9px;
-    }
-    .about-subnav { top: 105px; }
+    .about-subnav::-webkit-scrollbar { display: none; }
+    .about-subnav a { flex-shrink: 0; white-space: nowrap; }
 }
 
 @media (max-width: 480px) {
-    .logo-icon { width: 32px; height: 32px; }
-    .logo-text strong { font-size: .84rem; }
-    .logo-text small { font-size: .7rem; }
     .about-page .hero {
         min-height: auto;
         padding: 3rem 0 2.5rem;
@@ -776,7 +698,6 @@ button { font: inherit; }
     .about-page .stat b { font-size: 2rem; }
     .about-page .btns { align-items: stretch; }
     .about-page .btn { width: 100%; }
-    .about-subnav { top: 100px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -830,7 +751,7 @@ button { font: inherit; }
         <nav class="main-nav" aria-label="التنقل الرئيسي">
             <a href="../index.html" class="nav-link" data-nav="home">الرئيسية</a>
             <a href="../student_dashboard/index.html" class="nav-link" data-nav="dashboard">لوحة إنجاز الطالب</a>
-            <a href="about.html" class="nav-link" data-nav="about" aria-current="page">عن الكلية</a>
+            <a href="about.html" class="nav-link active" data-nav="about" aria-current="page">عن الكلية</a>
             <a href="../tools/tools.html" class="nav-link" data-nav="tools">الأدوات</a>
         </nav>
 
@@ -1068,6 +989,25 @@ document.addEventListener('DOMContentLoaded', function () {
             isLightMode ? 'الوضع الليلي' : 'الوضع النهاري'
         );
         themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    /* إزاحة القائمة الفرعية اللاصقة = ارتفاع الهيدر الفعلي (يتغير بين الديسكتوب والموبايل) */
+    const hdr = document.querySelector('.main-header');
+    const sub = document.querySelector('.about-subnav');
+    const rootStyle = document.documentElement.style;
+
+    function measureBars() {
+        if (hdr) rootStyle.setProperty('--about-header-h', hdr.offsetHeight + 'px');
+        if (sub) rootStyle.setProperty('--about-subnav-h', sub.offsetHeight + 'px');
+    }
+
+    measureBars();
+    if ('ResizeObserver' in window) {
+        const ro = new ResizeObserver(measureBars);
+        if (hdr) ro.observe(hdr);
+        if (sub) ro.observe(sub);
+    } else {
+        window.addEventListener('resize', measureBars);
     }
 
     const reduceMotion = window.matchMedia(

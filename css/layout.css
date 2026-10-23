@@ -2,26 +2,7 @@
    الهيدر
 ========================================= */
 
-.main-header {
-    background: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-    padding: 12px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
+/* قواعد .main-header و .header-container انتقلت إلى navigation.css (مصدر واحد للهيدر) */
 
 .logo-area {
     display: flex;
