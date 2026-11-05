@@ -1,7 +1,4 @@
-const SUPABASE_URL = 'https://kegawnvzoimaddnziotv.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_0crKHKVfwNCtP5ieWDUpzg_4BeMZLkg';
-
-// لو مكتبة Supabase ما اتحملتش (النت ضعيف مثلاً) الصفحة تفضل شغالة وتعرض رسالة خطأ بدل ما تنهار
-export const supabaseClient = window.supabase
-    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-    : null;
+// العميل المشترك للمنصة: يُنشأ مرة واحدة فقط في ../js/auth.js (لا تنشئ عميلًا آخر هنا).
+// لو لم تُحمَّل مكتبة Supabase (النت ضعيف مثلاً) تكون القيمة null والصفحة تعرض رسالة خطأ بدل أن تنهار.
+export const supabaseClient = window.PlatformAuth ? window.PlatformAuth.getClient() : null;
+window.supabaseClient = supabaseClient;

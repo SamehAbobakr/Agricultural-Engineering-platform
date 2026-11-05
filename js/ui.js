@@ -1724,50 +1724,7 @@ function openMorePdf(item, title, icon) {
     `;
 }
 
-function toggleTheme() {
-    const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-
-    if (!body || !themeToggle) return;
-
-    const isLightMode = body.classList.toggle('light-mode');
-
-    localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-
-    themeToggle.textContent = isLightMode ? '☀️' : '🌙';
-
-    themeToggle.setAttribute(
-        'aria-label',
-        isLightMode ? 'تفعيل الوضع الليلي' : 'تفعيل الوضع النهاري'
-    );
-
-    themeToggle.setAttribute(
-        'title',
-        isLightMode ? 'الوضع الليلي' : 'الوضع النهاري'
-    );
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('themeToggle');
-
-    if (!themeToggle) return;
-
-    const savedTheme = localStorage.getItem('theme');
-
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.textContent = '☀️';
-
-        themeToggle.setAttribute(
-            'aria-label',
-            'تفعيل الوضع الليلي'
-        );
-
-        themeToggle.setAttribute(
-            'title',
-            'الوضع الليلي'
-        );
-    }
-});
+/* الوضع الليلي/النهاري: منطقه في js/header.js (toggleTheme) — لا تكرره هنا */
 
 /* =========================================
    تحديد رابط الهيدر النشط تلقائيًا
@@ -1781,6 +1738,12 @@ function updateHeaderActiveLink() {
 
     if (/\/student_dashboard(?:\.html)?\/?$/.test(currentPath)) {
         activeNav = 'dashboard';
+    } else if (/\/about\/about\.html$/.test(currentPath)) {
+        activeNav = 'about';
+    } else if (/\/faculty\/faculty\.html$/.test(currentPath)) {
+        activeNav = 'faculty';
+    } else if (/\/community\/community\.html$/.test(currentPath)) {
+        activeNav = 'community';
     } else if (/\/tools\/tools\.html$/.test(currentPath)) {
         activeNav = 'tools';
     }
@@ -1796,6 +1759,14 @@ function updateHeaderActiveLink() {
             link.removeAttribute('aria-current');
         }
     });
+
+    // على الموبايل شريط الروابط قابل للتمرير الأفقي: نُظهر الرابط النشط داخله
+    const nav = document.querySelector('.main-nav');
+    const activeLink = nav && nav.querySelector('.nav-link.active');
+
+    if (activeLink && nav.scrollWidth > nav.clientWidth) {
+        activeLink.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', updateHeaderActiveLink);

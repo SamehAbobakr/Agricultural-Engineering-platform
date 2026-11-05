@@ -30,16 +30,22 @@
 
     <!-- تنسيقات مكونات لوحة الإنجاز فقط (تعتمد على متغيرات المنصة) -->
     <link rel="stylesheet" href="css/style.css">
-    <!-- Microsoft Clarity -->
-<script src="../js/clarity.js"></script>
+    <!-- إعدادات Supabase ثم الهيدر الموحد -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/clarity.js"></script>
 </head>
 <body class="dashboard-page">
-    <!-- الوضع النهاري/الليلي: نفس آلية المنصة (body.light-mode، والافتراضي داكن) — يُطبّق مبكرًا لمنع الوميض -->
-    <script>try{if(localStorage.getItem('theme')==='light')document.body.classList.add('light-mode')}catch(e){}</script>
+    <!-- الوضع النهاري/الليلي: يُطبَّق مبكرًا من js/header.js (المصدر الوحيد للثيم) -->
      
     
 
 <!-- الهيدر الموحد للمنصة -->
+<!-- =========================
+     الهيدر الرئيسي
+========================== -->
 <header class="main-header">
     <div class="header-container">
 
@@ -57,69 +63,106 @@
                         stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </span>
-
             <span class="logo-text">
                 <strong>منصة الهندسة الزراعية</strong>
                 <small>جامعة الأزهر</small>
             </span>
         </a>
 
-        <!-- روابط التنقل -->
+        <!-- روابط التنقل (الكمبيوتر) -->
         <nav class="main-nav" aria-label="التنقل الرئيسي">
-            <a href="../index.html" class="nav-link" data-nav="home">
-                الرئيسية
-            </a>
-
-            <a href="../student_dashboard/index.html" class="nav-link active" data-nav="dashboard" aria-current="page">
-                لوحة إنجاز الطالب
-            </a>
-
-            <a href="../about/about.html" class="nav-link" data-nav="about">
-                عن الكلية
-            </a>
-
-            <a href="../tools/tools.html" class="nav-link" data-nav="tools">
-                الأدوات
-            </a>
+    <a href="../index.html" class="nav-link" data-nav="home">الرئيسية</a>
+    <a href="../student_dashboard/index.html" class="nav-link active" aria-current="page" data-nav="dashboard">لوحة إنجاز الطالب</a>
+    <a href="../about/about.html" class="nav-link" data-nav="about">المسار التعليمي</a>
+    <a href="../faculty/faculty.html" class="nav-link" data-nav="faculty">دليل هيئة التدريس</a>
+    <a href="../community/community.html" class="nav-link" data-nav="community">مجتمع الطلاب والخريجين</a>
+    <a href="../tools/tools.html" class="nav-link" data-nav="tools">الأدوات</a>
         </nav>
 
-        <!-- أدوات المستخدم -->
-        <div class="header-actions">
-
-            <button
-                type="button"
-                class="theme-toggle"
-                id="theme-toggle"
-                aria-label="تبديل المظهر"
-                title="تبديل الوضع النهاري والليلي"
-            >
-                <i data-lucide="sun" class="w-5 h-5 theme-icon-sun"></i>
-                <i data-lucide="moon" class="w-5 h-5 theme-icon-moon"></i>
-            </button>
-
-            <!-- الملف الشخصي: نحافظ على وظيفته -->
-            <button
-                id="open-profile-modal-btn"
-                type="button"
-                aria-label="تخصيص الملف الشخصي"
-                class="profile-header-btn"
-            >
-                <span id="user-avatar-badge" class="profile-avatar">--</span>
-
-                <span id="header-user-name" class="profile-user-name">
-                    جاري التحميل...
-                </span>
-
-                <i data-lucide="chevron-down" class="profile-chevron"></i>
-            </button>
-
+        <div class="nav-desktop-actions" style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <a href="../login.html" class="nav-action-link login-link" data-nav="login">تسجيل الدخول</a>
+            <a href="https://wa.me/201551743249" class="nav-action-link" target="_blank" rel="noopener noreferrer">تواصل معنا</a>
         </div>
+
+        <!-- الوضع الليلي -->
+        <button type="button" class="theme-toggle" id="theme-toggle"
+            aria-label="تغيير الوضع" title="الوضع النهاري أو الليلي"
+            onclick="toggleTheme()">🌙</button>
+
+        <!-- زر الهمبرجر (الموبايل فقط) -->
+        <button type="button" class="hamburger-btn" id="hamburgerBtn"
+            aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobileNavDrawer">
+            <span class="hamburger-icon" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </span>
+        </button>
+
     </div>
 </header>
 
+<!-- ستارة القائمة الجانبية -->
+<div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
+<!-- درج القائمة الجانبية (الموبايل) -->
+<nav class="mobile-nav-drawer" id="mobileNavDrawer"
+    aria-label="قائمة التنقل" aria-hidden="false">
+
+    <div class="drawer-header">
+        <a href="../index.html" class="logo-area" aria-label="الصفحة الرئيسية">
+            <span class="logo-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M19 3h10l1.4 5.1 4.1 1.7 4.7-2.5 5 8.7-3.8 3.6v4.8l3.8 3.6-5 8.7-4.7-2.5-4.1 1.7L29 43H19l-1.4-5.1-4.1-1.7-4.7 2.5-5-8.7 3.8-3.6v-4.8l-3.8-3.6 5-8.7 4.7 2.5 4.1-1.7L19 3Z"
+                        stroke="currentColor" stroke-width="2.5"
+                        stroke-linejoin="round"/>
+                    <circle cx="24" cy="24" r="9"
+                        stroke="currentColor" stroke-width="2.5"/>
+                    <path d="M24 29v-9m0 5c-5 0-6-4-6-4 4-1 6 1 6 4Zm0-3c0-4 3-6 6-6 0 4-2 6-6 6Z"
+                        stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="logo-text">
+                <strong>منصة الهندسة الزراعية</strong>
+                <small>جامعة الأزهر</small>
+            </span>
+        </a>
+        <button type="button" class="drawer-close-btn" id="drawerCloseBtn"
+            aria-label="إغلاق القائمة">×</button>
+    </div>
+
+    <div class="drawer-nav">
+            <a href="../index.html" class="drawer-nav-link" data-nav="home"><span class="link-icon">🏠</span>الرئيسية</a>
+            <a href="../student_dashboard/index.html" class="drawer-nav-link active" data-nav="dashboard"><span class="link-icon">📊</span>لوحة إنجاز الطالب</a>
+            <a href="../about/about.html" class="drawer-nav-link" data-nav="about"><span class="link-icon">🎓</span>المسار التعليمي</a>
+            <a href="../faculty/faculty.html" class="drawer-nav-link" data-nav="faculty"><span class="link-icon">👨‍🏫</span>دليل هيئة التدريس</a>
+            <a href="../community/community.html" class="drawer-nav-link" data-nav="community"><span class="link-icon">🤝</span>مجتمع الطلاب والخريجين</a>
+            <a href="../tools/tools.html" class="drawer-nav-link" data-nav="tools"><span class="link-icon">🛠️</span>الأدوات</a>
+    </div>
+
+    <div class="drawer-divider"></div>
+
+    <div class="drawer-action-group">
+        <a href="../login.html" class="drawer-action-btn primary">
+            <span>🔑</span> تسجيل الدخول
+        </a>
+        <a href="https://wa.me/201551743249" class="drawer-action-btn" target="_blank" rel="noopener noreferrer"><span>💬</span> تواصل معنا</a>
+    </div>
+
+</nav>
+
+
     <!-- Main Container -->
 
-<main class="content-area">
+<main class="content-area dash-locked" id="dash-main">
+        <!-- بوابة الحساب: تظهر بدل اللوحة عند التحقق من الجلسة، أو عدم تسجيل الدخول، أو تحميل/فشل تحميل بيانات الطالب.
+             النصوص والأزرار يملؤها js/app.js (renderGate). -->
+        <section id="dash-gate" class="dash-panel dash-gate" role="status" aria-live="polite">
+            <div id="dash-gate-icon" class="dash-gate-icon" aria-hidden="true">⏳</div>
+            <h2 id="dash-gate-title" class="dash-gate-title">جاري التحقق من حسابك...</h2>
+            <p id="dash-gate-text" class="dash-gate-text dash-muted"></p>
+            <div id="dash-gate-actions" class="dash-gate-actions"></div>
+        </section>
+
         <!-- Section 1: Welcome & Student Profile Header -->
         <section class="dash-hero">
             <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -407,7 +450,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
 
     <script type="module" src="js/app.js"></script>
     
@@ -415,5 +457,8 @@
         // Automatic Year Updater
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
+
+<!-- زر الدعم والتواصل الموحد (مكوّن مشترك) -->
+<script src="../js/support-widget.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 // js/ai-assistant.js
 
 const SMART_SERVICE_URL =
@@ -9,10 +10,7 @@ class SubjectAIAssistant {
     constructor(subject, metadata = {}) {
 
         if (!subject) {
-
-            console.error(
-                "خطأ: لم يتم تمرير بيانات المادة إلى المساعد الذكي."
-            );
+            console.error("خطأ: لم يتم تمرير بيانات المادة إلى المساعد الذكي.");
 
             this.subject = {
                 name: "مادة غير معروفة",
@@ -20,208 +18,223 @@ class SubjectAIAssistant {
             };
 
         } else {
-
             this.subject = subject;
-
         }
 
-
         this.metadata = {
-
-            grade:
-                metadata.grade ||
-                this.subject.grade ||
-                "غير محدد",
-
-            department:
-                metadata.department ||
-                this.subject.department ||
-                "غير محدد",
-
-            term:
-                metadata.term ||
-                this.subject.term ||
-                "غير محدد"
-
+            grade: metadata.grade || this.subject.grade || "غير محدد",
+            department: metadata.department || this.subject.department || "غير محدد",
+            term: metadata.term || this.subject.term || "غير محدد"
         };
-
     }
 
 
     getSubjectContext() {
 
         return {
-
-            name:
-                this.subject.name ||
-                "مادة غير محددة",
-
-            grade:
-                this.metadata.grade,
-
-            department:
-                this.metadata.department,
-
-            term:
-                this.metadata.term,
-
-            prof:
-                this.subject.professor  ||
-                "غير متوفر"
-
-
+            name: this.subject.name || "مادة غير محددة",
+            grade: this.metadata.grade,
+            department: this.metadata.department,
+            term: this.metadata.term,
+            prof: this.subject.professor || "غير متوفر"
         };
-
     }
 
 
     renderAssistantUI() {
 
-        const context =
-            this.getSubjectContext();
-
+        const context = this.getSubjectContext();
 
         return `
+            <section class="ai-assistant-shell" dir="rtl">
 
-            <div
-                class="fade-in material-view"
-                style="
-                    margin-top: 15px;
-                    margin-bottom: 20px;
-                    direction: rtl;
-                    text-align: right;
-                    border: 1px solid var(--primary-color, #2e7d32);
-                    background: var(--card-bg, #fff);
-                "
-            >
+                <!-- Header -->
+                <header class="ai-assistant-header">
 
-                <div
-                    style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        border-bottom: 1px solid var(--border-color, #eaeaea);
-                        padding-bottom: 10px;
-                        margin-bottom: 15px;
-                    "
-                >
+                    <div class="ai-assistant-brand">
 
-                    <h3
-                        style="
-                            margin: 0;
-                            color: var(--primary-color);
-                        "
+                        <div class="ai-assistant-logo">
+                            <span class="ai-cap-icon">✦</span>
+                        </div>
+
+                        <div class="ai-assistant-brand-text">
+                            <h2>المساعد الأكاديمي</h2>
+                            <p>مساعدك في فهم مواد الكلية</p>
+                        </div>
+
+                    </div>
+
+                    <div class="ai-assistant-header-actions">
+
+                        <span class="ai-assistant-status">
+                            <span class="ai-status-dot"></span>
+                            جاهز للمساعدة
+                        </span>
+
+                        <button
+                            type="button"
+                            class="ai-close-btn"
+                            onclick="closeAIAssistant()"
+                            aria-label="إغلاق المساعد"
+                            title="إغلاق"
+                        >
+                            &times;
+                        </button>
+
+                    </div>
+
+                </header>
+
+
+                <!-- Main Content -->
+                <div class="ai-assistant-content">
+
+                    <div class="ai-welcome-section">
+
+                        <span class="ai-welcome-label">
+                            مساعدك الدراسي
+                        </span>
+
+                        <h3>أهلاً بك، كيف يمكنني مساعدتك؟</h3>
+
+                        <p>
+                            اسأل عن أي موضوع في المادة، وسأساعدك على فهمه
+                            وتبسيطه خطوة بخطوة.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Subject Information -->
+                    <div class="ai-subject-card">
+
+                        <div class="ai-subject-icon">📚</div>
+
+                        <div class="ai-subject-details">
+
+                            <span class="ai-subject-label">
+                                المادة الحالية
+                            </span>
+
+                            <h4>${escapeHtml(context.name)}</h4>
+
+                            <div class="ai-subject-meta">
+
+                                <span>
+                                    الفرقة: ${escapeHtml(context.grade)}
+                                </span>
+
+                                <span>
+                                    القسم: ${escapeHtml(context.department)}
+                                </span>
+
+                                <span>
+                                    الترم: ${escapeHtml(context.term)}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Suggestions -->
+                    <div class="ai-suggestions-section">
+
+                        <h4>يمكنك البدء بأحد هذه الأسئلة</h4>
+
+                        <div class="ai-suggestions-grid">
+
+                            <button
+                                type="button"
+                                class="ai-suggestion-btn"
+                                onclick="setAIPrompt('اشرح لي أهم المفاهيم الأساسية في هذه المادة')"
+                            >
+                                <span class="ai-suggestion-icon">📖</span>
+                                <span>
+                                    <strong>شرح موضوع</strong>
+                                    <small>بسّط لي أحد موضوعات المادة</small>
+                                </span>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="ai-suggestion-btn"
+                                onclick="setAIPrompt('ساعدني في حل سؤال من هذه المادة مع شرح الخطوات')"
+                            >
+                                <span class="ai-suggestion-icon">✍️</span>
+                                <span>
+                                    <strong>حل سؤال</strong>
+                                    <small>اشرح لي الحل خطوة بخطوة</small>
+                                </span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Question Input -->
+                    <div class="ai-input-section">
+
+                        <label for="aiQueryInput">
+                            اكتب سؤالك هنا
+                        </label>
+
+                        <div class="ai-input-wrapper">
+
+                            <textarea
+                                id="aiQueryInput"
+                                placeholder="مثلاً: اشرح لي هذا الموضوع بطريقة مبسطة..."
+                                rows="3"
+                            ></textarea>
+
+                            <button
+                                type="button"
+                                class="ai-send-btn"
+                                onclick="triggerAIAssistantQuery()"
+                                aria-label="إرسال السؤال"
+                                title="إرسال السؤال"
+                            >
+                                <span>➤</span>
+                            </button>
+
+                        </div>
+
+                        <p class="ai-input-hint">
+                            حاول كتابة سؤالك بشكل واضح للحصول على إجابة أدق.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Response -->
+                    <div
+                        id="aiResponseArea"
+                        class="ai-response-area"
+                        aria-live="polite"
                     >
-                        المساعد الذكي لمادة:
-                        ${escapeHtml(context.name)}
-                    </h3>
 
+                        <div class="ai-empty-response">
 
-                    <button
-                        class="tab-btn"
-                        onclick="closeAIAssistant()"
-                        style="
-                            padding: 4px 10px;
-                            font-size: 12px;
-                            cursor: pointer;
-                        "
-                    >
-                        إغلاق
-                    </button>
+                            <div class="ai-response-icon">✧</div>
+
+                            <strong>الإجابة ستظهر هنا</strong>
+
+                            <p>
+                                اكتب سؤالك واضغط إرسال لبدء المحادثة.
+                            </p>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-
-                <p
-                    class="card-info"
-                    style="margin-bottom: 15px;"
-                >
-                    <strong>الفرقة:</strong>
-                    ${escapeHtml(context.grade)}
-                    |
-                    <strong>القسم:</strong>
-                    ${escapeHtml(context.department)}
-                    |
-                    <strong>الترم:</strong>
-                    ${escapeHtml(context.term)}
-
-                </p>
-
-
-
-                </div>
-
-
-                <div style="margin-bottom: 15px;">
-
-                    <textarea
-                        id="aiQueryInput"
-                        class="inner-search"
-                        placeholder="اكتب سؤالك أو استفسارك هنا..."
-                        style="
-                            width: 100%;
-                            height: 90px;
-                            padding: 10px;
-                            resize: vertical;
-                            border-radius: 6px;
-                            box-sizing: border-box;
-                        "
-                    ></textarea>
-
-                </div>
-
-
-                <div
-                    style="
-                        display: flex;
-                        justify-content: flex-end;
-                        margin-bottom: 15px;
-                    "
-                >
-
-                    <button
-                        class="tab-btn active"
-                        onclick="triggerAIAssistantQuery()"
-                        style="
-                            padding: 8px 20px;
-                            cursor: pointer;
-                        "
-                    >
-                        إرسال
-                    </button>
-
-                </div>
-
-
-                <div
-                    id="aiResponseArea"
-                    class="card"
-                    style="
-                        margin: 0;
-                        background: var(--bg-color, #f9f9f9);
-                        min-height: 80px;
-                        border: 1px dashed var(--border-color, #ccc);
-                    "
-                >
-
-                    <p
-                        class="card-info"
-                        style="
-                            margin: 0;
-                            text-align: center;
-                        "
-                    >
-                        ستظهر إجابة المساعد الذكي هنا...
-                    </p>
-
-                </div>
-
-            
-
+            </section>
         `;
-
     }
-
 
 
     async processQuery(query) {
@@ -229,54 +242,36 @@ class SubjectAIAssistant {
         const responseArea =
             document.getElementById("aiResponseArea");
 
-
-        if (!responseArea) {
-
-            return;
-
-        }
+        if (!responseArea) return;
 
 
         if (!query || !query.trim()) {
 
             responseArea.innerHTML = `
-
-                <p
-                    class="card-info"
-                    style="
-                        margin: 0;
-                        text-align: center;
-                        color: var(--secondary-color);
-                    "
-                >
-                    الرجاء كتابة سؤال أولاً.
-                </p>
-
+                <div class="ai-message ai-error-message">
+                    الرجاء كتابة سؤالك أولاً.
+                </div>
             `;
 
             return;
-
         }
 
 
         responseArea.innerHTML = `
+            <div class="ai-loading-state">
 
-            <p
-                class="card-info"
-                style="
-                    margin: 0;
-                    text-align: center;
-                    color: var(--primary-color);
-                "
-            >
-                جاري معالجة السؤال...
-            </p>
+                <span class="ai-loading-spinner"></span>
 
+                <div>
+                    <strong>جاري التفكير في إجابتك...</strong>
+                    <p>قد يستغرق الأمر بضع لحظات.</p>
+                </div>
+
+            </div>
         `;
 
 
-        const context =
-            this.getSubjectContext();
+        const context = this.getSubjectContext();
 
 
         try {
@@ -284,45 +279,26 @@ class SubjectAIAssistant {
             const response = await fetch(
                 SMART_SERVICE_URL,
                 {
-
                     method: "POST",
 
                     headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "apikey":
-                            SUPABASE_KEY,
-
-                        "Authorization":
-                            `Bearer ${SUPABASE_KEY}`
-
+                        "Content-Type": "application/json",
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${SUPABASE_KEY}`
                     },
 
                     body: JSON.stringify({
 
-                        query:
-                            query.trim(),
+                        query: query.trim(),
 
                         subjectContext: {
-
-                            name:
-                                context.name,
-
-                            grade:
-                                context.grade,
-
-                            department:
-                                context.department,
-
-                            term:
-                                context.term
-
+                            name: context.name,
+                            grade: context.grade,
+                            department: context.department,
+                            term: context.term
                         }
 
                     })
-
                 }
             );
 
@@ -330,147 +306,89 @@ class SubjectAIAssistant {
             let data = {};
 
             try {
-
-                data =
-                    await response.json();
-
+                data = await response.json();
             } catch (jsonError) {
-
                 data = {};
-
             }
 
 
             if (!response.ok) {
 
                 throw new Error(
-
                     data.error ||
                     `فشل الاتصال بالخدمة. رمز الخطأ: ${response.status}`
-
                 );
-
             }
 
 
             if (!data.answer) {
-
                 throw new Error(
                     "لم يتم استلام إجابة من المساعد الذكي."
                 );
-
             }
 
 
             responseArea.innerHTML = `
+                <div class="ai-answer-container">
 
-                <div
-                    style="
-                        padding: 15px;
-                        direction: rtl;
-                        text-align: right;
-                    "
-                >
+                    <div class="ai-answer-heading">
 
-                    <h3
-                        style="
-                            margin-top: 0;
-                            font-size: 15px;
-                            color: var(--primary-color);
-                        "
-                    >
-                        إجابة المساعد الذكي
-                    </h3>
+                        <div class="ai-answer-icon">✦</div>
 
+                        <div>
+                            <strong>إجابة المساعد الأكاديمي</strong>
+                            <small>بناءً على سؤالك</small>
+                        </div>
+
+                    </div>
 
                     <div
                         id="aiAnswerText"
-                        style="
-                            line-height: 1.9;
-                            white-space: pre-wrap;
-                        "
+                        class="ai-answer-text"
                     ></div>
 
                 </div>
-
             `;
 
 
             const answerElement =
                 document.getElementById("aiAnswerText");
 
-
             if (answerElement) {
-
-                answerElement.textContent =
-                    data.answer;
-
+                answerElement.textContent = data.answer;
             }
 
 
         } catch (error) {
 
-            console.error(
-                "AI Assistant Error:",
-                error
-            );
-
+            console.error("AI Assistant Error:", error);
 
             responseArea.innerHTML = `
+                <div class="ai-error-container">
 
-                <div
-                    style="
-                        padding: 10px;
-                        text-align: right;
-                        direction: rtl;
-                    "
-                >
+                    <strong>تعذر الحصول على الإجابة</strong>
 
-                    <h3
-                        style="
-                            margin-top: 0;
-                            font-size: 15px;
-                            color: var(--secondary-color);
-                        "
-                    >
-                        حدث خطأ
-                    </h3>
-
-
-                    <p
-                        id="aiErrorText"
-                        class="card-info"
-                        style="
-                            margin: 0;
-                            line-height: 1.7;
-                        "
-                    ></p>
+                    <p id="aiErrorText"></p>
 
                 </div>
-
             `;
-
 
             const errorElement =
                 document.getElementById("aiErrorText");
 
-
             if (errorElement) {
-
                 errorElement.textContent =
-                    error.message ||
-                    "حدث خطأ غير معروف.";
-
+                    error.message || "حدث خطأ غير معروف.";
             }
-
         }
-
     }
-
 }
 
 
+// Global Functions
+
 let aiAssistantInstance = null;
+
 
 function openAIAssistant(subject) {
 
@@ -489,7 +407,6 @@ function openAIAssistant(subject) {
         );
 
         return;
-
     }
 
 
@@ -497,10 +414,14 @@ function openAIAssistant(subject) {
         aiAssistantInstance.renderAssistantUI();
 
 
-    aiArea.style.display =
-        "block";
+    aiArea.style.display = "block";
 
+    aiArea.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
+
 
 function closeAIAssistant() {
 
@@ -512,29 +433,34 @@ function closeAIAssistant() {
 
         aiArea.innerHTML = "";
 
-        aiArea.style.display =
-            "none";
-
+        aiArea.style.display = "none";
     }
 
 
-    aiAssistantInstance =
-        null;
-
+    aiAssistantInstance = null;
 }
 
+
+function setAIPrompt(prompt) {
+
+    const inputField =
+        document.getElementById("aiQueryInput");
+
+    if (!inputField) return;
+
+    inputField.value = prompt;
+
+    inputField.focus();
+}
 
 
 function triggerAIAssistantQuery() {
 
     if (!aiAssistantInstance) {
 
-        console.error(
-            "المساعد الذكي غير مهيأ."
-        );
+        console.error("المساعد الذكي غير مهيأ.");
 
         return;
-
     }
 
 
@@ -549,17 +475,11 @@ function triggerAIAssistantQuery() {
         );
 
         return;
-
     }
 
 
-    const query =
-        inputField.value.trim();
+    const query = inputField.value.trim();
 
 
-    aiAssistantInstance.processQuery(
-        query
-    );
-
+    aiAssistantInstance.processQuery(query);
 }
-

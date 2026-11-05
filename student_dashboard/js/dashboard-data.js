@@ -1,6 +1,5 @@
+// القيم الافتراضية للطالب الجديد (قبل أول حفظ). يجب أن تطابق DEFAULT في database/student_dashboard.sql
 export const INITIAL_DATA = {
-    version: 4,
-    theme: null, // null = يتبع إعداد الجهاز
     userProfile: {
         studentName: 'طالب هندسة زراعية',
         academicYear: '3',

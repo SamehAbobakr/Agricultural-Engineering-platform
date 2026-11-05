@@ -258,15 +258,59 @@
 }
 
 /* =========================================
+   التابلت الكبير (861px – 1050px)
+   الروابط تظهر لكن بحجم مضغوط
+========================================= */
+@media (min-width: 861px) and (max-width: 1050px) {
+    .header-container {
+        gap: 10px;
+        padding-inline: 14px;
+    }
+
+    .logo-text strong {
+        font-size: 12px;
+    }
+
+    .logo-text small {
+        display: none;
+    }
+
+    .logo-icon {
+        width: 38px;
+        height: 38px;
+        padding: 8px;
+    }
+
+    .nav-link {
+        padding-inline: 9px;
+        font-size: 11.5px;
+        min-height: 38px;
+    }
+
+    .nav-action-link {
+        padding-inline: 10px;
+        font-size: 11.5px;
+        min-height: 36px;
+    }
+}
+
+/* =========================================
    الموبايل
 ========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 860px) {
     .header-container {
-        min-height: auto;
-        padding: 10px 12px 0;
+        min-height: 64px;
+        padding: 0 14px;
         gap: 8px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        /* الترتيب: شعار | فراغ | زر-ثيم | همبرجر */
+        justify-content: space-between;
+    }
+
+    .logo-area {
+        flex: 1;
+        min-width: 0;
     }
 
     .logo-area {
@@ -386,4 +430,394 @@
     height: 2px;
     background: var(--primary-color);
     border-radius: 2px;
+}
+/* =========================================
+   قائمة الهمبرجر — الموبايل
+========================================= */
+
+/* زر الهمبرجر: مخفي على الكمبيوتر */
+.hamburger-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 13px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    z-index: 201;
+}
+
+.hamburger-btn:hover {
+    background: rgba(16, 185, 129, 0.10);
+    border-color: rgba(16, 185, 129, 0.25);
+}
+
+.hamburger-btn:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+/* أيقونة الهامبرجر (ثلاثة خطوط) */
+.hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 20px;
+    pointer-events: none;
+}
+
+.hamburger-icon span {
+    display: block;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease, width 0.25s ease;
+    transform-origin: center;
+}
+
+/* حالة الفتح: تحويل إلى ×  */
+.hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburger-btn[aria-expanded="true"] .hamburger-icon span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ستارة خلف القائمة */
+.nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 149;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    animation: overlay-in 0.2s ease;
+}
+
+.nav-overlay.open {
+    display: block;
+}
+
+@keyframes overlay-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* درج القائمة من الجانب الأيمن (RTL) */
+.mobile-nav-drawer {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(280px, 80vw);
+    z-index: 200;
+    background: var(--card-bg);
+    border-right: 1px solid var(--border-color);   /* يصبح border-left بسبب RTL */
+    border-left: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    scrollbar-width: none;
+    direction: rtl;
+}
+
+.mobile-nav-drawer::-webkit-scrollbar { display: none; }
+
+.mobile-nav-drawer.open {
+    transform: translateX(0);
+}
+
+/* رأس الدرج */
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--card-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.drawer-header .logo-area {
+    gap: 10px;
+}
+
+.drawer-header .logo-icon {
+    width: 38px;
+    height: 38px;
+    padding: 8px;
+    border-radius: 11px;
+}
+
+.drawer-header .logo-text strong { font-size: 13px; }
+.drawer-header .logo-text small  { font-size: 10px; }
+
+.drawer-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.drawer-close-btn:hover {
+    background: rgba(16, 185, 129, 0.10);
+    color: var(--primary-color);
+}
+
+/* روابط الدرج */
+.drawer-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px 8px;
+    gap: 4px;
+}
+
+.drawer-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 11px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.drawer-nav-link:hover {
+    background: rgba(16, 185, 129, 0.08);
+    color: var(--primary-color);
+    border-color: rgba(16, 185, 129, 0.12);
+}
+
+.drawer-nav-link.active {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--primary-color);
+    border-color: rgba(16, 185, 129, 0.18);
+    font-weight: 800;
+}
+
+.drawer-nav-link .link-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* فاصل داخل الدرج */
+.drawer-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 8px 12px;
+}
+
+/* أزرار الإجراء في الدرج (تسجيل الدخول / التواصل) */
+.drawer-action-group {
+    padding: 8px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.drawer-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-main);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    width: 100%;
+    text-align: right;
+    direction: rtl;
+}
+
+.drawer-action-btn:hover {
+    background: rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.20);
+    color: var(--primary-color);
+}
+
+.drawer-action-btn.primary {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.drawer-action-btn.primary:hover {
+    filter: brightness(1.08);
+}
+
+/* روابط الكمبيوتر: تسجيل الدخول والتواصل */
+.nav-action-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    color: var(--text-muted);
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.nav-action-link:hover {
+    color: var(--primary-color);
+    background: rgba(16, 185, 129, 0.07);
+    border-color: rgba(16, 185, 129, 0.12);
+}
+
+.nav-action-link.login-link {
+    border-color: rgba(16, 185, 129, 0.30);
+    color: var(--primary-color);
+    background: rgba(16, 185, 129, 0.07);
+}
+
+.nav-action-link.login-link:hover {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+/* =========================================
+   تفعيل الهمبرجر — التابلت والموبايل (< 860px)
+   860px: أدنى عرض تسع فيه الروابط الخمسة + الشعار + الأزرار جنباً إلى جنب
+========================================= */
+
+@media (max-width: 860px) {
+    /* إخفاء شريط التنقل الأفقي */
+    .main-nav {
+        display: none !important;
+    }
+
+    /* إخفاء أزرار الكمبيوتر */
+    .nav-desktop-actions {
+        display: none !important;
+    }
+
+    /* إظهار الهمبرجر */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    /* إظهار درج الجانب */
+    .mobile-nav-drawer {
+        display: block;
+    }
+
+    /* زر الثيم بجوار الهمبرجر مباشرة — لا يُخفى */
+    .theme-toggle {
+        order: 2;
+        flex-shrink: 0;
+    }
+}
+
+/* الكمبيوتر (≥ 861px): إخفاء الدرج والهمبرجر */
+@media (min-width: 861px) {
+    .mobile-nav-drawer,
+    .nav-overlay,
+    .hamburger-btn {
+        display: none !important;
+    }
+}
+
+/* =========================================
+   تخطيط الهيدر — الكمبيوتر والتابلت (≥ 861px)
+   الصف الأول: الشعار (أقصى اليمين) | الوضع الليلي ثم تسجيل الدخول ثم تواصل معنا (أقصى اليسار)
+   الصف الثاني: روابط الصفحات في شبكة من عمودين
+   لا يؤثر على الموبايل (≤ 860px): تصميمه وقائمة الهمبرجر كما هما.
+========================================= */
+@media (min-width: 861px) {
+    .header-container {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        column-gap: 6px;
+        row-gap: 0;
+        min-height: 0;
+    }
+
+    .header-container > .logo-area {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    /* ترتيب بصري من اليسار: الوضع الليلي ← تسجيل الدخول ← تواصل معنا */
+    .header-container > .nav-desktop-actions {
+        grid-column: 3;
+        grid-row: 1;
+        flex-direction: row-reverse;
+    }
+
+    .header-container > .theme-toggle {
+        grid-column: 4;
+        grid-row: 1;
+    }
+
+    /* روابط الصفحات: عمودان، رابطان في كل صف */
+    .header-container > .main-nav {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        flex: none;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .main-nav .nav-link {
+        width: 100%;
+        min-width: 0;
+        text-align: center;
+        white-space: normal;
+    }
 }

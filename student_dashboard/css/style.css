@@ -702,3 +702,64 @@ textarea.inner-search.dash-field {
 .dashboard-page select:disabled {
     cursor: not-allowed;
 }
+
+
+/* =========================================
+   بوابة الحساب (تظهر بدل اللوحة حتى تتأكد الجلسة وتُحمَّل بيانات الطالب)
+   .dash-locked على <main id="dash-main"> يخفي كل ما عدا البوابة
+========================================= */
+
+main.dash-locked > :not(#dash-gate) {
+    display: none;
+}
+
+.dash-gate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 520px;
+    width: 100%;
+    margin: 40px auto;
+    padding: 36px 20px;
+    text-align: center;
+}
+
+.dash-gate.hidden {
+    display: none;
+}
+
+.dash-gate-icon {
+    font-size: 2.4rem;
+    line-height: 1;
+}
+
+.dash-gate-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.dash-gate-text {
+    margin: 0;
+    max-width: 420px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.dash-gate-text:empty {
+    display: none;
+}
+
+.dash-gate-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.dash-gate-actions:empty {
+    display: none;
+}

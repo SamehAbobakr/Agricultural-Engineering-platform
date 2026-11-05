@@ -1,11 +1,9 @@
 // =========================================
-// إنشاء عميل Supabase
+// عميل Supabase (واحد لكل صفحة)
+// يُنشأ في js/auth.js — لا تستدعِ supabase.createClient() هنا ولا في أي ملف آخر
 // =========================================
 
-const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
+const supabaseClient = PlatformAuth.getClient();
 
 
 // =========================================
