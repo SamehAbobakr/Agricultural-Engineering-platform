@@ -183,7 +183,34 @@ document.documentElement.classList.add('js');
             <h2 id="rmRoomsTitle">الغرف</h2>
             <span id="rmRoomsCount"></span>
         </div>
+<!-- تصنيف الغرف حسب المستوى -->
+<div class="rm-difficulty-filter" id="rmDifficultyFilter">
+
+    <button type="button"
+        class="rm-difficulty-btn active"
+        data-difficulty="beginner"
+        aria-pressed="true">
+        مبتدئ
+    </button>
+
+    <button type="button"
+        class="rm-difficulty-btn"
+        data-difficulty="intermediate"
+        aria-pressed="false">
+        متوسط
+    </button>
+
+    <button type="button"
+        class="rm-difficulty-btn"
+        data-difficulty="advanced"
+        aria-pressed="false">
+        متقدم
+    </button>
+
+</div>
+</div>
         <div class="rm-rooms-grid" id="rmRoomsGrid" aria-busy="true"></div>
+
     </section>
 
 </main>
