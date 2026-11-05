@@ -506,8 +506,8 @@
         signingOut = true;
         setBusy(true);
 
-        return c.auth.signOut().then(function (result) {
-            if (result && result.error) throw result.error;
+                return c.auth.signOut({ scope: 'local' }).then(function (result) {
+                if (result && result.error) throw result.error;
 
             currentSession = null;
             purgeUserCaches();
