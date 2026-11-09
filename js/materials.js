@@ -24,7 +24,7 @@ async function renderMaterialPage(subject) {
     const lastUpdated = subject.updated_at
     ? new Date(subject.updated_at).toLocaleDateString('ar-EG')
     : 'غير متوفرة';
-    const subJson = JSON.stringify(subject).replace(/"/g, '&quot;');
+    const subJson = inlineArg(subject);
 
     // شاشة تحميل مؤقتة
     document.getElementById('contentArea').innerHTML = `
@@ -98,7 +98,7 @@ async function renderMaterialPage(subject) {
             <div class="fade-in material-view" style="direction: rtl; text-align: right;">
                 <div class="breadcrumb">
                     <span onclick="resetView()">🏠 الرئيسية</span> > 
-                    <span onclick="renderSubjects()">رجوع للمواد</span>
+                    <span onclick="currentSubject = null; renderSubjects()">رجوع للمواد</span>
                 </div>
 
                 <h2 class="section-title" style="margin-top:10px;">
@@ -152,7 +152,7 @@ async function renderMaterialPage(subject) {
                 // بدل الـ escaping اليدوي الناقص (كان بيهرب علامة الاقتباس المفردة
                 // بس، ومش بيتعامل مع الـ backslash، ده كان بيفتح ثغرة XSS)
                 const categoryJson =
-                    JSON.stringify(category).replace(/"/g, '&quot;');
+                    inlineArg(category);
 
                 html += `
                     <button
@@ -358,7 +358,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                     <div class="material-file-info">
 
                         <span>
-                            📄 ${fileType.toUpperCase()}
+                            📄 ${escapeHtml(String(fileType).toUpperCase())}
                         </span>
 
                         <span>
@@ -375,7 +375,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                         <!-- فتح -->
 
                         <a
-                            href="${targetUrl}"
+                            href="${escapeHtml(safeUrl(targetUrl) || '#')}"
                             target="_blank"
                             rel="noopener noreferrer"
                             class="material-open-btn"
@@ -391,8 +391,8 @@ async function switchMaterialTab(btnElement, type, subject) {
                             type="button"
                             class="material-download-btn"
                             onclick="downloadMaterialFile(
-                                ${JSON.stringify(targetUrl).replace(/"/g, '&quot;')},
-                                ${JSON.stringify(fileTitle).replace(/"/g, '&quot;')}
+                                ${inlineArg(targetUrl)},
+                                ${inlineArg(fileTitle)}
                             )"
                         >
                             <span>⬇️</span>
@@ -436,13 +436,15 @@ async function switchMaterialTab(btnElement, type, subject) {
     }
 }
 async function downloadMaterialFile(url, fileName) {
-    if (!url || url === '#') {
+    const cleanUrl = safeUrl(url);
+
+    if (!cleanUrl || cleanUrl === '#') {
         alert("رابط التحميل غير متوفر.");
         return;
     }
 
     try {
-        const response = await fetch(url, {
+        const response = await fetch(cleanUrl, {
             mode: 'cors'
         });
 
@@ -459,10 +461,16 @@ async function downloadMaterialFile(url, fileName) {
         a.style.display = 'none';
         a.href = blobUrl;
 
-        // اسم الملف عند التحميل
-        a.download = fileName.toLowerCase().endsWith('.pdf')
-            ? fileName
-            : `${fileName}.pdf`;
+        // اسم الملف عند التحميل: نستخدم امتداد الملف الفعلي من الرابط،
+        // وإذا لم نجد امتدادًا نفترض أنه PDF (السلوك السابق).
+        const title = String(fileName || 'file');
+        const extMatch = new URL(cleanUrl, window.location.href)
+            .pathname.match(/\.([a-z0-9]{2,5})$/i);
+        const ext = extMatch ? extMatch[1].toLowerCase() : 'pdf';
+
+        a.download = title.toLowerCase().endsWith('.' + ext)
+            ? title
+            : `${title}.${ext}`;
 
         document.body.appendChild(a);
         a.click();
@@ -479,6 +487,6 @@ async function downloadMaterialFile(url, fileName) {
         // لو CORS منع التحميل المباشر
         alert("تعذر التحميل المباشر. سيتم فتح الملف، ويمكنك تحميله من عارض PDF.");
 
-        window.open(url, '_blank');
+        window.open(cleanUrl, '_blank', 'noopener,noreferrer');
     }
 }

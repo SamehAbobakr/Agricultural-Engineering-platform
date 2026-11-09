@@ -2,26 +2,7 @@
    الهيدر
 ========================================= */
 
-.main-header {
-    background: var(--card-bg);
-    border-bottom: 1px solid var(--border-color);
-    padding: 12px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
+/* قواعد .main-header و .header-container انتقلت إلى navigation.css (مصدر واحد للهيدر) */
 
 .logo-area {
     display: flex;
@@ -64,18 +45,6 @@
 }
 
 
-/* =========================================
-   الفوتر
-========================================= */
-
-.main-footer {
-    background: var(--card-bg);
-    border-top: 1px solid var(--border-color);
-    text-align: center;
-    padding: 20px 15px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-}
 
 
 /* =========================================
@@ -87,4 +56,28 @@
 .material-view {
     max-width: 100%;
     min-width: 0;
+}
+
+
+
+
+
+/* =========================================
+   الفوتر الرئيسي
+========================================= */
+
+.main-footer {
+    width: 100%;
+    padding: 20px 16px;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.main-footer p {
+    margin: 0;
 }

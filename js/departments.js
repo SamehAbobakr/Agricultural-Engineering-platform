@@ -27,7 +27,7 @@ function renderDepartments() {
     departmentsList.forEach(dept => {
 
         const deptNameJson =
-            JSON.stringify(dept.name).replace(/"/g, '&quot;');
+            inlineArg(dept.name);
 
         html += `
             <div

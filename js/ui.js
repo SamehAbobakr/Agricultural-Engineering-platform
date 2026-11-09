@@ -34,9 +34,58 @@ function showLoading(callback) {
 function escapeHtml(text) {
     if (text === null || text === undefined) return '';
 
-    const div = document.createElement('div');
-    div.textContent = String(text);
-    return div.innerHTML;
+    // يهرّب النص للاستخدام داخل HTML وداخل قيم الـ attributes معًا
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+// =========================================
+// تمرير القيم إلى أزرار onclick بأمان
+// بدل كتابة بيانات قاعدة البيانات داخل HTML،
+// نحفظ القيمة في مصفوفة ونمرر رقمها فقط (رقم لا يمكن حقنه).
+// =========================================
+
+const inlineArgStore = [];
+
+function inlineArg(value) {
+    inlineArgStore.push(value);
+    return `getInlineArg(${inlineArgStore.length - 1})`;
+}
+
+function getInlineArg(index) {
+    return inlineArgStore[index];
+}
+
+// =========================================
+// روابط آمنة: تقبل http و https فقط
+// (تمنع javascript: و data: وغيرها)
+// =========================================
+
+function safeUrl(url) {
+    if (typeof url !== 'string') return '';
+
+    const trimmed = url.trim();
+    if (!trimmed) return '';
+
+    try {
+        const parsed = new URL(trimmed, window.location.href);
+        return (parsed.protocol === 'http:' || parsed.protocol === 'https:')
+            ? trimmed
+            : '';
+    } catch (error) {
+        return '';
+    }
+}
+
+function openExternal(url) {
+    const clean = safeUrl(url);
+    if (!clean) return;
+
+    window.open(clean, '_blank', 'noopener,noreferrer');
 }
 
 function normalizeCategory(cat) {
@@ -239,10 +288,10 @@ async function renderMore() {
                 html += `
                     <div
                         class="card"
-                        onclick="showLoading(() => openMoreItem(${JSON.stringify(item.id).replace(/"/g, '&quot;')}))"                    >
+                        onclick="showLoading(() => openMoreItem(${inlineArg(item.id)}))"                    >
 
                         <div class="card-header-icon">
-                            ${item.icon || '📌'}
+                            ${escapeHtml(item.icon || '📌')}
                         </div>
 
                         <h3>
@@ -368,7 +417,7 @@ async function renderTopYears() {
             data.forEach(item => {
 
                 const itemJson =
-                    JSON.stringify(item).replace(/"/g, '&quot;');
+                    inlineArg(item);
 
                 html += `
                     <div
@@ -385,7 +434,7 @@ async function renderTopYears() {
                         </h3>
 
                         <p class="card-info">
-                            أوائل العام ${item.year}
+                            أوائل العام ${escapeHtml(item.year)}
                         </p>
 
                         <div class="card-footer">
@@ -470,7 +519,7 @@ async function openTopYear(item) {
                 margin-bottom:25px;
                 text-align:center;
             ">
-                أوائل العام ${item.year}
+                أوائل العام ${escapeHtml(item.year)}
             </p>
 
             <div class="material-file-card">
@@ -488,7 +537,7 @@ async function openTopYear(item) {
                 </div>
 
                 <p class="material-file-description">
-                    ملف أوائل العام ${item.year}
+                    ملف أوائل العام ${escapeHtml(item.year)}
                 </p>
 
                 <div class="material-file-info">
@@ -507,7 +556,7 @@ async function openTopYear(item) {
 
                     <!-- فتح الملف -->
                     <a
-                        href="${item.pdf_url}"
+                        href="${escapeHtml(safeUrl(item.pdf_url) || '#')}"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="material-open-btn"
@@ -521,8 +570,8 @@ async function openTopYear(item) {
                         type="button"
                         class="material-download-btn"
                         onclick="downloadMaterialFile(
-                            ${JSON.stringify(item.pdf_url).replace(/"/g, '&quot;')},
-                            ${JSON.stringify(item.title).replace(/"/g, '&quot;')}
+                            ${inlineArg(item.pdf_url)},
+                            ${inlineArg(item.title)}
                         )"
                     >
                         <span>⬇️</span>
@@ -584,7 +633,7 @@ function renderExamSchedulesFromMore() {
                         <div
                             class="card"
                             onclick="openMorePdf(
-                                ${JSON.stringify(item).replace(/"/g, '&quot;')},
+                                ${inlineArg(item)},
                                 'جداول الامتحانات',
                                 '📅'
                             )"
@@ -601,7 +650,7 @@ function renderExamSchedulesFromMore() {
                             <p class="card-info">
                                 ${
                                     item.year
-                                        ? `العام ${item.year}`
+                                        ? `العام ${escapeHtml(item.year)}`
                                         : ''
                                 }
                             </p>
@@ -901,14 +950,14 @@ function renderMoreContents(parentItem, contents) {
                 >
 
                 <span>
-                    ${parentItem.icon || '📚'}
+                    ${escapeHtml(parentItem.icon || '📚')}
                     ${escapeHtml(parentItem.title)}
                 </span>
 
             </div>
 
             <h2 class="section-title">
-                ${parentItem.icon || '📚'}
+                ${escapeHtml(parentItem.icon || '📚')}
                 ${escapeHtml(parentItem.title)}
             </h2>
 
@@ -935,11 +984,11 @@ function renderMoreContents(parentItem, contents) {
             html += `
                 <div
                     class="card"
-                    onclick="openMoreContent(${JSON.stringify(item.id).replace(/"/g, '&quot;')})"
+                    onclick="openMoreContent(${inlineArg(item.id)})"
                 >
 
                     <div class="card-header-icon">
-                        ${item.icon || parentItem.icon || '📌'}
+                        ${escapeHtml(item.icon || parentItem.icon || '📌')}
                     </div>
 
                     <h3>
@@ -1041,7 +1090,7 @@ async function openMoreContent(id) {
                 </div>
 
                 <h2 class="section-title">
-                    ${data.icon || '📚'}
+                    ${escapeHtml(data.icon || '📚')}
                     ${escapeHtml(data.title)}
                 </h2>
 
@@ -1067,10 +1116,7 @@ async function openMoreContent(id) {
                         ? `
                             <div
                                 class="card"
-                                onclick="window.open(
-                                    ${JSON.stringify(data.link_1).replace(/"/g, '&quot;')},
-                                    '_blank'
-                                )"
+                                onclick="openExternal(${inlineArg(data.link_1)})"
                             >
 
                                 <div class="card-header-icon">
@@ -1113,10 +1159,7 @@ async function openMoreContent(id) {
                         ? `
                             <div
                                 class="card"
-                                onclick="window.open(
-                                    ${JSON.stringify(data.link_2).replace(/"/g, '&quot;')},
-                                    '_blank'
-                                )"
+                                onclick="openExternal(${inlineArg(data.link_2)})"
                             >
 
                                 <div class="card-header-icon">
@@ -1274,11 +1317,11 @@ async function renderAdditionalResources() {
                 html += `
                     <div
                         class="card"
-                        onclick="renderExternalResourcesByCategory(${JSON.stringify(category).replace(/"/g, '&quot;')})"
+                        onclick="renderExternalResourcesByCategory(${inlineArg(category)})"
                     >
 
                         <div class="card-header-icon">
-                            ${categoryIcon}
+                            ${escapeHtml(categoryIcon)}
                         </div>
 
                         <h3>
@@ -1415,11 +1458,11 @@ async function renderExternalResourcesByCategory(category) {
                 html += `
                 <div 
                     class="card external-resource-card"
-                    onclick="openAdditionalResource(${JSON.stringify(item.id).replace(/"/g, '&quot;')})"
+                    onclick="openAdditionalResource(${inlineArg(item.id)})"
                 >
 
                     <div class="card-header-icon">
-                        ${item.content_icon || item.icon || '📚'}
+                        ${escapeHtml(item.content_icon || item.icon || '📚')}
                     </div>
 
                     <h3>
@@ -1517,7 +1560,7 @@ async function openAdditionalResource(id) {
                 <div class="external-resource-card">
 
             <div class="external-resource-icon">
-                    ${data.content_icon || '📚'}
+                    ${escapeHtml(data.content_icon || '📚')}
             </div>
 
     <h2 class="external-resource-title">
@@ -1553,7 +1596,7 @@ async function openAdditionalResource(id) {
         ? `
             <div class="external-resource-action">
                 <a
-                    href="${data.link}"
+                    href="${escapeHtml(safeUrl(data.link) || '#')}"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="external-resource-button"
@@ -1611,7 +1654,7 @@ function openMorePdf(item, title, icon) {
                 >
 
                 <span>
-                    ${icon} ${escapeHtml(title)}
+                    ${escapeHtml(icon)} ${escapeHtml(title)}
                 </span>
 
                 >
@@ -1623,7 +1666,7 @@ function openMorePdf(item, title, icon) {
             </div>
 
             <h2 class="section-title">
-                ${icon} ${escapeHtml(item.title)}
+                ${escapeHtml(icon)} ${escapeHtml(item.title)}
             </h2>
 
             <div class="material-file-card">
@@ -1641,7 +1684,7 @@ function openMorePdf(item, title, icon) {
                 </div>
 
                 <p class="material-file-description">
-                    ${item.year ? `العام ${item.year}` : ''}
+                    ${item.year ? `العام ${escapeHtml(item.year)}` : ''}
                 </p>
 
                 <div class="material-file-info">
@@ -1652,7 +1695,7 @@ function openMorePdf(item, title, icon) {
                 <div class="material-file-actions">
 
                     <a
-                        href="${item.pdf_url}"
+                        href="${escapeHtml(safeUrl(item.pdf_url) || '#')}"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="material-open-btn"
@@ -1665,8 +1708,8 @@ function openMorePdf(item, title, icon) {
                         type="button"
                         class="material-download-btn"
                         onclick="downloadMaterialFile(
-                            ${JSON.stringify(item.pdf_url).replace(/"/g, '&quot;')},
-                            ${JSON.stringify(item.title).replace(/"/g, '&quot;')}
+                            ${inlineArg(item.pdf_url)},
+                            ${inlineArg(item.title)}
                         )"
                     >
                         <span>⬇️</span>
@@ -1681,50 +1724,7 @@ function openMorePdf(item, title, icon) {
     `;
 }
 
-function toggleTheme() {
-    const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-
-    if (!body || !themeToggle) return;
-
-    const isLightMode = body.classList.toggle('light-mode');
-
-    localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-
-    themeToggle.textContent = isLightMode ? '☀️' : '🌙';
-
-    themeToggle.setAttribute(
-        'aria-label',
-        isLightMode ? 'تفعيل الوضع الليلي' : 'تفعيل الوضع النهاري'
-    );
-
-    themeToggle.setAttribute(
-        'title',
-        isLightMode ? 'الوضع الليلي' : 'الوضع النهاري'
-    );
-}
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('themeToggle');
-
-    if (!themeToggle) return;
-
-    const savedTheme = localStorage.getItem('theme');
-
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.textContent = '☀️';
-
-        themeToggle.setAttribute(
-            'aria-label',
-            'تفعيل الوضع الليلي'
-        );
-
-        themeToggle.setAttribute(
-            'title',
-            'الوضع الليلي'
-        );
-    }
-});
+/* الوضع الليلي/النهاري: منطقه في js/header.js (toggleTheme) — لا تكرره هنا */
 
 /* =========================================
    تحديد رابط الهيدر النشط تلقائيًا
@@ -1738,6 +1738,12 @@ function updateHeaderActiveLink() {
 
     if (/\/student_dashboard(?:\.html)?\/?$/.test(currentPath)) {
         activeNav = 'dashboard';
+    } else if (/\/about\/about\.html$/.test(currentPath)) {
+        activeNav = 'about';
+    } else if (/\/faculty\/faculty\.html$/.test(currentPath)) {
+        activeNav = 'faculty';
+    } else if (/\/community\/community\.html$/.test(currentPath)) {
+        activeNav = 'community';
     } else if (/\/tools\/tools\.html$/.test(currentPath)) {
         activeNav = 'tools';
     }
@@ -1753,6 +1759,14 @@ function updateHeaderActiveLink() {
             link.removeAttribute('aria-current');
         }
     });
+
+    // على الموبايل شريط الروابط قابل للتمرير الأفقي: نُظهر الرابط النشط داخله
+    const nav = document.querySelector('.main-nav');
+    const activeLink = nav && nav.querySelector('.nav-link.active');
+
+    if (activeLink && nav.scrollWidth > nav.clientWidth) {
+        activeLink.scrollIntoView({ block: 'nearest', inline: 'center' });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', updateHeaderActiveLink);

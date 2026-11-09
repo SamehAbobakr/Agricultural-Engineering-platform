@@ -8,9 +8,9 @@ function filterSubjects(query) {
 
         if (!titleElement) return;
 
-        const title = titleElement.textContent.toLowerCase();
+        const title = normalizeText(titleElement.textContent);
 
-        if (title.includes(query.toLowerCase())) {
+        if (title.includes(normalizeText(query))) {
             card.style.display = 'flex';
         } else {
             card.style.display = 'none';
