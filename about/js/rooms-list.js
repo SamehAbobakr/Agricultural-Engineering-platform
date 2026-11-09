@@ -168,7 +168,7 @@ if (RoomsListApp.els.filter) {
         let points = 0;
         RoomsListApp.rooms.forEach(function (room) {
             tasks += room.tasks.length;
-            room.tasks.forEach(function (t) { points += t.points; });
+            points += room.totalPoints;
         });
 
         [
@@ -234,7 +234,12 @@ if (RoomsListApp.els.filter) {
         };
 
         const stats = el('ul', { className: 'rm-tiles' }, [
-            tile(RoomsUtils.num(o.points), 'نقطة مكتسبة', el('small', { text: 'من ' + RoomsUtils.num(o.totalPoints) })),
+            // نقاط الطالب = كل إنجازاته المسجّلة. وإن زادت عن المتاح فذلك لمهام عُدّلت/أُخفيت بعد إنجازها (لا نخفي الرقم ولا نعرض تناقضًا)
+            tile(RoomsUtils.num(o.points), 'نقطة مكتسبة', el('small', {
+                text: o.points > o.totalPoints
+                    ? 'تشمل مهامًا لم تعد معروضة'
+                    : 'من ' + RoomsUtils.num(o.totalPoints)
+            })),
             tile(RoomsUtils.num(o.done), 'مهمة مكتملة'),
             tile(RoomsUtils.num(o.remaining), 'مهمة متبقية'),
             tile(RoomsUtils.num(o.percent) + '٪', 'نسبة الإنجاز', RoomsUtils.progressBar(o.percent, 'نسبة الإنجاز الإجمالية'))
@@ -350,7 +355,7 @@ if (!visibleRooms.length) {
 
 visibleRooms.forEach(function (room, index) {
             const p = RoomsProgress.forRoom(room);
-            const totalPoints = room.tasks.reduce(function (sum, t) { return sum + t.points; }, 0);
+            const totalPoints = room.totalPoints;
 
             const meta = el('span', { className: 'rm-card-meta' }, [
                 el('span', { className: 'rm-chip', text: '📋 ' + RoomsUtils.taskCount(room.tasks.length) }),

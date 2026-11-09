@@ -218,94 +218,48 @@ closeImage() {
         ]);
     },
 
-    linkItem(label, href, pathData) {
-    const { el } = CommunityUtils;
+    linkItem(label, href, extra) {
+        const { el } = CommunityUtils;
 
-    return el('li', {}, [
-        el('a', {
-            className: 'community-link community-link--icon',
-            attrs: {
-                href,
-                target: '_blank',
-                rel: 'noopener noreferrer',
-                'aria-label': label,
-                title: label
-            }
-        }, [
-            CommunityUtils.icon(pathData, 'community-link__icon')
-        ])
-    ]);
-},
+        return el('li', {}, [
+            el('a', {
+                className: 'community-link',
+                attrs: { href, target: '_blank', rel: 'noopener noreferrer' }
+            }, [
+                el('span', { text: label }),
+                extra || null
+            ])
+        ]);
+    },
 
     // نعرض فقط الوسائل الموجودة والصحيحة (رابط غير صالح = لا يظهر)
-    // نعرض فقط الوسائل الموجودة والصحيحة
-buildLinks(member) {
-    const { el } = CommunityUtils;
-    const items = [];
+    buildLinks(member) {
+        const { el } = CommunityUtils;
+        const items = [];
 
-    // WhatsApp
-    const whatsapp = CommunityUtils.whatsappUrl(member.phone);
-    if (whatsapp) {
-        items.push(CommunityModal.linkItem(
-            'واتساب',
-            whatsapp,
-            'M21 11.5a8.5 8.5 0 0 1-12.9 7.2L3 20l1.3-4.9A8.5 8.5 0 1 1 21 11.5z M9 9a1 1 0 0 0 0 2c1 2 2 3 4 4a1 1 0 0 0 2-1'
-        ));
-    }
-
-    // Facebook
-    const facebook = CommunityUtils.urlForHosts(
-        member.facebook,
-        ['facebook.com', 'fb.com', 'fb.me']
-    );
-
-    if (facebook) {
-        items.push(CommunityModal.linkItem(
-            'Facebook',
-            facebook,
-            'M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z'        ));
-    }
-
-    // LinkedIn
-    const linkedin = CommunityUtils.urlForHosts(
-        member.linkedin,
-        ['linkedin.com', 'lnkd.in']
-    );
-
-    if (linkedin) {
-        items.push(CommunityModal.linkItem(
-            'LinkedIn',
-            linkedin,
-            'M4 4h.01 M3 8h2v13H3z M9 8h2v2a4 4 0 0 1 7-1c1 1 1 2 1 4v8h-2v-8c0-2-1-3-2.5-3S12 11 12 13v8H9z'
-        ));
-    }
-
-    // GitHub أو الموقع الشخصي
-    const github = CommunityUtils.httpUrl(member.github);
-
-    if (github) {
-        items.push(CommunityModal.linkItem(
-            'GitHub أو الموقع الشخصي',
-            github,
-            'M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.7c3-.3 6.1-1.5 6.1-6.7a5.2 5.2 0 0 0-1.4-3.6 4.8 4.8 0 0 0-.1-3.5S18.6.3 15 3a13.4 13.4 0 0 0-7 0C4.4.3 2.3 1.6 2.3 1.6a4.8 4.8 0 0 0-.1 3.5A5.2 5.2 0 0 0 .8 8.7c0 5.2 3.1 6.4 6.1 6.7A3.4 3.4 0 0 0 6 18.1V22'
-        ));
-    }
-
-
-            // CV — يظهر فقط عند وجود رابط صالح
-        const cvUrl = CommunityUtils.httpUrl(member.cvUrl);
-
-        if (cvUrl) {
+        const whatsapp = CommunityUtils.whatsappUrl(member.phone);
+        if (whatsapp) {
             items.push(CommunityModal.linkItem(
-                'السيرة الذاتية PDF',
-                cvUrl,
-                    'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M8 13h8 M8 17h5'            ));
+                'واتساب: ',
+                whatsapp,
+                el('bdi', { text: member.phone, attrs: { dir: 'ltr' } })
+            ));
         }
-    if (!items.length) return null;
 
-    return el('section', { className: 'community-info-block' }, [
-        el('h3', { text: 'التواصل والروابط' }),
-        el('ul', { className: 'community-links' }, items)
-    ]);
-}
+        const facebook = CommunityUtils.urlForHosts(member.facebook, ['facebook.com', 'fb.com', 'fb.me']);
+        if (facebook) items.push(CommunityModal.linkItem('Facebook', facebook));
+
+        const linkedin = CommunityUtils.urlForHosts(member.linkedin, ['linkedin.com', 'lnkd.in']);
+        if (linkedin) items.push(CommunityModal.linkItem('LinkedIn', linkedin));
+
+        const github = CommunityUtils.httpUrl(member.github);
+        if (github) items.push(CommunityModal.linkItem('GitHub / موقع شخصي', github));
+
+        if (!items.length) return null;
+
+        return el('section', { className: 'community-info-block' }, [
+            el('h3', { text: 'التواصل والروابط' }),
+            el('ul', { className: 'community-links' }, items)
+        ]);
+    }
 };
