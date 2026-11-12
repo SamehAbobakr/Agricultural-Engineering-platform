@@ -36,10 +36,12 @@
 .gp-controls__meta strong { color: var(--text-main); }
 
 /* ---------- الأزرار ---------- */
-.gp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--card-bg); color: var(--text-main); font-family: inherit; font-size: 0.9rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease; }
+.gp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--card-bg); color: var(--text-main); font-family: inherit; font-size: 0.9rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease; }
 .gp-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
-.gp-btn--primary { border-color: var(--primary-color); background: var(--primary-color); color: #000; }
-.gp-btn--primary:hover { color: #000; filter: brightness(1.08); }
+.gp-btn--primary { border-color: var(--primary-strong, var(--primary-color)); background: var(--primary-strong, var(--primary-color)); color: var(--on-primary, #000); }
+.gp-btn--primary:hover { color: var(--on-primary, #000); filter: brightness(1.08); }
+.gp-btn--block { display: flex; width: 100%; }
+.gp-btn .ic { width: 1.1em; height: 1.1em; vertical-align: 0; }
 .gp-btn:focus-visible, .gp-card__more:focus-visible, .gp-card__title-link:focus-visible, .gp-gallery__item:focus-visible, .gp-lightbox__btn:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
 /* ---------- الشارات ---------- */
@@ -60,7 +62,8 @@
 .gp-grid { margin-top: 0; }
 .gp-card { padding: 0; gap: 0; justify-content: flex-start; cursor: default; }
 .gp-card__media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-color); border-bottom: 1px solid var(--border-color); }
-.gp-card__placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; opacity: 0.5; }
+.gp-card__placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0; color: var(--primary-ink); opacity: 0.55; }
+.gp-card__placeholder::before { content: ""; width: 48px; height: 48px; background: currentColor; -webkit-mask: var(--ic-cap) center / contain no-repeat; mask: var(--ic-cap) center / contain no-repeat; }
 .gp-card__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 .gp-card__img.is-broken, .gp-cover__img.is-broken, .gp-gallery__img.is-broken { visibility: hidden; }
 .gp-card__body { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px 6px; flex: 1; }
@@ -90,7 +93,7 @@
 .gp-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 
 .gp-section, .gp-panel { padding: 18px; border: 1px solid var(--border-color); border-radius: 14px; background: var(--card-bg); }
-.gp-section h2, .gp-panel h2 { margin: 0 0 12px; font-size: 1.1rem; color: var(--text-main); padding-bottom: 8px; border-bottom: 2px solid var(--primary-color); display: inline-block; }
+.gp-section h2, .gp-panel h2 { display: block; width: fit-content; max-width: 100%; margin: 0 0 14px; font-size: 1.1rem; color: var(--text-main); padding-bottom: 8px; border-bottom: 2px solid var(--primary-color); }
 .gp-prose p { margin: 0 0 10px; color: var(--text-muted); line-height: 2; font-size: 0.95rem; }
 .gp-prose p:last-child { margin-bottom: 0; }
 .gp-list { margin: 0; padding-inline-start: 22px; display: flex; flex-direction: column; gap: 8px; color: var(--text-muted); line-height: 1.9; font-size: 0.95rem; }

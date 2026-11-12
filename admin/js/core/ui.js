@@ -186,11 +186,11 @@
     }
 
     function emptyState(title, hint) {
-        return html`<div class="adm-state"><div class="adm-state__icon" aria-hidden="true">📭</div><h3>${title || 'لا توجد بيانات'}</h3>${hint ? html`<p>${hint}</p>` : ''}</div>`;
+        return html`<div class="adm-state"><div class="adm-state__icon" aria-hidden="true"><i class="ic ic-inbox"></i></div><h3>${title || 'لا توجد بيانات'}</h3>${hint ? html`<p>${hint}</p>` : ''}</div>`;
     }
 
     function errorState(message, retryId) {
-        return html`<div class="adm-state adm-state--error" role="alert"><div class="adm-state__icon" aria-hidden="true">⚠️</div><h3>تعذر إتمام العملية</h3><p>${message}</p>${retryId ? html`<button type="button" class="adm-btn adm-btn--ghost" id="${retryId}">إعادة المحاولة</button>` : ''}</div>`;
+        return html`<div class="adm-state adm-state--error" role="alert"><div class="adm-state__icon" aria-hidden="true"><i class="ic ic-alert"></i></div><h3>تعذر إتمام العملية</h3><p>${message}</p>${retryId ? html`<button type="button" class="adm-btn adm-btn--ghost" id="${retryId}">إعادة المحاولة</button>` : ''}</div>`;
     }
 
     window.AdminUI = { toast: toast, modal: modal, confirm: confirm,

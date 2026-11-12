@@ -18,11 +18,7 @@ html {
 
 body {
     font-family: var(--font-main);
-    background: linear-gradient(
-        135deg,
-        var(--bg-color),
-        var(--card-bg)
-    );
+    background: var(--bg-color);
     color: var(--text-main);
     min-height: 100vh;
     display: flex;

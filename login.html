@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تسجيل الدخول وإنشاء حساب | منصة الهندسة الزراعية</title>
 <meta name="description" content="سجّل دخولك أو أنشئ حسابًا في منصة كلية الهندسة الزراعية – جامعة الأزهر لحفظ تقدّمك وإنجازاتك.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚜%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23047857'/%3E%3Cg fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' transform='translate(5 5) scale(.917)'%3E%3Cpath d='M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z'/%3E%3Cpath d='M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12'/%3E%3C/g%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/navigation.css">
@@ -68,10 +69,10 @@ document.documentElement.classList.add('js');
                     <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
                 <div class="nav-dropdown" id="navPanel-platform" role="group" aria-labelledby="navTrigger-platform">
-                    <a href="index.html" class="nav-link" data-nav="home"><span class="nav-link-icon" aria-hidden="true">🏠</span><span class="nav-link-label">الرئيسية</span></a>
-                    <a href="student_dashboard/index.html" class="nav-link" data-nav="dashboard"><span class="nav-link-icon" aria-hidden="true">📊</span><span class="nav-link-label">لوحة الطالب</span></a>
-                    <a href="tools/tools.html" class="nav-link" data-nav="tools"><span class="nav-link-icon" aria-hidden="true">🛠️</span><span class="nav-link-label">الأدوات</span></a>
-                    <a href="about/about.html" class="nav-link" data-nav="about"><span class="nav-link-icon" aria-hidden="true">🎓</span><span class="nav-link-label">المسار التعليمي</span></a>
+                    <a href="index.html" class="nav-link" data-nav="home"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-home"></i></span><span class="nav-link-label">الرئيسية</span></a>
+                    <a href="student_dashboard/index.html" class="nav-link" data-nav="dashboard"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-dashboard"></i></span><span class="nav-link-label">لوحة الطالب</span></a>
+                    <a href="tools/tools.html" class="nav-link" data-nav="tools"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-wrench"></i></span><span class="nav-link-label">الأدوات</span></a>
+                    <a href="about/about.html" class="nav-link" data-nav="about"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-cap"></i></span><span class="nav-link-label">المسار التعليمي</span></a>
                 </div>
             </div>
             <div class="nav-group">
@@ -81,10 +82,10 @@ document.documentElement.classList.add('js');
                     <svg class="nav-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
                 <div class="nav-dropdown" id="navPanel-academic" role="group" aria-labelledby="navTrigger-academic">
-                    <a href="faculty/faculty.html" class="nav-link" data-nav="faculty"><span class="nav-link-icon" aria-hidden="true">👨‍🏫</span><span class="nav-link-label">أعضاء هيئة التدريس</span></a>
-                    <a href="community/community.html" class="nav-link" data-nav="community"><span class="nav-link-icon" aria-hidden="true">🤝</span><span class="nav-link-label">مجتمع الطلاب والخريجين</span></a>
-                    <a href="graduation/graduation.html" class="nav-link" data-nav="graduation"><span class="nav-link-icon" aria-hidden="true">🏆</span><span class="nav-link-label">مشاريع التخرج</span></a>
-                    <a href="https://wa.me/201551743249" class="nav-link" data-nav="contact" target="_blank" rel="noopener noreferrer"><span class="nav-link-icon" aria-hidden="true">💬</span><span class="nav-link-label">تواصل معنا</span><svg class="nav-link-ext" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M8 4H5.5A1.5 1.5 0 004 5.5v9A1.5 1.5 0 005.5 16h9a1.5 1.5 0 001.5-1.5V12M11 4h5v5M16 4l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nav-sr-only"> (يفتح في نافذة جديدة)</span></a>
+                    <a href="faculty/faculty.html" class="nav-link" data-nav="faculty"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-teacher"></i></span><span class="nav-link-label">أعضاء هيئة التدريس</span></a>
+                    <a href="community/community.html" class="nav-link" data-nav="community"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-users"></i></span><span class="nav-link-label">مجتمع الطلاب والخريجين</span></a>
+                    <a href="graduation/graduation.html" class="nav-link" data-nav="graduation"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-trophy"></i></span><span class="nav-link-label">مشاريع التخرج</span></a>
+                    <a href="https://wa.me/201551743249" class="nav-link" data-nav="contact" target="_blank" rel="noopener noreferrer"><span class="nav-link-icon" aria-hidden="true"><i class="ic ic-message"></i></span><span class="nav-link-label">تواصل معنا</span><svg class="nav-link-ext" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M8 4H5.5A1.5 1.5 0 004 5.5v9A1.5 1.5 0 005.5 16h9a1.5 1.5 0 001.5-1.5V12M11 4h5v5M16 4l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nav-sr-only"> (يفتح في نافذة جديدة)</span></a>
                 </div>
             </div>
         </nav>
@@ -97,7 +98,7 @@ document.documentElement.classList.add('js');
         <!-- الوضع الليلي -->
         <button type="button" class="theme-toggle" id="themeToggle"
             aria-label="تغيير الوضع" title="الوضع النهاري أو الليلي"
-            onclick="toggleTheme()">🌙</button>
+            onclick="toggleTheme()"></button>
 
         <!-- زر الهمبرجر (الموبايل فقط) -->
         <button type="button" class="hamburger-btn" id="hamburgerBtn"
@@ -148,10 +149,10 @@ document.documentElement.classList.add('js');
             </button>
             <div class="drawer-group-panel open" id="drawerPanel-platform" role="group" aria-labelledby="drawerTrigger-platform">
                 <div class="drawer-group-inner">
-                    <a href="index.html" class="drawer-nav-link" data-nav="home"><span class="link-icon" aria-hidden="true">🏠</span><span class="drawer-nav-label">الرئيسية</span></a>
-                    <a href="student_dashboard/index.html" class="drawer-nav-link" data-nav="dashboard"><span class="link-icon" aria-hidden="true">📊</span><span class="drawer-nav-label">لوحة الطالب</span></a>
-                    <a href="tools/tools.html" class="drawer-nav-link" data-nav="tools"><span class="link-icon" aria-hidden="true">🛠️</span><span class="drawer-nav-label">الأدوات</span></a>
-                    <a href="about/about.html" class="drawer-nav-link" data-nav="about"><span class="link-icon" aria-hidden="true">🎓</span><span class="drawer-nav-label">المسار التعليمي</span></a>
+                    <a href="index.html" class="drawer-nav-link" data-nav="home"><span class="link-icon" aria-hidden="true"><i class="ic ic-home"></i></span><span class="drawer-nav-label">الرئيسية</span></a>
+                    <a href="student_dashboard/index.html" class="drawer-nav-link" data-nav="dashboard"><span class="link-icon" aria-hidden="true"><i class="ic ic-dashboard"></i></span><span class="drawer-nav-label">لوحة الطالب</span></a>
+                    <a href="tools/tools.html" class="drawer-nav-link" data-nav="tools"><span class="link-icon" aria-hidden="true"><i class="ic ic-wrench"></i></span><span class="drawer-nav-label">الأدوات</span></a>
+                    <a href="about/about.html" class="drawer-nav-link" data-nav="about"><span class="link-icon" aria-hidden="true"><i class="ic ic-cap"></i></span><span class="drawer-nav-label">المسار التعليمي</span></a>
                 </div>
             </div>
         </div>
@@ -163,17 +164,17 @@ document.documentElement.classList.add('js');
             </button>
             <div class="drawer-group-panel" id="drawerPanel-academic" role="group" aria-labelledby="drawerTrigger-academic">
                 <div class="drawer-group-inner">
-                    <a href="faculty/faculty.html" class="drawer-nav-link" data-nav="faculty"><span class="link-icon" aria-hidden="true">👨‍🏫</span><span class="drawer-nav-label">أعضاء هيئة التدريس</span></a>
-                    <a href="community/community.html" class="drawer-nav-link" data-nav="community"><span class="link-icon" aria-hidden="true">🤝</span><span class="drawer-nav-label">مجتمع الطلاب والخريجين</span></a>
-                    <a href="graduation/graduation.html" class="drawer-nav-link" data-nav="graduation"><span class="link-icon" aria-hidden="true">🏆</span><span class="drawer-nav-label">مشاريع التخرج</span></a>
-                    <a href="https://wa.me/201551743249" class="drawer-nav-link" data-nav="contact" target="_blank" rel="noopener noreferrer"><span class="link-icon" aria-hidden="true">💬</span><span class="drawer-nav-label">تواصل معنا</span><svg class="nav-link-ext" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M8 4H5.5A1.5 1.5 0 004 5.5v9A1.5 1.5 0 005.5 16h9a1.5 1.5 0 001.5-1.5V12M11 4h5v5M16 4l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nav-sr-only"> (يفتح في نافذة جديدة)</span></a>
+                    <a href="faculty/faculty.html" class="drawer-nav-link" data-nav="faculty"><span class="link-icon" aria-hidden="true"><i class="ic ic-teacher"></i></span><span class="drawer-nav-label">أعضاء هيئة التدريس</span></a>
+                    <a href="community/community.html" class="drawer-nav-link" data-nav="community"><span class="link-icon" aria-hidden="true"><i class="ic ic-users"></i></span><span class="drawer-nav-label">مجتمع الطلاب والخريجين</span></a>
+                    <a href="graduation/graduation.html" class="drawer-nav-link" data-nav="graduation"><span class="link-icon" aria-hidden="true"><i class="ic ic-trophy"></i></span><span class="drawer-nav-label">مشاريع التخرج</span></a>
+                    <a href="https://wa.me/201551743249" class="drawer-nav-link" data-nav="contact" target="_blank" rel="noopener noreferrer"><span class="link-icon" aria-hidden="true"><i class="ic ic-message"></i></span><span class="drawer-nav-label">تواصل معنا</span><svg class="nav-link-ext" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"><path d="M8 4H5.5A1.5 1.5 0 004 5.5v9A1.5 1.5 0 005.5 16h9a1.5 1.5 0 001.5-1.5V12M11 4h5v5M16 4l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="nav-sr-only"> (يفتح في نافذة جديدة)</span></a>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="drawer-action-group">
-        <a href="login.html" class="drawer-action-btn primary" aria-current="page"><span>🔑</span> تسجيل الدخول</a>
+        <a href="login.html" class="drawer-action-btn primary" aria-current="page"><span><i class="ic ic-login" aria-hidden="true"></i></span> تسجيل الدخول</a>
     </div>
 
 </nav>
@@ -211,7 +212,7 @@ document.documentElement.classList.add('js');
 
             <!-- رسالة التنبيه العامة + أزرار إجراءات اختيارية تحتها -->
             <div class="login-alert" id="loginAlert" role="alert" aria-live="polite">
-                <span class="alert-icon" id="alertIcon" aria-hidden="true">⚠️</span>
+                <span class="alert-icon" id="alertIcon" aria-hidden="true"></span>
                 <span id="alertText"></span>
             </div>
             <div class="auth-alert-actions" id="alertActions" hidden></div>
@@ -223,7 +224,7 @@ document.documentElement.classList.add('js');
                     <div class="form-group">
                         <label class="form-label" for="emailInput">البريد الإلكتروني</label>
                         <div class="form-input-wrap">
-                            <span class="input-icon" aria-hidden="true">✉️</span>
+                            <span class="input-icon" aria-hidden="true"><i class="ic ic-mail"></i></span>
                             <input type="email" id="emailInput" name="email" class="form-input"
                                 placeholder="name@example.com" dir="ltr"
                                 autocomplete="username email" inputmode="email"
@@ -235,12 +236,12 @@ document.documentElement.classList.add('js');
                     <div class="form-group">
                         <label class="form-label" for="passwordInput">كلمة المرور</label>
                         <div class="form-input-wrap">
-                            <span class="input-icon" aria-hidden="true">🔒</span>
+                            <span class="input-icon" aria-hidden="true"><i class="ic ic-lock"></i></span>
                             <input type="password" id="passwordInput" name="password" class="form-input has-toggle"
                                 placeholder="••••••••" autocomplete="current-password" maxlength="72"
                                 required aria-required="true" aria-describedby="passwordError">
                             <button type="button" class="toggle-password" data-toggle-password="passwordInput"
-                                aria-label="إظهار كلمة المرور">👁️</button>
+                                aria-label="إظهار كلمة المرور"></button>
                         </div>
                         <span class="field-error" id="passwordError" role="alert"></span>
                     </div>
@@ -263,7 +264,7 @@ document.documentElement.classList.add('js');
                     <div class="form-group">
                         <label class="form-label" for="signupEmail">البريد الإلكتروني</label>
                         <div class="form-input-wrap">
-                            <span class="input-icon" aria-hidden="true">✉️</span>
+                            <span class="input-icon" aria-hidden="true"><i class="ic ic-mail"></i></span>
                             <input type="email" id="signupEmail" name="email" class="form-input"
                                 placeholder="name@example.com" dir="ltr"
                                 autocomplete="username email" inputmode="email"
@@ -275,12 +276,12 @@ document.documentElement.classList.add('js');
                     <div class="form-group">
                         <label class="form-label" for="signupPassword">كلمة المرور</label>
                         <div class="form-input-wrap">
-                            <span class="input-icon" aria-hidden="true">🔒</span>
+                            <span class="input-icon" aria-hidden="true"><i class="ic ic-lock"></i></span>
                             <input type="password" id="signupPassword" name="new-password" class="form-input has-toggle"
                                 placeholder="••••••••" autocomplete="new-password" maxlength="72"
                                 required aria-required="true" aria-describedby="signupPasswordRules signupPasswordError">
                             <button type="button" class="toggle-password" data-toggle-password="signupPassword"
-                                aria-label="إظهار كلمة المرور">👁️</button>
+                                aria-label="إظهار كلمة المرور"></button>
                         </div>
                         <ul class="pw-rules" id="signupPasswordRules">
                             <li data-rule="length">8 أحرف على الأقل</li>
@@ -293,12 +294,12 @@ document.documentElement.classList.add('js');
                     <div class="form-group">
                         <label class="form-label" for="signupConfirm">تأكيد كلمة المرور</label>
                         <div class="form-input-wrap">
-                            <span class="input-icon" aria-hidden="true">🔒</span>
+                            <span class="input-icon" aria-hidden="true"><i class="ic ic-lock"></i></span>
                             <input type="password" id="signupConfirm" name="confirm-password" class="form-input has-toggle"
                                 placeholder="••••••••" autocomplete="new-password" maxlength="72"
                                 required aria-required="true" aria-describedby="signupConfirmError">
                             <button type="button" class="toggle-password" data-toggle-password="signupConfirm"
-                                aria-label="إظهار كلمة المرور">👁️</button>
+                                aria-label="إظهار كلمة المرور"></button>
                         </div>
                         <span class="field-error" id="signupConfirmError" role="alert"></span>
                     </div>
@@ -317,7 +318,7 @@ document.documentElement.classList.add('js');
                     <div class="form-group">
                         <label class="form-label" for="forgotEmail">البريد الإلكتروني</label>
                         <div class="form-input-wrap">
-                            <span class="input-icon" aria-hidden="true">✉️</span>
+                            <span class="input-icon" aria-hidden="true"><i class="ic ic-mail"></i></span>
                             <input type="email" id="forgotEmail" name="email" class="form-input"
                                 placeholder="name@example.com" dir="ltr"
                                 autocomplete="username email" inputmode="email"
@@ -338,7 +339,7 @@ document.documentElement.classList.add('js');
             <!-- 4) تحقق من بريدك (بعد إنشاء حساب أو طلب استعادة) -->
             <section id="viewNotice" hidden aria-live="polite">
                 <div class="auth-notice">
-                    <div class="auth-notice-icon" aria-hidden="true">📧</div>
+                    <div class="auth-notice-icon" aria-hidden="true"><i class="ic ic-mail"></i></div>
                     <h2 id="noticeTitle"></h2>
                     <p id="noticeText"></p>
                     <div class="auth-notice-actions">
@@ -352,7 +353,7 @@ document.documentElement.classList.add('js');
             <!-- 5) مسجّل الدخول بالفعل -->
             <section id="viewSignedIn" hidden>
                 <div class="auth-notice">
-                    <div class="auth-notice-icon" aria-hidden="true">✅</div>
+                    <div class="auth-notice-icon is-success" aria-hidden="true"><i class="ic ic-circle-check"></i></div>
                     <h2>أنت مسجّل الدخول</h2>
                     <p>الحساب الحالي: <strong id="signedInEmail"></strong></p>
                     <div class="auth-notice-actions">

@@ -19,7 +19,7 @@ function scrollToTop() {
 function showLoading(callback) {
     document.getElementById('contentArea').innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل المحتوى...</p>
         </div>
     `;
@@ -114,18 +114,17 @@ function renderGrades() {
 
             <div class="grid-container">
 
-                <div class="card"
+                <div class="card grade-card"
                     onclick="selectGrade('الفرقة الأولى')"
-                    style="border-top: 4px solid var(--grade-1)">
+                    style="--accent: var(--grade-1)">
 
                     <img
-                        src="assets/images/icons/Grade1.jfif"
-                        alt="الفرقة الأولى"
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        ">
+                        class="grade-badge"
+                        src="assets/images/grades/grade-1.svg"
+                        alt=""
+                        width="112"
+                        height="112"
+                        loading="lazy">
 
                     <h3>الفرقة الأولى</h3>
 
@@ -135,24 +134,23 @@ function renderGrades() {
 
                     <div class="card-footer">
                         <span>الدخول للفرقة</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
 
 
-                <div class="card"
+                <div class="card grade-card"
                     onclick="selectGrade('الفرقة الثانية')"
-                    style="border-top: 4px solid var(--grade-2)">
+                    style="--accent: var(--grade-2)">
 
                     <img
-                        src="assets/images/icons/Grade2.jfif"
-                        alt="الفرقة الثانية"
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        ">
+                        class="grade-badge"
+                        src="assets/images/grades/grade-2.svg"
+                        alt=""
+                        width="112"
+                        height="112"
+                        loading="lazy">
 
                     <h3>الفرقة الثانية</h3>
 
@@ -162,24 +160,23 @@ function renderGrades() {
 
                     <div class="card-footer">
                         <span>الدخول للفرقة</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
 
 
-                <div class="card"
+                <div class="card grade-card"
                     onclick="selectGrade('الفرقة الثالثة')"
-                    style="border-top: 4px solid var(--grade-3)">
+                    style="--accent: var(--grade-3)">
 
                     <img
-                        src="assets/images/icons/Grade3.jfif"
-                        alt="الفرقة الثالثة"
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        ">
+                        class="grade-badge"
+                        src="assets/images/grades/grade-3.svg"
+                        alt=""
+                        width="112"
+                        height="112"
+                        loading="lazy">
 
                     <h3>الفرقة الثالثة</h3>
 
@@ -189,24 +186,23 @@ function renderGrades() {
 
                     <div class="card-footer">
                         <span>الدخول للفرقة</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
 
 
-                <div class="card"
+                <div class="card grade-card"
                     onclick="selectGrade('الفرقة الرابعة')"
-                    style="border-top: 4px solid var(--grade-4)">
+                    style="--accent: var(--grade-4)">
 
                     <img
-                        src="assets/images/icons/Grade4.jfif"
-                        alt="الفرقة الرابعة"
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: contain;
-                        ">
+                        class="grade-badge"
+                        src="assets/images/grades/grade-4.svg"
+                        alt=""
+                        width="112"
+                        height="112"
+                        loading="lazy">
 
                     <h3>الفرقة الرابعة</h3>
 
@@ -216,7 +212,7 @@ function renderGrades() {
 
                     <div class="card-footer">
                         <span>الدخول للفرقة</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
@@ -234,7 +230,7 @@ async function renderMore() {
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل المزيد...</p>
         </div>
     `;
@@ -253,16 +249,16 @@ async function renderMore() {
 
                 <div class="breadcrumb">
                     <span onclick="resetView()">
-                        🏠 الرئيسية
+                        <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                     </span>
                     >
                     <span>
-                        ➕ المزيد
+                        <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                     </span>
                 </div>
 
                 <h2 class="section-title">
-                    ➕ المزيد
+                    <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                 </h2>
 
                 <div class="grid-container">
@@ -365,7 +361,7 @@ async function renderTopYears() {
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل سنوات الأوائل...</p>
         </div>
     `;
@@ -383,17 +379,17 @@ async function renderTopYears() {
             <div class="fade-in">
 
                 <div class="breadcrumb">
-                    <span onclick="resetView()">🏠 الرئيسية</span>
+                    <span onclick="resetView()"><i class="ic ic-home" aria-hidden="true"></i> الرئيسية</span>
                     >
                     <span onclick="selectProgram('المزيد')">
-                        ➕ المزيد
+                        <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                     </span>
                     >
-                    <span>🏆 الأوائل</span>
+                    <span><i class="ic ic-trophy" aria-hidden="true"></i> الأوائل</span>
                 </div>
 
                 <h2 class="section-title">
-                    🏆 الأوائل
+                    <i class="ic ic-trophy" aria-hidden="true"></i> الأوائل
                 </h2>
 
                 <div class="grid-container">
@@ -426,7 +422,7 @@ async function renderTopYears() {
                     >
 
                         <div class="card-header-icon">
-                            🏆
+                            <i class="ic ic-trophy" aria-hidden="true"></i>
                         </div>
 
                         <h3>
@@ -440,7 +436,7 @@ async function renderTopYears() {
                         <div class="card-footer">
 
                             <span style="color:var(--primary-color)">
-                                📄 PDF
+                                <i class="ic ic-file" aria-hidden="true"></i> PDF
                             </span>
 
                             <span style="
@@ -497,21 +493,21 @@ async function openTopYear(item) {
         <div class="fade-in material-view" style="direction: rtl; text-align: right;">
 
             <div class="breadcrumb">
-                <span onclick="resetView()">🏠 الرئيسية</span>
+                <span onclick="resetView()"><i class="ic ic-home" aria-hidden="true"></i> الرئيسية</span>
                 >
                 <span onclick="selectProgram('المزيد')">
-                    ➕ المزيد
+                    <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                 </span>
                 >
                 <span onclick="renderTopYears()">
-                    🏆 الأوائل
+                    <i class="ic ic-trophy" aria-hidden="true"></i> الأوائل
                 </span>
                 >
                 <span>${escapeHtml(item.title)}</span>
             </div>
 
             <h2 class="section-title" style="margin-top:10px;">
-                🏆 ${escapeHtml(item.title)}
+                <i class="ic ic-trophy" aria-hidden="true"></i> ${escapeHtml(item.title)}
             </h2>
 
             <p style="
@@ -527,7 +523,7 @@ async function openTopYear(item) {
                 <div class="material-file-top">
 
                     <div class="material-file-icon">
-                        📕
+                        <i class="ic ic-book" aria-hidden="true"></i>
                     </div>
 
                     <h3 class="material-file-title">
@@ -543,7 +539,7 @@ async function openTopYear(item) {
                 <div class="material-file-info">
 
                     <span>
-                        📄 PDF
+                        <i class="ic ic-file" aria-hidden="true"></i> PDF
                     </span>
 
                     <span>
@@ -561,7 +557,7 @@ async function openTopYear(item) {
                         rel="noopener noreferrer"
                         class="material-open-btn"
                     >
-                        <span>👁️</span>
+                        <span><i class="ic ic-eye" aria-hidden="true"></i></span>
                         <span>فتح الملف</span>
                     </a>
 
@@ -596,31 +592,31 @@ function renderExamSchedulesFromMore() {
             <div class="breadcrumb">
 
                 <span onclick="resetView()">
-                    🏠 الرئيسية
+                    <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                 </span>
 
                 >
 
                 <span onclick="renderMore()">
-                    ➕ المزيد
+                    <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                 </span>
 
                 >
 
                 <span>
-                    🏫 شؤون الطلاب
+                    <i class="ic ic-landmark" aria-hidden="true"></i> شؤون الطلاب
                 </span>
 
                 >
 
                 <span>
-                    📅 جداول الامتحانات
+                    <i class="ic ic-calendar" aria-hidden="true"></i> جداول الامتحانات
                 </span>
 
             </div>
 
             <h2 class="section-title">
-                📅 جداول الامتحانات
+                <i class="ic ic-calendar" aria-hidden="true"></i> جداول الامتحانات
             </h2>
 
             <div class="grid-container">
@@ -640,7 +636,7 @@ function renderExamSchedulesFromMore() {
                         >
 
                             <div class="card-header-icon">
-                                📅
+                                <i class="ic ic-calendar" aria-hidden="true"></i>
                             </div>
 
                             <h3>
@@ -660,7 +656,7 @@ function renderExamSchedulesFromMore() {
                                 <span style="
                                     color:var(--primary-color)
                                 ">
-                                    📄 PDF
+                                    <i class="ic ic-file" aria-hidden="true"></i> PDF
                                 </span>
 
                                 <span style="
@@ -830,24 +826,24 @@ function renderStudentAffairs(parentItem, topYears, examSchedules) {
 
             <div class="breadcrumb">
                 <span onclick="resetView()">
-                    🏠 الرئيسية
+                    <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                 </span>
 
                 >
 
                 <span onclick="renderMore()">
-                    ➕ المزيد
+                    <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                 </span>
 
                 >
 
                 <span>
-                    🏫 شؤون الطلاب
+                    <i class="ic ic-landmark" aria-hidden="true"></i> شؤون الطلاب
                 </span>
             </div>
 
             <h2 class="section-title">
-                🏫 ${escapeHtml(parentItem.title)}
+                <i class="ic ic-landmark" aria-hidden="true"></i> ${escapeHtml(parentItem.title)}
             </h2>
 
             <div class="grid-container">
@@ -858,7 +854,7 @@ function renderStudentAffairs(parentItem, topYears, examSchedules) {
                     onclick="showLoading(() => renderTopYears())"                >
 
                     <div class="card-header-icon">
-                        🏆
+                        <i class="ic ic-trophy" aria-hidden="true"></i>
                     </div>
 
                     <h3>
@@ -894,7 +890,7 @@ function renderStudentAffairs(parentItem, topYears, examSchedules) {
                 >
 
                     <div class="card-header-icon">
-                        📅
+                        <i class="ic ic-calendar" aria-hidden="true"></i>
                     </div>
 
                     <h3>
@@ -938,13 +934,13 @@ function renderMoreContents(parentItem, contents) {
             <div class="breadcrumb">
 
                 <span onclick="resetView()">
-                    🏠 الرئيسية
+                    <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                 </span>
 
                 >
 
                 <span onclick="renderMore()">
-                    ➕ المزيد
+                    <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                 </span>
 
                 >
@@ -1012,8 +1008,8 @@ function renderMoreContents(parentItem, contents) {
                         ">
                             ${
                                 item.link
-                                ? '🔗 رابط'
-                                : '📚 محتوى'
+                                ? '<i class="ic ic-link" aria-hidden="true"></i> رابط'
+                                : '<i class="ic ic-library" aria-hidden="true"></i> محتوى'
                             }
                         </span>
 
@@ -1046,7 +1042,7 @@ async function openMoreContent(id) {
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل المحتوى...</p>
         </div>
     `;
@@ -1072,19 +1068,19 @@ async function openMoreContent(id) {
                 <div class="breadcrumb">
 
                     <span onclick="resetView()">
-                        🏠 الرئيسية
+                        <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                     </span>
 
                     >
 
                     <span onclick="renderMore()">
-                        ➕ المزيد
+                        <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                     </span>
 
                     >
 
                     <span>
-                        📚 ${escapeHtml(data.title)}
+                        <i class="ic ic-library" aria-hidden="true"></i> ${escapeHtml(data.title)}
                     </span>
 
                 </div>
@@ -1120,7 +1116,7 @@ async function openMoreContent(id) {
                             >
 
                                 <div class="card-header-icon">
-                                    📖
+                                    <i class="ic ic-book" aria-hidden="true"></i>
                                 </div>
 
                                 <h3>
@@ -1136,7 +1132,7 @@ async function openMoreContent(id) {
                                     <span style="
                                         color:var(--primary-color)
                                     ">
-                                        🔗 المسار الأول
+                                        <i class="ic ic-link" aria-hidden="true"></i> المسار الأول
                                     </span>
 
                                     <span style="
@@ -1163,7 +1159,7 @@ async function openMoreContent(id) {
                             >
 
                                 <div class="card-header-icon">
-                                    🎧
+                                    <i class="ic ic-headphones" aria-hidden="true"></i>
                                 </div>
 
                                 <h3>
@@ -1179,7 +1175,7 @@ async function openMoreContent(id) {
                                     <span style="
                                         color:var(--primary-color)
                                     ">
-                                        🔗 المسار الثاني
+                                        <i class="ic ic-link" aria-hidden="true"></i> المسار الثاني
                                     </span>
 
                                     <span style="
@@ -1247,7 +1243,7 @@ async function renderAdditionalResources() {
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">🌐</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل المصادر الخارجية...</p>
         </div>
     `;
@@ -1274,16 +1270,16 @@ async function renderAdditionalResources() {
 
                 <div class="breadcrumb">
                     <span onclick="resetView()">
-                        🏠 الرئيسية
+                        <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                     </span>
                     >
                     <span>
-                        🌐 مصادر خارجية
+                        <i class="ic ic-globe" aria-hidden="true"></i> مصادر خارجية
                     </span>
                 </div>
 
                 <h2 class="section-title">
-                    🌐 مصادر خارجية
+                    <i class="ic ic-globe" aria-hidden="true"></i> مصادر خارجية
                 </h2>
 
                 <div class="grid-container">
@@ -1393,7 +1389,7 @@ async function renderExternalResourcesByCategory(category) {
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">📚</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل المصادر...</p>
         </div>
     `;
@@ -1414,13 +1410,13 @@ async function renderExternalResourcesByCategory(category) {
                 <div class="breadcrumb">
 
                     <span onclick="resetView()">
-                        🏠 الرئيسية
+                        <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                     </span>
 
                     >
 
                     <span onclick="renderAdditionalResources()">
-                        🌐 مصادر خارجية
+                        <i class="ic ic-globe" aria-hidden="true"></i> مصادر خارجية
                     </span>
 
                     >
@@ -1548,10 +1544,10 @@ async function openAdditionalResource(id) {
             <div class="fade-in">
 
                 <div class="breadcrumb">
-                    <span onclick="resetView()">🏠 الرئيسية</span>
+                    <span onclick="resetView()"><i class="ic ic-home" aria-hidden="true"></i> الرئيسية</span>
                     >
                     <span onclick="renderAdditionalResources()">
-                        🌐 مصادر خارجية
+                        <i class="ic ic-globe" aria-hidden="true"></i> مصادر خارجية
                     </span>
                     >
                     <span>${escapeHtml(data.title)}</span>
@@ -1636,19 +1632,19 @@ function openMorePdf(item, title, icon) {
             <div class="breadcrumb">
 
                 <span onclick="resetView()">
-                    🏠 الرئيسية
+                    <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                 </span>
 
                 >
 
                 <span onclick="renderMore()">
-                    ➕ المزيد
+                    <i class="ic ic-plus" aria-hidden="true"></i> المزيد
                 </span>
 
                 >
 
                 <span>
-                    🏫 شؤون الطلاب
+                    <i class="ic ic-landmark" aria-hidden="true"></i> شؤون الطلاب
                 </span>
 
                 >
@@ -1674,7 +1670,7 @@ function openMorePdf(item, title, icon) {
                 <div class="material-file-top">
 
                     <div class="material-file-icon">
-                        📄
+                        <i class="ic ic-file" aria-hidden="true"></i>
                     </div>
 
                     <h3 class="material-file-title">
@@ -1688,7 +1684,7 @@ function openMorePdf(item, title, icon) {
                 </p>
 
                 <div class="material-file-info">
-                    <span>📄 PDF</span>
+                    <span><i class="ic ic-file" aria-hidden="true"></i> PDF</span>
                     <span>${escapeHtml(title)}</span>
                 </div>
 
@@ -1700,7 +1696,7 @@ function openMorePdf(item, title, icon) {
                         rel="noopener noreferrer"
                         class="material-open-btn"
                     >
-                        <span>👁️</span>
+                        <span><i class="ic ic-eye" aria-hidden="true"></i></span>
                         <span>فتح الملف</span>
                     </a>
 

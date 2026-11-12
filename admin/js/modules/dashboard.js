@@ -45,7 +45,7 @@
                     <div class="adm-grid adm-grid--2">
                         <section class="adm-card"><h2>حالة النظام</h2>
                             <ul class="adm-checklist">${items.map(function (i) {
-                                return html`<li><span class="adm-dot" aria-hidden="true">${i[0] === 'ok' ? '✅' : '⚠️'}</span><span>${i[1]}</span></li>`;
+                                return html`<li><span class="adm-dot" aria-hidden="true">${D.raw(i[0] === 'ok' ? '<i class="ic ic-circle-check"></i>' : '<i class="ic ic-alert"></i>')}</span><span>${i[1]}</span></li>`;
                             })}</ul></section>
                         <section class="adm-card"><h2>ابدأ من هنا</h2>
                             <ul class="adm-checklist">

@@ -62,9 +62,7 @@ body.light-mode .login-page::before {
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background:
-        radial-gradient(circle 500px at 70% 20%, rgba(16, 185, 129, .09), transparent),
-        radial-gradient(circle 400px at 20% 75%, rgba(59, 130, 246, .07), transparent);
+    background: none;
 }
 
 .login-container {
@@ -106,7 +104,7 @@ body.light-mode .login-card {
     height: 60px;
     border-radius: 18px;
     border: 1px solid rgba(16, 185, 129, .2);
-    background: linear-gradient(145deg, rgba(16, 185, 129, .17), rgba(16, 185, 129, .06));
+    background: var(--primary-soft);
     color: var(--primary-color);
     margin-bottom: 14px;
 }
@@ -609,3 +607,71 @@ body.light-mode .form-input {
 @media (prefers-reduced-motion: reduce) {
     .auth-spinner { animation-duration: 2s; }
 }
+
+
+/* =========================================
+   أيقونات صفحات الدخول (SVG بدل Emoji)
+========================================= */
+.input-icon .ic {
+    width: 18px;
+    height: 18px;
+    vertical-align: 0;
+}
+
+/* زر إظهار/إخفاء كلمة المرور: يغيّر js النص فقط، ويُخفى هنا، والأيقونة من حالة aria-label */
+.toggle-password {
+    font-size: 0;
+}
+
+.toggle-password::before {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    background: currentColor;
+    -webkit-mask: var(--ic-eye) center / contain no-repeat;
+    mask: var(--ic-eye) center / contain no-repeat;
+}
+
+.toggle-password[aria-label*="إخفاء"]::before {
+    -webkit-mask-image: var(--ic-eye-off);
+    mask-image: var(--ic-eye-off);
+}
+
+/* أيقونة رسالة التنبيه: النص الذي يضعه js يُخفى، والأيقونة حسب نوع الرسالة */
+.alert-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    font-size: 0;
+}
+
+.alert-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    -webkit-mask: var(--ic-alert) center / contain no-repeat;
+    mask: var(--ic-alert) center / contain no-repeat;
+}
+
+.login-alert.success .alert-icon::before {
+    -webkit-mask-image: var(--ic-circle-check);
+    mask-image: var(--ic-circle-check);
+}
+
+/* أيقونة شاشات الإشعار */
+.auth-notice-icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-xl);
+    background: var(--primary-soft);
+    color: var(--primary-ink);
+    font-size: 1.9rem;
+}
+
+.auth-notice-icon.is-success { background: var(--primary-soft); color: var(--primary-ink); }
+.auth-notice-icon.is-warn { background: var(--warn-soft); color: var(--warn-ink); }

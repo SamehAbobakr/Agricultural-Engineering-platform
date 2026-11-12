@@ -218,16 +218,24 @@ closeImage() {
         ]);
     },
 
-    linkItem(label, href, extra) {
+    // kind = اسم الأيقونة والنمط (facebook / linkedin / github / whatsapp / cv)
+    linkItem(label, href, extra, kind) {
         const { el } = CommunityUtils;
 
-        return el('li', {}, [
+        return el('li', { className: kind === 'cv' ? 'community-links__cv' : '' }, [
             el('a', {
-                className: 'community-link',
+                className: 'community-link' + (kind ? ' community-link--' + kind : ''),
                 attrs: { href, target: '_blank', rel: 'noopener noreferrer' }
             }, [
-                el('span', { text: label }),
-                extra || null
+                kind
+                    ? el('span', { className: 'community-link__icon', attrs: { 'aria-hidden': 'true' } }, [
+                        el('i', { className: 'ic ic-' + kind })
+                    ])
+                    : null,
+                el('span', { className: 'community-link__text' }, [
+                    el('span', { text: label }),
+                    extra || null
+                ])
             ])
         ]);
     },
@@ -237,23 +245,37 @@ closeImage() {
         const { el } = CommunityUtils;
         const items = [];
 
+        // السيرة الذاتية أولًا: رابط http/https مباشر فقط
+        const cv = CommunityUtils.httpUrl(member.cvUrl);
+        if (cv) {
+            items.push(CommunityModal.linkItem(
+                'السيرة الذاتية (CV)',
+                cv,
+                member.cvFileName
+                    ? el('small', { className: 'community-link__meta', text: member.cvFileName, attrs: { dir: 'ltr' } })
+                    : null,
+                'cv'
+            ));
+        }
+
         const whatsapp = CommunityUtils.whatsappUrl(member.phone);
         if (whatsapp) {
             items.push(CommunityModal.linkItem(
                 'واتساب: ',
                 whatsapp,
-                el('bdi', { text: member.phone, attrs: { dir: 'ltr' } })
+                el('bdi', { text: member.phone, attrs: { dir: 'ltr' } }),
+                'whatsapp'
             ));
         }
 
         const facebook = CommunityUtils.urlForHosts(member.facebook, ['facebook.com', 'fb.com', 'fb.me']);
-        if (facebook) items.push(CommunityModal.linkItem('Facebook', facebook));
+        if (facebook) items.push(CommunityModal.linkItem('Facebook', facebook, null, 'facebook'));
 
         const linkedin = CommunityUtils.urlForHosts(member.linkedin, ['linkedin.com', 'lnkd.in']);
-        if (linkedin) items.push(CommunityModal.linkItem('LinkedIn', linkedin));
+        if (linkedin) items.push(CommunityModal.linkItem('LinkedIn', linkedin, null, 'linkedin'));
 
         const github = CommunityUtils.httpUrl(member.github);
-        if (github) items.push(CommunityModal.linkItem('GitHub / موقع شخصي', github));
+        if (github) items.push(CommunityModal.linkItem('GitHub / موقع شخصي', github, null, 'github'));
 
         if (!items.length) return null;
 

@@ -14,14 +14,14 @@
 
     function fatal(icon, title, message, extra) {
         D.mount(root, html`<div class="adm-fatal"><div class="adm-card adm-state adm-state--error" role="alert">
-            <div class="adm-state__icon" aria-hidden="true">${icon}</div>
+            <div class="adm-state__icon" aria-hidden="true">${D.raw('<i class="ic ic-' + icon + '"></i>')}</div>
             <h3>${title}</h3><p>${message}</p>${extra || ''}</div></div>`);
     }
 
     function accessDenied(access) {
         var titles = { 'not-admin': 'لا تملك صلاحية الإدارة', 'not-installed': 'نظام الإدارة غير مُثبَّت بعد', error: 'تعذر التحقق من الصلاحيات' };
 
-        fatal('⛔', titles[access.status] || 'تعذر الدخول', access.message, html`
+        fatal('ban', titles[access.status] || 'تعذر الدخول', access.message, html`
             <p class="adm-sub">الحساب: <span dir="ltr">${access.email}</span></p>
             <a class="adm-btn adm-btn--ghost" href="../index.html">← العودة إلى المنصة</a>`);
     }
@@ -37,7 +37,7 @@
         return html`${groups.map(function (g) {
             return html`<div class="adm-nav__group"><div class="adm-nav__title">${g}</div>
                 ${byGroup[g].map(function (m) {
-                    return html`<a class="adm-nav__link" href="#/${m.id}" data-nav="${m.id}"><span aria-hidden="true">${m.icon}</span>${m.title}</a>`;
+                    return html`<a class="adm-nav__link" href="#/${m.id}" data-nav="${m.id}"><span aria-hidden="true">${D.raw('<i class="ic ic-' + m.icon + '"></i>')}</span>${m.title}</a>`;
                 })}</div>`;
         })}`;
     }
@@ -46,13 +46,13 @@
         D.mount(root, html`
         <div class="adm-shell">
             <aside class="adm-sidebar" id="admSidebar" aria-label="أقسام لوحة الإدارة">
-                <div class="adm-brand"><span class="adm-brand__icon" aria-hidden="true">🛡️</span>
+                <div class="adm-brand"><span class="adm-brand__icon" aria-hidden="true"><i class="ic ic-shield"></i></span>
                     <div>لوحة الإدارة<small>${user.email || ''}</small></div></div>
                 <nav>${navHtml()}</nav>
             </aside>
             <section class="adm-main">
                 <div class="adm-pagehead">
-                    <button type="button" class="adm-btn adm-btn--ghost adm-menu-btn" id="admMenuBtn" aria-label="فتح أقسام اللوحة" aria-expanded="false" aria-controls="admSidebar">☰ الأقسام</button>
+                    <button type="button" class="adm-btn adm-btn--ghost adm-menu-btn" id="admMenuBtn" aria-label="فتح أقسام اللوحة" aria-expanded="false" aria-controls="admSidebar"><i class="ic ic-menu" aria-hidden="true"></i> الأقسام</button>
                     <h1 class="section-title" id="admTitle">الرئيسية</h1>
                 </div>
                 <div class="adm-view" id="admView" tabindex="-1"></div>
@@ -95,19 +95,19 @@
         var Auth = window.PlatformAuth;
 
         if (window.SUPABASE_CONFIG_ERROR) {
-            fatal('⚙️', 'إعداد قاعدة البيانات غير مكتمل', window.SUPABASE_CONFIG_ERROR);
+            fatal('cog', 'إعداد قاعدة البيانات غير مكتمل', window.SUPABASE_CONFIG_ERROR);
             return;
         }
 
         if (!Auth || !Auth.getClient()) {
-            fatal('📡', 'خدمة الحساب غير متاحة', 'تعذر تحميل مكتبة Supabase. تحقق من الاتصال بالإنترنت وأعد تحميل الصفحة.');
+            fatal('alert', 'خدمة الحساب غير متاحة', 'تعذر تحميل مكتبة Supabase. تحقق من الاتصال بالإنترنت وأعد تحميل الصفحة.');
             return;
         }
 
         D.mount(root, UI.loadingState('جاري التحقق من الحساب...'));
 
         Auth.getSession().then(function (r) {
-            if (r.error) { fatal('⚠️', 'تعذر التحقق من الجلسة', window.AdminData.friendlyError(r.error)); return; }
+            if (r.error) { fatal('alert', 'تعذر التحقق من الجلسة', window.AdminData.friendlyError(r.error)); return; }
 
             if (!r.session) {
                 /* دخول المنصة الأصلي ثم العودة إلى هذه الصفحة */

@@ -308,8 +308,8 @@ const RoomsRoomApp = {
             className: 'rm-card-meta'
         }, [
             el('span', {
-                className: 'rm-chip',
-                text: '📋 ' + taskLabel
+                className: 'rm-chip rm-chip-tasks',
+                text: taskLabel
             }),
 
             room.difficulty
@@ -323,9 +323,9 @@ const RoomsRoomApp = {
 
             totalPoints > 0
                 ? el('span', {
-                    className: 'rm-chip rm-chip-points',
+                    className: 'rm-chip rm-chip-points rm-chip-star',
                     text:
-                        '⭐ ' + RoomsUtils.num(totalPoints) + ' نقطة'
+                        RoomsUtils.num(totalPoints) + ' نقطة'
                 })
                 : null
         ]);

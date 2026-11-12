@@ -197,7 +197,7 @@ const CommunityRender = {
             className: 'loading-screen',
             attrs: { role: 'status' }
         }, [
-            CommunityUtils.el('div', { className: 'loading-spinner', text: '⚙️', attrs: { 'aria-hidden': 'true' } }),
+            CommunityUtils.el('div', { className: 'loading-spinner', text: '', attrs: { 'aria-hidden': 'true' } }),
             CommunityUtils.el('p', { text: 'جاري تحميل مجتمع الطلاب والخريجين...' })
         ]));
     },

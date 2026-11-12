@@ -37,7 +37,7 @@
         '<div class="sw-launcher" id="swLauncher">' +
             '<div class="sw-menu" id="swMenu">' +
                 '<button type="button" class="sw-card" id="swSupportOpen">' +
-                    '<span class="sw-card-icon sw-card-icon--support" aria-hidden="true">❤️</span>' +
+                    '<span class="sw-card-icon sw-card-icon--support" aria-hidden="true"><i class="ic ic-heart" aria-hidden="true"></i></span>' +
                     '<span class="sw-card-text">' +
                         '<span class="sw-card-title">دعم المنصة</span>' +
                         '<span class="sw-card-desc">يمكنك المساهمة في استمرار الخدمة وتطوير المنصة.</span>' +
@@ -63,27 +63,27 @@ var MODAL_HTML =
         '<div class="sw-dialog" id="swDialog" role="dialog" aria-modal="true" aria-labelledby="swDialogTitle" tabindex="-1">' +
             '<button type="button" class="sw-close" id="swClose" aria-label="إغلاق">×</button>' +
 
-            '<div class="sw-dialog-icon" aria-hidden="true">💚</div>' +
+            '<div class="sw-dialog-icon" aria-hidden="true"><i class="ic ic-leaf" aria-hidden="true"></i></div>' +
             '<h3 class="sw-dialog-title" id="swDialogTitle">خلّينا نكمّل الرحلة معًا</h3>' +
             '<p class="sw-intro">دعمك يساعدنا نحافظ على المنصة ونطوّر محتواها لخدمة الطلاب.</p>' +
 
             '<div class="sw-benefits">' +
-                '<span>📚 محتوى أفضل</span>' +
-                '<span>⚙️ تطوير مستمر</span>' +
-                '<span>🌱 استمرار الخدمة</span>' +
+                '<span><i class="ic ic-library" aria-hidden="true"></i> محتوى أفضل</span>' +
+                '<span><i class="ic ic-cog" aria-hidden="true"></i> تطوير مستمر</span>' +
+                '<span><i class="ic ic-sprout" aria-hidden="true"></i> استمرار الخدمة</span>' +
             '</div>' +
 
             '<div class="sw-cash">' +
                 '<span class="sw-cash-label">Vodafone Cash · رقم التحويل</span>' +
                 '<strong class="sw-cash-number" id="swCashNumber" dir="ltr">' + CASH_NUMBER + '</strong>' +
-                '<button type="button" class="sw-copy" id="swCopy">📋 نسخ رقم التحويل</button>' +
+                '<button type="button" class="sw-copy" id="swCopy"><i class="ic ic-tasks" aria-hidden="true"></i> نسخ رقم التحويل</button>' +
                 '<p class="sw-cash-note">أي مساهمة، مهما كانت بسيطة، تصنع فرقًا.</p>' +
             '</div>' +
 
             '<div class="sw-share">' +
                 '<strong>مش قادر تدعم ماديًا؟</strong>' +
                 '<p>مشاركة المنصة مع زملائك دعم مهم يساعدنا نوصل لطلاب أكثر.</p>' +
-                '<button type="button" class="sw-share-btn" id="swShare">🔗 نسخ رابط المنصة</button>' +
+                '<button type="button" class="sw-share-btn" id="swShare"><i class="ic ic-link" aria-hidden="true"></i> نسخ رابط المنصة</button>' +
             '</div>' +
 
         '</div>' +
@@ -267,7 +267,7 @@ var MODAL_HTML =
                 clearTimeout(shareTimer);
 
                 shareTimer = setTimeout(function () {
-                    shareBtn.textContent = '🔗 نسخ رابط المنصة';
+                    shareBtn.innerHTML = '<i class="ic ic-link" aria-hidden="true"></i> نسخ رابط المنصة';
                 }, 2000);
             }
 

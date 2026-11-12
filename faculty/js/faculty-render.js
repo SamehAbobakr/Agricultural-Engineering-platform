@@ -154,7 +154,7 @@ const FacultyRender = {
             className: 'loading-screen',
             attrs: { role: 'status' }
         }, [
-            FacultyUtils.el('div', { className: 'loading-spinner', text: '⚙️', attrs: { 'aria-hidden': 'true' } }),
+            FacultyUtils.el('div', { className: 'loading-spinner', text: '', attrs: { 'aria-hidden': 'true' } }),
             FacultyUtils.el('p', { text: 'جاري تحميل دليل أعضاء هيئة التدريس...' })
         ]));
     },

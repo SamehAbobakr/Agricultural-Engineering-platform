@@ -93,8 +93,8 @@
         rowLabel: function (r) { return r.title; },
         deleteWarning: 'سيُحذف معها محتواها وأسئلتها. (يُمنع الحذف إن كان طلاب قد أنجزوها؛ عندها أخفِها بدل الحذف.)',
         rowActions: [
-            { label: '📝 المحتوى', onClick: function (row, api) { openContentEditor(row, api.ctx); } },
-            { label: '❓ الأسئلة', onClick: function (row) { window.location.hash = '#/quiz?task_id=' + encodeURIComponent(row.id); } }
+            { label: 'المحتوى', onClick: function (row, api) { openContentEditor(row, api.ctx); } },
+            { label: 'الأسئلة', onClick: function (row) { window.location.hash = '#/quiz?task_id=' + encodeURIComponent(row.id); } }
         ]
     });
 
@@ -228,7 +228,7 @@
         if (!spec) {
             return html`<div class="adm-block adm-block--unknown" data-i="${index}" data-type="${block.type}">
                 <div class="adm-block__head"><b>نوع غير معروف: ${block.type}</b>
-                    <span class="adm-block__tools"><button type="button" class="adm-icon-btn" data-do="del" aria-label="حذف">🗑️</button></span></div>
+                    <span class="adm-block__tools"><button type="button" class="adm-icon-btn" data-do="del" aria-label="حذف"><i class="ic ic-trash"></i></button></span></div>
                 <p class="adm-hint">سيُحفظ كما هو ما لم تحذفه.</p>
                 <input type="hidden" data-raw="${JSON.stringify(block)}"></div>`;
         }
@@ -236,9 +236,9 @@
         return html`<div class="adm-block" data-i="${index}" data-type="${block.type}">
             <div class="adm-block__head"><b>${index + 1}. ${spec.label}</b>
                 <span class="adm-block__tools">
-                    <button type="button" class="adm-icon-btn" data-do="up" aria-label="أعلى"${D.raw(index === 0 ? ' disabled' : '')}>⬆️</button>
-                    <button type="button" class="adm-icon-btn" data-do="down" aria-label="أسفل"${D.raw(index === total - 1 ? ' disabled' : '')}>⬇️</button>
-                    <button type="button" class="adm-icon-btn" data-do="del" aria-label="حذف">🗑️</button>
+                    <button type="button" class="adm-icon-btn" data-do="up" aria-label="أعلى"${D.raw(index === 0 ? ' disabled' : '')}><i class="ic ic-arrow-up"></i></button>
+                    <button type="button" class="adm-icon-btn" data-do="down" aria-label="أسفل"${D.raw(index === total - 1 ? ' disabled' : '')}><i class="ic ic-arrow-down"></i></button>
+                    <button type="button" class="adm-icon-btn" data-do="del" aria-label="حذف"><i class="ic ic-trash"></i></button>
                 </span></div>
             ${spec.fields.map(function (f) {
                 var v = block[f.k];

@@ -1,7 +1,7 @@
 async function renderSubjects() {
     document.getElementById('contentArea').innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل المواد من Supabase...</p>
         </div>
     `;
@@ -14,13 +14,13 @@ async function renderSubjects() {
             <div class="breadcrumb">
 
                         <span onclick="goToHistoryLevel('home')">
-                            🏠 الرئيسية
+                            <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                         </span>
 
                         >
 
                         <span onclick="goToHistoryLevel('grade')">
-                            🎓 ${escapeHtml(currentGrade)}
+                            <i class="ic ic-cap" aria-hidden="true"></i> ${escapeHtml(currentGrade)}
                         </span>
 
                         ${
@@ -29,7 +29,7 @@ async function renderSubjects() {
                                     >
 
                                     <span onclick="goToHistoryLevel('dept')">
-                                        🏢 ${escapeHtml(currentDept)}
+                                        <i class="ic ic-building" aria-hidden="true"></i> ${escapeHtml(currentDept)}
                                     </span>
                                 `
                                 : ''
@@ -38,7 +38,7 @@ async function renderSubjects() {
                         >
 
                         <span>
-                            📘 ${escapeHtml(currentTerm)}
+                            <i class="ic ic-book" aria-hidden="true"></i> ${escapeHtml(currentTerm)}
                         </span>
 
                     </div>
@@ -103,13 +103,13 @@ async function renderSubjects() {
                     <h3>${escapeHtml(sub.name)}</h3>
 
                     <p class="card-info">
-                        👨‍🏫 ${escapeHtml(profName)}
+                        <i class="ic ic-teacher" aria-hidden="true"></i> ${escapeHtml(profName)}
                     </p>
 
                     <div class="card-footer">
 
                         <span style="color:var(--primary-color)">
-                            🟢 ${updatedText}
+                            <i class="ic ic-circle-check" aria-hidden="true"></i> ${updatedText}
                         </span>
 
                         <span style="

@@ -65,7 +65,7 @@
             { key: 'cover_image', label: 'رابط صورة الغلاف', type: 'url', full: true, placeholder: 'https://...' },
             { key: 'gallery_lines', label: 'روابط معرض الصور (رابط في كل سطر)', type: 'list', full: true, maxItems: 40, rows: 5 },
             { key: 'video_url', label: 'رابط الفيديو التوضيحي (YouTube / Vimeo / mp4)', type: 'url', full: true, placeholder: 'https://...' },
-            { key: 'report_url', label: 'رابط تقرير PDF', type: 'url', full: true, placeholder: 'https://...' },
+            { key: 'report_url', label: 'رابط ملف المشروع', type: 'url', full: true, placeholder: 'https://...' },
             { key: 'links_lines', label: 'المراجع والروابط (سطر لكل رابط:  العنوان | الرابط)', type: 'list', full: true, maxItems: 30, rows: 4 },
             { key: 'is_published', label: 'النشر', type: 'checkbox', checkLabel: 'منشور للزوار (أزل العلامة ليبقى مسودة)' }
         ],
@@ -118,7 +118,7 @@
 
         rowActions: [
             {
-                label: '👁️ نشر / إخفاء',
+                label: 'نشر / إخفاء',
                 onClick: function (row, api) {
                     var next = !row.is_published;
                     repo.update(row.id, { is_published: next }).then(function (res) {
@@ -129,7 +129,7 @@
                 }
             },
             {
-                label: '🔗 فتح الصفحة',
+                label: 'فتح الصفحة',
                 onClick: function (row) {
                     window.open('../graduation/project.html?slug=' + encodeURIComponent(row.slug), '_blank', 'noopener');
                 }

@@ -549,7 +549,7 @@
             a.className = 'nav-action-link';
             a.href = adminUrl();
             a.setAttribute('data-admin-link', '');
-            a.textContent = '🛡️ لوحة الإدارة';
+            a.textContent = 'لوحة الإدارة';
             if (onAdmin) a.setAttribute('aria-current', 'page');
             desktop.insertBefore(a, desktop.firstChild);
         }
@@ -561,7 +561,7 @@
             b.href = adminUrl();
             b.setAttribute('data-admin-link', '');
             var icon = document.createElement('span');
-            icon.textContent = '🛡️';
+            icon.innerHTML = '<i class="ic ic-shield" aria-hidden="true"></i>';
             b.appendChild(icon);
             b.appendChild(document.createTextNode(' لوحة الإدارة'));
             group.insertBefore(b, group.firstChild);
@@ -656,11 +656,11 @@
 
         if (hasIcon) {
             var icon = first.cloneNode(false);
-            icon.textContent = '🚪';
+            icon.innerHTML = '<i class="ic ic-logout" aria-hidden="true"></i>';
             link.appendChild(icon);
             link.appendChild(document.createTextNode(' تسجيل الخروج'));
         } else {
-            link.appendChild(document.createTextNode('👤 تسجيل الخروج'));
+            link.appendChild(document.createTextNode('تسجيل الخروج'));
         }
 
         link.setAttribute('href', '#logout');

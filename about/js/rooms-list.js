@@ -358,12 +358,12 @@ visibleRooms.forEach(function (room, index) {
             const totalPoints = room.totalPoints;
 
             const meta = el('span', { className: 'rm-card-meta' }, [
-                el('span', { className: 'rm-chip', text: '📋 ' + RoomsUtils.taskCount(room.tasks.length) }),
+                el('span', { className: 'rm-chip rm-chip-tasks', text: RoomsUtils.taskCount(room.tasks.length) }),
                 room.difficulty
                     ? el('span', { className: 'rm-chip rm-level rm-level-' + room.difficulty, text: ROOMS_CONFIG.difficultyLabels[room.difficulty] })
                     : null,
                 totalPoints > 0
-                    ? el('span', { className: 'rm-chip rm-chip-points', text: '⭐ ' + RoomsUtils.num(totalPoints) + ' نقطة' })
+                    ? el('span', { className: 'rm-chip rm-chip-points rm-chip-star', text: RoomsUtils.num(totalPoints) + ' نقطة' })
                     : null
             ]);
 

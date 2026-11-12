@@ -12,7 +12,8 @@ const COMMUNITY_CONFIG = {
     columns: [
         'id', 'full_name', 'member_type', 'department', 'study_year',
         'graduation_year', 'bio', 'skills', 'phone', 'facebook_url',
-        'linkedin_url', 'github_url', 'profile_image', 'is_active', 'sort_order'
+        'linkedin_url', 'github_url', 'cv_url', 'cv_file_name', 'profile_image',
+        'is_active', 'sort_order'
     ].join(','),
 
     // مهلة الاتصال بالملي ثانية

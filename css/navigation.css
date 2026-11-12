@@ -63,9 +63,6 @@ header.main-header {
     font-family: var(--font-main);
 
     background-color: var(--hdr-glass);
-    background-image:
-        radial-gradient(60% 160% at 88% -50%, rgba(16, 185, 129, 0.14), transparent 62%),
-        radial-gradient(40% 140% at 8% -60%, rgba(59, 130, 246, 0.12), transparent 62%);
     -webkit-backdrop-filter: blur(16px) saturate(1.4);
     backdrop-filter: blur(16px) saturate(1.4);
     border-bottom: 1px solid var(--hdr-line);
@@ -78,14 +75,8 @@ header.main-header::after {
     inset-inline: 0;
     bottom: -1px;
     height: 1px;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(16, 185, 129, 0.6) 30%,
-        rgba(59, 130, 246, 0.5) 70%,
-        transparent
-    );
-    opacity: 0.75;
+    background: var(--primary-line);
+    opacity: 0.8;
     pointer-events: none;
 }
 
@@ -135,11 +126,7 @@ header.main-header .logo-area,
 
     border: 1px solid rgba(16, 185, 129, 0.3);
     border-radius: 14px;
-    background: linear-gradient(
-        145deg,
-        rgba(16, 185, 129, 0.24),
-        rgba(59, 130, 246, 0.12)
-    );
+    background: var(--primary-soft);
 
     color: var(--hdr-accent-ink);
     box-sizing: border-box;
@@ -999,4 +986,41 @@ header.main-header .nav-desktop-actions {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
     }
+}
+
+
+/* =========================================
+   زر الوضع: أيقونة SVG بدل الرمز النصي (يضبط header.js النص فقط، ويُخفى هنا)
+========================================= */
+.main-header .theme-toggle {
+    font-size: 0;
+}
+
+.main-header .theme-toggle::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: currentColor;
+    -webkit-mask: var(--ic-moon) center / contain no-repeat;
+    mask: var(--ic-moon) center / contain no-repeat;
+}
+
+html.light-mode .main-header .theme-toggle::before {
+    -webkit-mask-image: var(--ic-sun);
+    mask-image: var(--ic-sun);
+}
+
+.main-header .nav-link-icon .ic,
+.mobile-nav-drawer .link-icon .ic {
+    width: 18px;
+    height: 18px;
+    vertical-align: 0;
+    color: var(--hdr-accent-ink);
+}
+
+.mobile-nav-drawer .drawer-action-btn .ic {
+    width: 18px;
+    height: 18px;
+    vertical-align: 0;
 }

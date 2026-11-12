@@ -234,3 +234,15 @@ code { font-family: ui-monospace, Consolas, monospace; font-size: .85em; }
     .adm-sidebar, .adm-stat-link { transition: none; }
     .adm-spinner { animation-duration: 2s; }
 }
+
+/* =========================================
+   أيقونات SVG الموحدة داخل لوحة الإدارة
+========================================= */
+.adm-brand__icon { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--primary-soft); color: var(--primary-ink); font-size: 1.3rem; }
+.adm-nav__link > span[aria-hidden="true"] { display: inline-grid; place-items: center; width: 22px; }
+.adm-nav__link .ic { width: 18px; height: 18px; vertical-align: 0; }
+.adm-checklist .adm-dot .ic { width: 18px; height: 18px; vertical-align: -0.3em; color: var(--primary-ink); }
+.adm-state__icon { display: inline-grid; place-items: center; width: 56px; height: 56px; border-radius: var(--radius-lg); background: var(--primary-soft); color: var(--primary-ink); font-size: 1.6rem; }
+.adm-state--error .adm-state__icon { background: var(--warn-soft); color: var(--warn-ink); }
+.adm-icon-btn .ic { width: 16px; height: 16px; vertical-align: -0.2em; }
+.adm-menu-btn .ic { width: 16px; height: 16px; vertical-align: -0.2em; }

@@ -157,9 +157,12 @@ const GradProject = {
 
         if (p.report) {
             side.appendChild(el('div', { className: 'gp-panel' }, [
-                el('h2', { text: 'تقرير المشروع' }),
-                el('a', { className: 'gp-btn gp-btn--primary', text: '📄 فتح تقرير PDF',
-                    attrs: { href: p.report, target: '_blank', rel: 'noopener noreferrer' } })
+                el('h2', { text: 'ملف المشروع' }),
+                el('a', { className: 'gp-btn gp-btn--primary gp-btn--block',
+                    attrs: { href: p.report, target: '_blank', rel: 'noopener noreferrer' } }, [
+                    el('i', { className: 'ic ic-file', attrs: { 'aria-hidden': 'true' } }),
+                    el('span', { text: 'فتح ملف المشروع' })
+                ])
             ]));
         }
 

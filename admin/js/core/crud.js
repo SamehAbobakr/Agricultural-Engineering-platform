@@ -370,7 +370,7 @@
                     toolbar = html`
                         ${cfg.hint ? html`<p class="adm-hint">${cfg.hint}</p>` : ''}
                         <div class="adm-toolbar">
-                            ${cfg.searchColumns && cfg.searchColumns.length ? html`<input type="search" class="adm-input adm-toolbar__search" id="crudSearch" placeholder="🔍 بحث..." aria-label="بحث">` : ''}
+                            ${cfg.searchColumns && cfg.searchColumns.length ? html`<input type="search" class="adm-input adm-toolbar__search" id="crudSearch" placeholder="بحث..." aria-label="بحث">` : ''}
                             ${filtersHtml}
                             <button type="button" class="adm-btn adm-btn--primary adm-toolbar__add" id="crudAdd">＋ إضافة ${cfg.singular}</button>
                         </div>
