@@ -27,5 +27,7 @@ window.AdminRouter.register([
 
     { id: 'graduation',    title: 'مشاريع التخرج',         icon: 'cap', group: 'المحتوى الأكاديمي', script: 'graduation.js' },
 
+    { id: 'announcements', title: 'إدارة الإعلانات',       icon: 'news', group: 'النظام',           script: 'announcements.js' },
+
     { id: 'admins',        title: 'المسؤولون',             icon: 'shield', group: 'النظام',           script: 'admins.js' }
 ]);

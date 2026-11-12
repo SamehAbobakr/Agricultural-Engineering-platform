@@ -21,6 +21,9 @@
  *   - emptyAs: قيمة تُحفظ عند ترك الحقل فارغًا (مثل '' للأعمدة NOT NULL)
  * خيارات الوحدة الإضافية: toForm(row) لتحويل الصف قبل ملء النموذج، beforeSave(values, mode, row)
  *   لتعديل القيم قبل الحفظ (يُرجع نص خطأ لإيقاف الحفظ)، rowActions: أزرار إضافية في كل صف.
+ *   اختياريان (لا يؤثران على أي وحدة لا تستعملهما):
+ *     preview(values, ctx)             → يضيف زر «معاينة» في النموذج (يتحقق من الحقول ثم يستدعيها)
+ *     confirmSave(values, mode, row, ctx) → Promise<boolean> قبل الحفظ؛ false يوقفه (تأكيد من المسؤول)
  *
  * كل نص قادم من قاعدة البيانات يمر عبر html`...` (تهريب تلقائي).
  * التحقق هنا لراحة المستخدم فقط؛ التحقق الحقيقي قيود PostgreSQL وسياسات RLS.
@@ -295,6 +298,7 @@
                         });
                     }
 
+                    var confirming = false;
                     var body = html`<form id="crudForm" class="adm-form" novalidate>
                         ${cfg.formNote ? html`<p class="adm-note adm-field--full">${cfg.formNote}</p>` : ''}
                         ${cfg.fields.map(function (f) { return fieldHtml(f, data[f.key], optionLists[f.key]); })}
@@ -306,6 +310,16 @@
                         body: body,
                         actions: [
                             { label: 'إلغاء', kind: 'ghost' },
+                            cfg.preview ? {
+                                label: 'معاينة', kind: 'ghost', keepOpen: true,
+                                onClick: function (api2) {
+                                    var form = api2.body.querySelector('#crudForm');
+                                    var out = collect(form, cfg.fields);
+                                    showErrors(form, out.errors);
+                                    if (!Object.keys(out.errors).length) cfg.preview(out.values, ctx);
+                                    return false;
+                                }
+                            } : null,
                             {
                                 label: editing ? 'حفظ التعديلات' : 'إضافة', kind: 'primary', keepOpen: true,
                                 onClick: function (api2) {
@@ -320,19 +334,32 @@
                                         if (problem) { ctx.ui.toast(problem, 'error'); return false; }
                                     }
 
-                                    api2.setBusy(true);
-                                    var req = editing ? repo.update(row[idKey], payload) : repo.create(payload);
-                                    return req.then(function (res) {
-                                        api2.setBusy(false);
-                                        if (res.error) { ctx.ui.toast(res.message, 'error'); return false; }
-                                        ctx.ui.toast(editing ? 'تم حفظ التعديلات.' : 'تمت الإضافة.', 'success');
-                                        api2.close();
-                                        if (alive) reload();
-                                        return false;
-                                    });
+                                    function doSave() {
+                                        api2.setBusy(true);
+                                        var req = editing ? repo.update(row[idKey], payload) : repo.create(payload);
+                                        return req.then(function (res) {
+                                            api2.setBusy(false);
+                                            if (res.error) { ctx.ui.toast(res.message, 'error'); return false; }
+                                            ctx.ui.toast(editing ? 'تم حفظ التعديلات.' : 'تمت الإضافة.', 'success');
+                                            api2.close();
+                                            if (alive) reload();
+                                            return false;
+                                        });
+                                    }
+
+                                    // confirmSave (اختياري): Promise<boolean> — false يوقف الحفظ (مثل تأكيد استبدال الإعلان النشط)
+                                    if (cfg.confirmSave) {
+                                        if (confirming) return false;
+                                        confirming = true;
+                                        return Promise.resolve(cfg.confirmSave(payload, editing ? 'edit' : 'new', row, ctx)).then(function (ok) {
+                                            confirming = false;
+                                            return ok ? doSave() : false;
+                                        }, function () { confirming = false; return false; });
+                                    }
+                                    return doSave();
                                 }
                             }
-                        ]
+                        ].filter(Boolean)
                     });
                 }
 

@@ -1,0 +1,482 @@
+[
+ {
+  "name": "1. لا إعلان نشط → لا تظهر أي نافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "1. الاستعلام تم فعلًا (ولم تفشل الصفحة)",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "1. الصفحة الرئيسية تعمل (المحتوى مرسوم)",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "1. لا أخطاء JS",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "2. يوجد إعلان نشط → تظهر النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. العنوان والنص والنوع يظهرون",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. خصائص الوصولية (role=dialog, aria-modal, labelledby)",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. استعلام واحد فقط للإعلانات",
+  "pass": true,
+  "extra": "1"
+ },
+ {
+  "name": "2. الاستعلام: is_active=true + limit 1 + single",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. الاستعلام بأعمدة محددة (لا *)",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. لا يُجلب أي إعلان آخر ولا قائمة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. الجلب بعد اكتمال تحميل الصفحة (readyState=complete)",
+  "pass": true,
+  "extra": "complete"
+ },
+ {
+  "name": "2. صورة + زر ظاهران",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. الزر: رابط صحيح + _blank + noopener",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. الصورة حُمّلت فعليًا",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. الصفحة محجوزة التمرير أثناء الإعلان",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "2. لا أخطاء JS",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "3. الإغلاق يزيل النافذة من الـ DOM",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "3. الإغلاق يعيد التمرير",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "3. الإغلاق لا يعدّل قاعدة البيانات (الإعلان ما زال نشطًا)",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "3. إعادة التحميل في نفس الجلسة → لا يظهر مجددًا",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "3. العودة للرئيسية في نفس الجلسة → لا يظهر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "4. جلسة تصفح جديدة → يظهر الإعلان النشط مجددًا",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "5. Esc يغلق النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "5. إعلان جديد (id مختلف) يظهر حتى بعد إغلاق القديم في الجلسة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "5. إعلان معطّل → لا يظهر للطلاب",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "6. بدون صورة: لا عنصر صورة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "6. بدون زر: لا زر إجراء، ويبقى زر الإغلاق",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "7. التركيز داخل النافذة عند الفتح",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "7. Tab لا يخرج من النافذة (فخ تركيز)",
+  "pass": true,
+  "extra": "{'ann-btn ann-btn--ghost|true', 'ann-close|true', 'ann-btn ann-btn--primary|true'}"
+ },
+ {
+  "name": "7. النقر على الخلفية يغلق",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "7. زر «إغلاق» السفلي يغلق",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "8. HTML في العنوان يُعرض نصًّا حرفيًا",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "8. HTML/script في النص يُعرض نصًّا ولا يُنفَّذ",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "8. لا عناصر مُحقنة (img/script/b) داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "8. رابط الصورة javascript: مرفوض",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "8. رابط الزر javascript: مرفوض → لا زر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "8. data:/ftp: مرفوضة أيضًا",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "9. صورة مكسورة → تُخفى دون كسر النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "10. خطأ من الخادم: لا نافذة ولا أخطاء JS ولا تعطيل للصفحة",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "10. الجدول غير منفَّذ بعد: لا نافذة ولا أخطاء JS ولا تعطيل للصفحة",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "10. طلب معلّق: الصفحة تعمل ولا نافذة (لا حجب)",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "10. التفاعل مع الصفحة ممكن أثناء تعليق الطلب",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "10. استجابة بطيئة: تظهر عند وصولها",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "11. مستخدم مسجَّل: يرى الإعلان النشط",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. dark/info/desktop: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 380, 'y': 276.109375, 'width': 520, 'height': 247.78125}, 1280, 800)"
+ },
+ {
+  "name": "12. dark/info/tablet: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 124, 'y': 388.109375, 'width': 520, 'height': 247.78125}, 768, 1024)"
+ },
+ {
+  "name": "12. dark/info/mobile: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 12, 'y': 226, 'width': 351, 'height': 214.984375}, 375, 667)"
+ },
+ {
+  "name": "12. dark/important/desktop: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 380, 'y': 16, 'width': 520, 'height': 768}, 1280, 800)"
+ },
+ {
+  "name": "12. dark/desktop: النص الطويل يتمرر داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. dark/important/tablet: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 124, 'y': 16, 'width': 520, 'height': 992}, 768, 1024)"
+ },
+ {
+  "name": "12. dark/tablet: النص الطويل يتمرر داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. dark/important/mobile: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 12, 'y': 16, 'width': 351, 'height': 635}, 375, 667)"
+ },
+ {
+  "name": "12. dark/mobile: النص الطويل يتمرر داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. dark/important/mobile: الأزرار متراصة بعرض كامل",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. dark/support/desktop: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 380, 'y': 155.609375, 'width': 520, 'height': 488.78125}, 1280, 800)"
+ },
+ {
+  "name": "12. dark: لون الخلفية يتبع الوضع",
+  "pass": true,
+  "extra": "rgb(30, 41, 59)"
+ },
+ {
+  "name": "12. dark/support/tablet: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 124, 'y': 267.609375, 'width': 520, 'height': 488.78125}, 768, 1024)"
+ },
+ {
+  "name": "12. dark/support/mobile: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 12, 'y': 81.375, 'width': 351, 'height': 504.234375}, 375, 667)"
+ },
+ {
+  "name": "12. dark/support/mobile: الأزرار متراصة بعرض كامل",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. light/info/desktop: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 380, 'y': 276.109375, 'width': 520, 'height': 247.78125}, 1280, 800)"
+ },
+ {
+  "name": "12. light/info/tablet: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 124, 'y': 388.109375, 'width': 520, 'height': 247.78125}, 768, 1024)"
+ },
+ {
+  "name": "12. light/info/mobile: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 12, 'y': 226, 'width': 351, 'height': 214.984375}, 375, 667)"
+ },
+ {
+  "name": "12. light/important/desktop: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 380, 'y': 16, 'width': 520, 'height': 768}, 1280, 800)"
+ },
+ {
+  "name": "12. light/desktop: النص الطويل يتمرر داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. light/important/tablet: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 124, 'y': 16, 'width': 520, 'height': 992}, 768, 1024)"
+ },
+ {
+  "name": "12. light/tablet: النص الطويل يتمرر داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. light/important/mobile: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 12, 'y': 16, 'width': 351, 'height': 635}, 375, 667)"
+ },
+ {
+  "name": "12. light/mobile: النص الطويل يتمرر داخل النافذة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. light/important/mobile: الأزرار متراصة بعرض كامل",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "12. light/support/desktop: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 380, 'y': 155.609375, 'width': 520, 'height': 488.78125}, 1280, 800)"
+ },
+ {
+  "name": "12. light: لون الخلفية يتبع الوضع",
+  "pass": true,
+  "extra": "rgb(255, 255, 255)"
+ },
+ {
+  "name": "12. light/support/tablet: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 124, 'y': 267.609375, 'width': 520, 'height': 488.78125}, 768, 1024)"
+ },
+ {
+  "name": "12. light/support/mobile: النافذة داخل الشاشة بلا تمرير أفقي",
+  "pass": true,
+  "extra": "({'x': 12, 'y': 81.375, 'width': 351, 'height': 504.234375}, 375, 667)"
+ },
+ {
+  "name": "12. light/support/mobile: الأزرار متراصة بعرض كامل",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "13. prefers-reduced-motion: الإغلاق فوري بلا انتظار حركة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "14. login.html: لا يظهر الإعلان ولا يُطلب",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "14. faculty/faculty.html: لا يظهر الإعلان ولا يُطلب",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "14. about/about.html: لا يظهر الإعلان ولا يُطلب",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 1. يظهر زر نسخ بنص button_text",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 1. المحتوى نُسخ إلى الحافظة فعليًا",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 1. رسالة «تم النسخ بنجاح» تظهر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 1. لم يُفتح أي رابط خارجي",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 1. النافذة تبقى مفتوحة ولا أخطاء JS",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "copy 1. عند فشل النسخ تظهر رسالة فشل مناسبة",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 1. بدون Clipboard API يعمل البديل execCommand",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 2. button_url فقط: رابط عادي كما كان",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 3. الاثنان معًا: زر نسخ فقط وبلا رابط",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 3. الضغط ينسخ ولا يفتح الرابط",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 4. بلا copy_text ولا رابط: لا زر إجراء",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 4. copy_text مسافات فقط: لا زر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 7. النوع info: زر «نسخ» الاحتياطي يظهر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 7. النوع important: زر «نسخ» الاحتياطي يظهر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 7. النوع support: زر «نسخ» الاحتياطي يظهر",
+  "pass": true,
+  "extra": ""
+ },
+ {
+  "name": "copy 6. إعلان قديم بلا copy_text: يعمل برابط ولا أخطاء",
+  "pass": true,
+  "extra": "[]"
+ },
+ {
+  "name": "copy. الاستعلام يجلب copy_text بأعمدة محددة وبنفس الشروط",
+  "pass": true,
+  "extra": ""
+ }
+]
