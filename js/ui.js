@@ -1553,58 +1553,66 @@ async function openAdditionalResource(id) {
                     <span>${escapeHtml(data.title)}</span>
                 </div>
 
-                <div class="external-resource-card">
+                <article class="external-resource-card external-resource-detail">
 
-            <div class="external-resource-icon">
-                    ${escapeHtml(data.content_icon || '📚')}
-            </div>
+                    <div class="external-resource-icon" aria-hidden="true">
+                        ${escapeHtml(data.content_icon || '📚')}
+                    </div>
 
-    <h2 class="external-resource-title">
-        ${escapeHtml(data.title)}
-    </h2>
+                    <div class="external-resource-body">
 
-    ${
-        data.description
-        ? `
-            <p class="external-resource-description">
-                ${escapeHtml(data.description)}
-            </p>
-        `
-        : ''
-    }
-            ${
-            data.created_at
-            ? `
-                <div class="external-resource-date">
-                    تاريخ الإضافة:
-                    ${new Date(data.created_at).toLocaleDateString('ar-EG', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
-                </div>
-            `
-            : ''
-        }
+                        <span class="external-resource-badge">
+                            <i class="ic ic-globe" aria-hidden="true"></i>
+                            مصدر خارجي
+                        </span>
 
-    ${
-        data.link
-        ? `
-            <div class="external-resource-action">
-                <a
-                    href="${escapeHtml(safeUrl(data.link) || '#')}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="external-resource-button"
-                >
-                    فتح المصدر
-                </a>
-            </div>
-        `
-        : ''
-    }
+                        <h2 class="external-resource-title">
+                            ${escapeHtml(data.title)}
+                        </h2>
 
-</div>
+                        ${
+                            data.description
+                            ? `<p class="external-resource-description">${escapeHtml(data.description)}</p>`
+                            : ''
+                        }
+
+                        ${
+                            data.created_at
+                            ? `
+                                <div class="external-resource-date">
+                                    <i class="ic ic-calendar" aria-hidden="true"></i>
+                                    تاريخ الإضافة:
+                                    ${new Date(data.created_at).toLocaleDateString('ar-EG', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </div>
+                            `
+                            : ''
+                        }
+
+                        ${
+                            data.link
+                            ? `
+                                <div class="external-resource-action">
+                                    <a
+                                        href="${escapeHtml(safeUrl(data.link) || '#')}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="external-resource-button"
+                                    >
+                                        <i class="ic ic-external" aria-hidden="true"></i>
+                                        فتح المصدر
+                                    </a>
+                                </div>
+                            `
+                            : ''
+                        }
+
+                    </div>
+
+                </article>
             </div>
         `;
 
