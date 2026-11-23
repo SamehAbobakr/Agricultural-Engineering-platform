@@ -67,6 +67,7 @@ const CommunityApi = {
             facebook: CommunityUtils.cleanText(raw.facebook_url),
             linkedin: CommunityUtils.cleanText(raw.linkedin_url),
             github: CommunityUtils.cleanText(raw.github_url),
+            portfolioUrl: CommunityUtils.cleanText(raw.portfolio_url),
             cvUrl: CommunityUtils.cleanText(raw.cv_url),
             cvFileName: CommunityUtils.cleanText(raw.cv_file_name),
             image: CommunityUtils.cleanText(raw.profile_image),

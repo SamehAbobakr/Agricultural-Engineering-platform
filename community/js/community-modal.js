@@ -275,7 +275,12 @@ closeImage() {
         if (linkedin) items.push(CommunityModal.linkItem('LinkedIn', linkedin, null, 'linkedin'));
 
         const github = CommunityUtils.httpUrl(member.github);
-        if (github) items.push(CommunityModal.linkItem('GitHub / موقع شخصي', github, null, 'github'));
+if (github) items.push(CommunityModal.linkItem('GitHub', github, null, 'github'));
+
+const portfolio = CommunityUtils.httpUrl(member.portfolioUrl);
+if (portfolio) {
+    items.push(CommunityModal.linkItem('Portfolio / معرض الأعمال', portfolio, null, 'portfolio'));
+}
 
         if (!items.length) return null;
 

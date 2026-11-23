@@ -10,11 +10,11 @@ const COMMUNITY_CONFIG = {
 
     // الأعمدة التي تُجلب فقط (لا نستخدم select('*'))
     columns: [
-        'id', 'full_name', 'member_type', 'department', 'study_year',
-        'graduation_year', 'bio', 'skills', 'phone', 'facebook_url',
-        'linkedin_url', 'github_url', 'cv_url', 'cv_file_name', 'profile_image',
-        'is_active', 'sort_order'
-    ].join(','),
+    'id', 'full_name', 'member_type', 'department', 'study_year',
+    'graduation_year', 'bio', 'skills', 'phone', 'facebook_url',
+    'linkedin_url', 'github_url', 'portfolio_url', 'cv_url',
+    'cv_file_name', 'profile_image', 'is_active', 'sort_order'
+].join(','),
 
     // مهلة الاتصال بالملي ثانية
     requestTimeoutMs: 15000,
