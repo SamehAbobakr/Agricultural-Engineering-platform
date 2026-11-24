@@ -282,9 +282,7 @@ const RoomsRoomApp = {
 
         RoomsUtils.clear(app.els.head);
 
-        const totalPoints = room.tasks.reduce(function (sum, task) {
-            return sum + task.points;
-        }, 0);
+        const totalPoints = room.totalPoints;
 
         const taskLabel = RoomsUtils.taskCount(room.tasks.length);
 
@@ -310,8 +308,8 @@ const RoomsRoomApp = {
             className: 'rm-card-meta'
         }, [
             el('span', {
-                className: 'rm-chip',
-                text: '📋 ' + taskLabel
+                className: 'rm-chip rm-chip-tasks',
+                text: taskLabel
             }),
 
             room.difficulty
@@ -325,9 +323,9 @@ const RoomsRoomApp = {
 
             totalPoints > 0
                 ? el('span', {
-                    className: 'rm-chip rm-chip-points',
+                    className: 'rm-chip rm-chip-points rm-chip-star',
                     text:
-                        '⭐ ' + RoomsUtils.num(totalPoints) + ' نقطة'
+                        RoomsUtils.num(totalPoints) + ' نقطة'
                 })
                 : null
         ]);

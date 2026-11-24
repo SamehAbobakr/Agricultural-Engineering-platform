@@ -1,0 +1,282 @@
+/* =========================================
+   نافذة الإعلانات (js/announcements.js)
+   - تستخدم متغيرات المنصة فقط (variables.css) فتعمل في الوضعين الفاتح والداكن تلقائيًا
+   - كل الأصناف بالبادئة .ann- حتى لا تتعارض مع أي تنسيق آخر
+========================================= */
+
+html.ann-lock,
+html.ann-lock body {
+    overflow: hidden;
+}
+
+.ann-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1400;
+    display: grid;
+    place-items: center;
+    padding: var(--space-4);
+    font-family: var(--font-main);
+    background: rgba(2, 6, 23, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.22s var(--ease);
+}
+
+.ann-overlay.is-open {
+    opacity: 1;
+}
+
+.ann-dialog {
+    --ann-accent: var(--info-ink);
+    --ann-soft: var(--info-soft);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(520px, 100%);
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    overflow: hidden;
+    color: var(--text-main);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    transform: translateY(14px) scale(0.98);
+    transition: transform 0.26s var(--ease);
+    outline: none;
+}
+
+.ann-overlay.is-open .ann-dialog {
+    transform: none;
+}
+
+.ann-dialog--important {
+    --ann-accent: var(--warn-ink);
+    --ann-soft: var(--warn-soft);
+}
+
+.ann-dialog--support {
+    --ann-accent: var(--primary-ink);
+    --ann-soft: var(--primary-soft);
+}
+
+/* شريط لوني علوي حسب نوع الإعلان */
+.ann-dialog::before {
+    content: "";
+    flex: none;
+    height: 4px;
+    background: var(--ann-accent);
+}
+
+.ann-close {
+    position: absolute;
+    top: var(--space-4);
+    inset-inline-end: var(--space-3);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    color: var(--text-main);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-xs);
+    cursor: pointer;
+    transition: background var(--dur) var(--ease);
+}
+
+.ann-close:hover {
+    background: var(--surface-hover);
+}
+
+.ann-close:focus-visible,
+.ann-btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.ann-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.ann-media {
+    flex: none;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ann-media img {
+    display: block;
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+}
+
+.ann-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-5);
+}
+
+.ann-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--ann-accent);
+    background: var(--ann-soft);
+    border-radius: var(--radius-full);
+}
+
+.ann-title {
+    margin: 0;
+    padding-inline-end: var(--space-6);   /* لا يلامس زر الإغلاق */
+    font-size: var(--fs-lg);
+    font-weight: 800;
+    line-height: 1.5;
+    color: var(--text-main);
+    overflow-wrap: anywhere;
+}
+
+.ann-text {
+    margin: 0;
+    font-size: var(--fs-base);
+    line-height: 1.9;
+    color: var(--text-muted);
+    white-space: pre-line;          /* يحترم الأسطر الجديدة دون أي HTML */
+    overflow-wrap: anywhere;
+}
+
+.ann-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.ann-footer {
+    flex: none;
+    padding: var(--space-3) var(--space-5) var(--space-5);
+    border-top: 1px solid var(--border-color);
+}
+
+.ann-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    width: 100%;
+}
+
+.ann-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 11px 24px;
+    font: inherit;
+    font-weight: 700;
+    line-height: 1.4;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.ann-btn--primary {
+    color: var(--on-primary);
+    background: var(--primary-strong);
+    box-shadow: var(--shadow-sm);
+}
+
+.ann-btn--ghost {
+    color: var(--text-main);
+    background: transparent;
+    border-color: var(--border-strong);
+}
+
+@media (hover: hover) {
+    .ann-btn--primary:hover {
+        color: var(--on-primary);
+        transform: translateY(-1px);
+    }
+
+    .ann-btn--ghost:hover {
+        background: var(--surface-hover);
+    }
+}
+
+/* رسالة نتيجة النسخ */
+.ann-copy-status {
+    width: 100%;
+    margin: var(--space-3) 0 0;
+    font-size: var(--fs-sm);
+    font-weight: 700;
+    text-align: center;
+}
+
+.ann-copy-status.is-ok { color: var(--success-ink, #15803d); }
+.ann-copy-status.is-error { color: var(--danger-ink, #b91c1c); }
+
+/* وسم المعاينة (لوحة الإدارة فقط) */
+.ann-preview-tag {
+    align-self: stretch;
+    margin: 0;
+    padding: 6px var(--space-4);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    text-align: center;
+    color: var(--warn-ink);
+    background: var(--warn-soft);
+}
+
+@media (max-width: 480px) {
+    .ann-overlay {
+        padding: var(--space-3);
+    }
+
+    .ann-body {
+        padding: var(--space-4);
+    }
+
+    .ann-footer {
+        padding: var(--space-3) var(--space-4) var(--space-4);
+    }
+
+    .ann-title {
+        font-size: var(--fs-md);
+    }
+
+    .ann-actions {
+        flex-direction: column;
+    }
+
+    .ann-btn {
+        width: 100%;
+    }
+}
+
+/* متصفح بلا دعم blur: خلفية أغمق قليلًا بدل الشفافية الخفيفة */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .ann-overlay {
+        background: rgba(2, 6, 23, 0.72);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ann-overlay,
+    .ann-dialog,
+    .ann-btn {
+        transition: none;
+    }
+}

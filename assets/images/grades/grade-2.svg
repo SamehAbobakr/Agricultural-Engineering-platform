@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="الفرقة الثانية">
+  <circle cx="60" cy="60" r="58" fill="#10b981" opacity=".10"/>
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#10b981" stroke-opacity=".22" stroke-width="5"/>
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#10b981" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.4 326.7" transform="rotate(-90 60 60)"/>
+  <path d="M34 86 Q60 70 86 86 Z" fill="#10b981" opacity=".35"/><path d="M42 86 H78" stroke="#10b981" stroke-width="3" stroke-linecap="round"/><path d="M60 84 V40" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" fill="none"/><g fill="#10b981"><path d="M60 74 C46.5 74 45 65.9 45 60.5 C58.5 60.5 60 67.25 60 74Z"/><path d="M60 64 C73.5 64 75 55.9 75 50.5 C61.5 50.5 60 57.25 60 64Z"/><path d="M60 54 C48.3 54 47 46.98 47 42.3 C58.7 42.3 60 48.15 60 54Z"/><path d="M60 46 C70.8 46 72 39.519999999999996 72 35.2 C61.2 35.2 60 40.6 60 46Z"/></g><g fill="#10b981" opacity=".55"><path d="M60 40 C54 36 54 30 60 26 C66 30 66 36 60 40Z"/></g>
+</svg>

@@ -29,7 +29,7 @@ async function renderMaterialPage(subject) {
     // شاشة تحميل مؤقتة
     document.getElementById('contentArea').innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري تحميل محتوى المادة...</p>
         </div>
     `;
@@ -97,7 +97,7 @@ async function renderMaterialPage(subject) {
         let html = `
             <div class="fade-in material-view" style="direction: rtl; text-align: right;">
                 <div class="breadcrumb">
-                    <span onclick="resetView()">🏠 الرئيسية</span> > 
+                    <span onclick="resetView()"><i class="ic ic-home" aria-hidden="true"></i> الرئيسية</span> > 
                     <span onclick="currentSubject = null; renderSubjects()">رجوع للمواد</span>
                 </div>
 
@@ -121,7 +121,7 @@ async function renderMaterialPage(subject) {
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <div>
                             <h3 style="margin-bottom: 5px;">
-                                المساعد الذكي للمادة 🤖
+                                المساعد الذكي للمادة <i class="ic ic-bot" aria-hidden="true"></i>
                             </h3>
 
                             <p class="card-info" style="margin: 0;">
@@ -130,7 +130,7 @@ async function renderMaterialPage(subject) {
                         </div>
 
                         <span style="font-size: 24px; color: var(--primary-color);">
-                            💬
+                            <i class="ic ic-message" aria-hidden="true"></i>
                         </span>
                     </div>
                 </div>
@@ -230,7 +230,7 @@ async function switchMaterialTab(btnElement, type, subject) {
 
     contentArea.innerHTML = `
         <div class="loading-screen">
-            <div class="loading-spinner">⚙️</div>
+            <div class="loading-spinner" aria-hidden="true"></div>
             <p>جاري جلب الملفات...</p>
         </div>
     `;
@@ -336,7 +336,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                     <div class="material-file-top">
 
                         <div class="material-file-icon">
-                            📕
+                            <i class="ic ic-book" aria-hidden="true"></i>
                         </div>
 
                         <h3 class="material-file-title">
@@ -358,7 +358,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                     <div class="material-file-info">
 
                         <span>
-                            📄 ${escapeHtml(String(fileType).toUpperCase())}
+                            <i class="ic ic-file" aria-hidden="true"></i> ${escapeHtml(String(fileType).toUpperCase())}
                         </span>
 
                         <span>
@@ -380,7 +380,7 @@ async function switchMaterialTab(btnElement, type, subject) {
                             rel="noopener noreferrer"
                             class="material-open-btn"
                         >
-                            <span>👁️</span>
+                            <span><i class="ic ic-eye" aria-hidden="true"></i></span>
                             <span>فتح الملف</span>
                         </a>
 

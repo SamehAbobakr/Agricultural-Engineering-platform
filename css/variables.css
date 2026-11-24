@@ -21,6 +21,64 @@
     --grade-2: #10b981;
     --grade-3: #f59e0b;
     --grade-4: #a855f7;
+
+    /* ---------- نظام التصميم الموحد (Design Tokens) ---------- */
+
+    /* أسطح */
+    --surface-2: #0b1324;                 /* خلفية داخلية أغمق من البطاقة */
+    --surface-hover: #243349;
+    --border-strong: #475569;
+
+    /* العلامة */
+    --primary-ink: #34d399;               /* لون النص الأخضر (تباين كافٍ) */
+    --primary-strong: #10b981;            /* خلفية الأزرار */
+    --on-primary: #022c22;                /* نص فوق الأخضر */
+    --primary-soft: rgba(16, 185, 129, 0.14);
+    --primary-line: rgba(16, 185, 129, 0.38);
+
+    /* حالات */
+    --info-ink: #60a5fa;   --info-soft: rgba(59, 130, 246, 0.16);
+    --warn-ink: #fbbf24;   --warn-soft: rgba(245, 158, 11, 0.16);
+    --danger-ink: #f87171; --danger-soft: rgba(239, 68, 68, 0.16);
+
+    /* نصف القطر */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-full: 999px;
+
+    /* الظلال (خفيفة) */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.30);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.28);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.32);
+
+    /* المسافات */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+
+    /* الخطوط */
+    --fs-xs: 0.78rem;
+    --fs-sm: 0.875rem;
+    --fs-base: 1rem;
+    --fs-md: 1.125rem;
+    --fs-lg: 1.375rem;
+    --fs-xl: 1.75rem;
+    --fs-2xl: 2.25rem;
+
+    /* الحركة */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast: 0.15s;
+    --dur: 0.2s;
+
+    /* التركيز */
+    --focus-ring: 0 0 0 3px rgba(96, 165, 250, 0.55);
 }
 
 /* =========================================
@@ -33,7 +91,7 @@ body.light-mode {
     --card-bg: #ffffff;
 
     --text-main: #0f172a;
-    --text-muted: #64748b;
+    --text-muted: #55627a;
 
     --border-color: #e2e8f0;
 
@@ -44,6 +102,26 @@ body.light-mode {
     --grade-2: #10b981;
     --grade-3: #f59e0b;
     --grade-4: #a855f7;
+
+    --surface-2: #f8fafc;
+    --surface-hover: #f1f5f9;
+    --border-strong: #cbd5e1;
+
+    --primary-ink: #047857;
+    --primary-strong: #047857;
+    --on-primary: #ffffff;
+    --primary-soft: rgba(4, 120, 87, 0.09);
+    --primary-line: rgba(4, 120, 87, 0.30);
+
+    --info-ink: #1d4ed8;   --info-soft: rgba(37, 99, 235, 0.09);
+    --warn-ink: #b45309;   --warn-soft: rgba(217, 119, 6, 0.11);
+    --danger-ink: #b91c1c; --danger-soft: rgba(220, 38, 38, 0.08);
+
+    --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.06);
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.07);
+    --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.10);
+
+    --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.40);
 }
 
 

@@ -15,17 +15,17 @@ async function renderHome() {
 
                 <div class="stat-card">
                     <h3 id="subjectsCount">...</h3>
-                    <p>📚 إجمالي المواد المتاحة</p>
+                    <p><i class="ic ic-library" aria-hidden="true"></i> إجمالي المواد المتاحة</p>
                 </div>
 
                 <div class="stat-card">
                     <h3 id="filesCount">...</h3>
-                    <p>📁 إجمالي الملفات التعليمية</p>
+                    <p><i class="ic ic-folder" aria-hidden="true"></i> إجمالي الملفات التعليمية</p>
                 </div>
 
                 <div class="stat-card">
                     <h3 id="professorsCount">...</h3>
-                    <p>👨‍🏫 أعضاء هيئة التدريس</p>
+                    <p><i class="ic ic-teacher" aria-hidden="true"></i> أعضاء هيئة التدريس</p>
                 </div>
 
             </div>
@@ -46,7 +46,7 @@ async function renderHome() {
                     onclick="selectProgram('الهندسة الزراعية')">
 
                     <div class="card-header-icon">
-                        🚜
+                        <i class="ic ic-cog" aria-hidden="true"></i>
                     </div>
 
                     <h3>
@@ -59,7 +59,7 @@ async function renderHome() {
 
                     <div class="card-footer">
                         <span>الدخول للبرنامج</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
@@ -70,7 +70,7 @@ async function renderHome() {
                     onclick="selectProgram('اللاندسكيب والمسطحات الخضراء')">
 
                     <div class="card-header-icon">
-                        🌿
+                        <i class="ic ic-leaf" aria-hidden="true"></i>
                     </div>
 
                     <h3>
@@ -83,7 +83,7 @@ async function renderHome() {
 
                     <div class="card-footer">
                         <span>الدخول للبرنامج</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
@@ -94,7 +94,7 @@ async function renderHome() {
                             onclick="selectProgram('مصادر إضافية')">
 
                             <div class="card-header-icon">
-                                🌐
+                                <i class="ic ic-globe" aria-hidden="true"></i>
                             </div>
 
                             <h3>
@@ -107,7 +107,7 @@ async function renderHome() {
 
                             <div class="card-footer">
                                 <span>عرض المصادر</span>
-                                <span>←</span>
+                                <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                             </div>
 
                         </div>
@@ -117,7 +117,7 @@ async function renderHome() {
             onclick="selectProgram('المزيد')"
         >
             <div class="card-header-icon">
-                ➕
+                <i class="ic ic-plus" aria-hidden="true"></i>
             </div>
 
             <h3>المزيد</h3>
@@ -128,7 +128,7 @@ async function renderHome() {
 
             <div class="card-footer">
                 <span style="color:var(--primary-color)">
-                    📰 محتوى إضافي
+                    <i class="ic ic-news" aria-hidden="true"></i> محتوى إضافي
                 </span>
 
                 <span style="

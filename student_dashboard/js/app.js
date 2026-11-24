@@ -157,7 +157,7 @@ function renderCoursesList() {
     const box = $('courses-container'), empty = $('courses-empty-state');
     if (loadStatus === 'loading') {
         empty.classList.add('hidden');
-        box.innerHTML = `<div class="loading-screen col-span-full"><div class="loading-spinner" aria-hidden="true">⏳</div><p>جاري تحميل المواد الدراسية...</p></div>`;
+        box.innerHTML = `<div class="loading-screen col-span-full"><div class="loading-spinner" aria-hidden="true"></div><p>جاري تحميل المواد الدراسية...</p></div>`;
         return;
     }
     if (loadStatus === 'error') {
@@ -260,28 +260,28 @@ function renderGate() {
     gate.classList.toggle('hidden', !locked);
     if (!locked) return;
 
-    let icon = '⏳', title = 'جاري التحقق من حسابك...', text = '', actions = [];
+    let icon = 'loader', title = 'جاري التحقق من حسابك...', text = '', actions = [];
 
     if (authStatus === 'error') {
-        icon = '📡'; title = 'تعذر التحقق من حسابك';
+        icon = 'alert'; title = 'تعذر التحقق من حسابك';
         text = 'تأكد من اتصالك بالإنترنت ثم أعد المحاولة.';
         actions = [{ label: 'إعادة المحاولة', action: 'retry-auth' }];
     } else if (authStatus === 'signed-out') {
-        icon = '🔐';
+        icon = 'lock';
         title = wasSignedIn ? 'انتهت جلستك أو تم تسجيل الخروج' : 'سجّل الدخول لعرض لوحة إنجازك';
         text = wasSignedIn
             ? 'سجّل الدخول مرة أخرى لعرض أهدافك وتقدّمك في المواد.'
             : 'أهدافك وتقدّمك في المواد وملاحظاتك محفوظة في حسابك، ولا تظهر إلا بعد تسجيل الدخول.';
         actions = [{ label: 'تسجيل الدخول', href: '../login.html' }];
     } else if (dataStatus === 'error') {
-        icon = '📡'; title = 'تعذر تحميل بياناتك';
+        icon = 'alert'; title = 'تعذر تحميل بياناتك';
         text = 'تحقق من اتصالك بالإنترنت وحاول مرة أخرى. لم يتغير أي شيء في بياناتك.';
         actions = [{ label: 'إعادة المحاولة', action: 'retry-data' }];
     } else {
         title = 'جاري تحميل بياناتك...';
     }
 
-    $('dash-gate-icon').textContent = icon;
+    $('dash-gate-icon').innerHTML = '<i class="ic ic-' + icon + '"></i>';
     $('dash-gate-title').textContent = title;
     $('dash-gate-text').textContent = text;
 

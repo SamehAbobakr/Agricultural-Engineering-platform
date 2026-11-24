@@ -401,7 +401,34 @@
 }
 
 .faculty-status__icon {
-    font-size: 2.4rem;
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 8px;
+    border-radius: var(--radius-xl, 20px);
+    background: var(--primary-soft);
+    color: var(--primary-ink);
+    font-size: 0;      /* الرمز النصي الذي يضعه js يُخفى، والأيقونة من CSS */
+}
+
+.faculty-status__icon::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background: currentColor;
+    -webkit-mask: var(--ic-inbox) center / contain no-repeat;
+    mask: var(--ic-inbox) center / contain no-repeat;
+}
+
+.faculty-status[role="alert"] .faculty-status__icon {
+    background: var(--warn-soft);
+    color: var(--warn-ink);
+}
+
+.faculty-status[role="alert"] .faculty-status__icon::before {
+    -webkit-mask-image: var(--ic-alert);
+    mask-image: var(--ic-alert);
 }
 
 .faculty-status p {

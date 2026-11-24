@@ -6,13 +6,13 @@ function renderDepartments() {
             <div class="breadcrumb">
 
                 <span onclick="goToHistoryLevel('home')">
-                    🏠 الرئيسية
+                    <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                 </span>
 
                 >
 
                 <span>
-                    🎓 ${escapeHtml(currentGrade)}
+                    <i class="ic ic-cap" aria-hidden="true"></i> ${escapeHtml(currentGrade)}
                 </span>
 
             </div>
@@ -47,7 +47,7 @@ function renderDepartments() {
 
                 <div class="card-footer">
                     <span>استعراض المواد</span>
-                    <span>←</span>
+                    <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                 </div>
 
             </div>
@@ -71,13 +71,13 @@ function renderTerms() {
             <div class="breadcrumb">
 
                 <span onclick="goToHistoryLevel('home')">
-                    🏠 الرئيسية
+                    <i class="ic ic-home" aria-hidden="true"></i> الرئيسية
                 </span>
 
                 >
 
                 <span onclick="goToHistoryLevel('grade')">
-                    🎓 ${escapeHtml(currentGrade)}
+                    <i class="ic ic-cap" aria-hidden="true"></i> ${escapeHtml(currentGrade)}
                 </span>
 
                 ${
@@ -86,7 +86,7 @@ function renderTerms() {
                             >
 
                             <span onclick="goToHistoryLevel('dept')">
-                                🏢 ${escapeHtml(currentDept)}
+                                <i class="ic ic-building" aria-hidden="true"></i> ${escapeHtml(currentDept)}
                             </span>
                         `
                         : ''
@@ -106,7 +106,7 @@ function renderTerms() {
                 >
 
                     <div class="card-header-icon">
-                        📖
+                        <i class="ic ic-book" aria-hidden="true"></i>
                     </div>
 
                     <h3>الترم الأول</h3>
@@ -117,7 +117,7 @@ function renderTerms() {
 
                     <div class="card-footer">
                         <span>عرض المواد</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>
@@ -129,7 +129,7 @@ function renderTerms() {
                 >
 
                     <div class="card-header-icon">
-                        📘
+                        <i class="ic ic-book" aria-hidden="true"></i>
                     </div>
 
                     <h3>الترم الثاني</h3>
@@ -140,7 +140,7 @@ function renderTerms() {
 
                     <div class="card-footer">
                         <span>عرض المواد</span>
-                        <span>←</span>
+                        <span><i class="ic ic-arrow" aria-hidden="true"></i></span>
                     </div>
 
                 </div>

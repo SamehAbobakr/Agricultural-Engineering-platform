@@ -67,13 +67,10 @@ const CommunityApi = {
             facebook: CommunityUtils.cleanText(raw.facebook_url),
             linkedin: CommunityUtils.cleanText(raw.linkedin_url),
             github: CommunityUtils.cleanText(raw.github_url),
-            image: CommunityUtils.cleanText(raw.profile_image),
-
-            // بيانات السيرة الذاتية (اختيارية)
-            cvUrl: CommunityUtils.httpUrl(raw.cv_url),
+            portfolioUrl: CommunityUtils.cleanText(raw.portfolio_url),
+            cvUrl: CommunityUtils.cleanText(raw.cv_url),
             cvFileName: CommunityUtils.cleanText(raw.cv_file_name),
-            cvUploadedAt: raw.cv_uploaded_at || null,
-
+            image: CommunityUtils.cleanText(raw.profile_image),
             sortOrder: Number.isFinite(sortOrder) && raw.sort_order !== null ? sortOrder : null
         };
     },
