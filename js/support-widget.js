@@ -24,7 +24,7 @@
     var scriptEl = document.currentScript || document.querySelector('script[src$="support-widget.js"]');
     var rootUrl = scriptEl && scriptEl.src ? new URL('../', scriptEl.src).href : '';
     var CSS_URL = rootUrl + 'css/support-widget.css';
-    var MASCOT_URL = rootUrl + 'assets/images/support-mascot.png';
+    var MASCOT_URL = rootUrl + 'assets/images/support-mascot.webp';
 
     var WHATSAPP_SVG =
         '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +

@@ -171,13 +171,15 @@ body {
        الإحصائيات
     ------------------------------------- */
 
+    /* الكروت الثلاثة في صف واحد على الموبايل بمساحات متساوية */
     .stats-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
     }
 
     .stat-card {
         padding: 10px 7px;
+        min-width: 0;
     }
 
     .stat-card h3 {
@@ -186,6 +188,8 @@ body {
 
     .stat-card p {
         font-size: 0.68rem;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
     }
 
 
@@ -354,15 +358,16 @@ body {
     ------------------------------------- */
 
     .stats-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 6px;
         margin-bottom: 8px;
     }
 
     .stat-card {
-        padding: 9px 6px;
+        padding: 9px 4px;
         border-radius: 9px;
         min-height: 65px;
+        min-width: 0;
 
         display: flex;
         flex-direction: column;
@@ -377,10 +382,11 @@ body {
     }
 
     .stat-card p {
-        font-size: 0.58rem;
-        line-height: 1.3;
+        font-size: 0.66rem;
+        line-height: 1.35;
         text-align: center;
-        white-space: nowrap;
+        white-space: normal;
+        overflow-wrap: anywhere;
     }
 
 

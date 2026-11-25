@@ -150,81 +150,28 @@ async function renderHome() {
  
     // =========================================
     // جلب الإحصائيات من Supabase
+    // (من الـ Cache داخل js/supabase.js؛ لا طلبات جديدة عند الرجوع للرئيسية)
     // =========================================
 
     try {
 
-        // عدد المواد
-        const {
-            count: subjectsCount,
-            error: subjectsError
-        } = await supabaseClient
-            .from('subjects')
-            .select('*', {
-                count: 'exact',
-                head: true
-            });
-
-
-        if (subjectsError) {
-            throw subjectsError;
-        }
-
-
-        // عدد الملفات التعليمية
-        const {
-            count: filesCount,
-            error: filesError
-        } = await supabaseClient
-            .from('material_files')
-            .select('*', {
-                count: 'exact',
-                head: true
-            });
-
-
-        if (filesError) {
-            throw filesError;
-        }
-
-
-        // جلب أسماء أعضاء هيئة التدريس
-        const {
-            data: professors,
-            error: professorsError
-        } = await supabaseClient
-            .from('subjects')
-            .select('professor');
-
-
-        if (professorsError) {
-            throw professorsError;
-        }
-
-
-        // حذف القيم الفارغة والتكرارات
-        const uniqueProfessors = new Set(
-            professors
-                .map(item => item.professor)
-                .filter(name => name && name.trim() !== '')
-        );
-
+        const stats = await loadHomeStats();
 
         // وضع الأرقام في الصفحة
-            animateCounter(
-                'subjectsCount',
-                subjectsCount || 0
-            );
+        animateCounter(
+            'subjectsCount',
+            stats.subjectsCount
+        );
 
-            animateCounter(
-                'filesCount',
-                filesCount || 0
-            );
+        animateCounter(
+            'filesCount',
+            stats.filesCount
+        );
 
-            animateCounter(
-                'professorsCount',
-                uniqueProfessors.size
-            );
+        animateCounter(
+            'professorsCount',
+            stats.professorsCount
+        );
 
     } catch (error) {
 
@@ -233,12 +180,11 @@ async function renderHome() {
             error
         );
 
-
-        document.getElementById('subjectsCount').textContent = '—';
-
-        document.getElementById('filesCount').textContent = '—';
-
-        document.getElementById('professorsCount').textContent = '—';
+        // لو غادر المستخدم الرئيسية قبل انتهاء الطلب قد لا تكون العناصر موجودة
+        ['subjectsCount', 'filesCount', 'professorsCount'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = '—';
+        });
 
     }
 

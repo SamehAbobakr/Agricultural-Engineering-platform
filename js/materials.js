@@ -36,13 +36,8 @@ async function renderMaterialPage(subject) {
 
     try {
         // جلب ملفات المادة لمعرفة الأقسام الموجودة فعليًا
-        const { data: files, error } = await supabaseClient
-            .from('material_files')
-            .select('category, file_order')
-            .eq('subject_id', subject.id)
-            .order('file_order', { ascending: true })
-            .limit(100);
-        if (error) throw error;
+        // (طلب واحد لكل مادة؛ نفس النتيجة تُستخدم لعرض ملفات كل تبويب بدون طلبات إضافية)
+        const files = await loadSubjectFiles(subject.id);
 
         // ترتيب الأقسام الأساسي
         const categoryOrder = [
@@ -206,7 +201,12 @@ async function renderMaterialPage(subject) {
         `;
     }
 }
+// رقم آخر طلب تبويب؛ يمنع نتيجة تبويب قديم من الظهور بعد الضغط على تبويب أحدث
+let materialTabRequestId = 0;
+
 async function switchMaterialTab(btnElement, type, subject) {
+
+    const requestId = ++materialTabRequestId;
 
     // =========================================
     // تفعيل التبويب الحالي
@@ -257,16 +257,13 @@ async function switchMaterialTab(btnElement, type, subject) {
     try {
 
         // =========================================
-        // جلب الملفات من Supabase
+        // ملفات المادة (من الـ Cache؛ لا طلب جديد عند التنقل بين التبويبات)
         // =========================================
 
-        const { data: files, error } = await supabaseClient
-            .from('material_files')
-            .select('*')
-            .eq('subject_id', subject.id)
-            .order('file_order', { ascending: true });
+        const files = await loadSubjectFiles(subject.id);
 
-        if (error) throw error;
+        // لو ضغط المستخدم تبويبًا آخر أثناء الانتظار، لا نكتب نتيجة التبويب القديم فوق الأحدث
+        if (requestId !== materialTabRequestId) return;
 
         // =========================================
         // فلترة الملفات

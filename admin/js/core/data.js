@@ -105,6 +105,21 @@
     }
 
     /**
+     * يُبلغ صفحات المنصة المفتوحة في نفس المتصفح أن المواد أو الملفات تغيّرت:
+     * تكتب مفتاحًا في localStorage فيصل حدث storage للتبويبات الأخرى، فتمسح js/supabase.js الـ Cache
+     * وتجلب البيانات الجديدة. المفتاح لا يحمل أي بيانات (توقيت فقط) ولا يبدأ بـ agri_user_ فلا يُمسح عند الخروج.
+     * يجب أن يبقى اسم المفتاح مطابقًا لـ CACHE_VERSION_KEY في js/supabase.js.
+     */
+    var PUBLIC_DATA_TABLES = { subjects: true, material_files: true };
+
+    function notifyPublicDataChanged(table) {
+        if (!PUBLIC_DATA_TABLES[table]) return;
+        try {
+            window.localStorage.setItem('agri_public_data_version', String(Date.now()));
+        } catch (e) { /* التخزين غير متاح: لا يؤثر على العملية نفسها */ }
+    }
+
+    /**
      * Repository: createRepository({ table, select, searchColumns, order, idKey })
      *   list({ page, pageSize, search, filters:{col:val} }) → { data, count, error, message }
      *   get(id) | create(values) | update(id, values) | remove(id)
@@ -120,6 +135,11 @@
             if (!Array.isArray(res.data) || !res.data.length) {
                 return { data: null, error: new Error('no rows affected'), message: denied, count: null };
             }
+            return res;
+        }
+
+        function published(res) {
+            if (!res.error) notifyPublicDataChanged(cfg.table);
             return res;
         }
 
@@ -164,15 +184,15 @@
             },
 
             create: function (values) {
-                return run(function (c) { return c.from(cfg.table).insert(values).select(); }).then(changed);
+                return run(function (c) { return c.from(cfg.table).insert(values).select(); }).then(changed).then(published);
             },
 
             update: function (id, values) {
-                return run(function (c) { return c.from(cfg.table).update(values).eq(idKey, id).select(); }).then(changed);
+                return run(function (c) { return c.from(cfg.table).update(values).eq(idKey, id).select(); }).then(changed).then(published);
             },
 
             remove: function (id) {
-                return run(function (c) { return c.from(cfg.table).delete().eq(idKey, id).select(); }).then(changed);
+                return run(function (c) { return c.from(cfg.table).delete().eq(idKey, id).select(); }).then(changed).then(published);
             }
         };
     }
